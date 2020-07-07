@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusnessLogic\BusnessLogic.csproj">
+      <Project>{2d5e56a6-d4c8-4d8b-b782-e6f53de5aa53}</Project>
+      <Name>BusnessLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

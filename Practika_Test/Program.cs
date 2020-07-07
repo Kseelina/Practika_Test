@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusnessLogic;
 
 namespace Practika_Test
 {
@@ -11,12 +12,9 @@ namespace Practika_Test
     {
         static void Main(string[] args)
         {
-            string testFolder = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1";
-            string testFile = "Vopros.txt"; 
-
-            string[] str = File.ReadAllLines(Path.Combine(testFolder, testFile));
-            foreach(string st in str)
-            Console.WriteLine(st);
+            Metods metods = new Metods(); // создание нового экземпляра объекта
+            string[] Text = metods.GetQuestions();
+            
 
             Console.ReadKey();
         }
