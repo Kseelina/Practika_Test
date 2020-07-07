@@ -11,11 +11,12 @@ namespace Practika_Test
     {
         static void Main(string[] args)
         {
-            string filePath = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1\Vopros.txt";
-            string str = File.ReadAllText(filePath);
+            string testFolder = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1";
+            string testFile = "Vopros.txt"; 
 
-            //foreach (string st in str)
-                Console.WriteLine(str);
+            string[] str = File.ReadAllLines(Path.Combine(testFolder, testFile));
+            foreach(string st in str)
+            Console.WriteLine(st);
 
             Console.ReadKey();
         }
