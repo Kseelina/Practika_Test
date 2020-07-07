@@ -14,9 +14,9 @@ namespace BusnessLogic.Tests
             bool expected = true; // переменная для сравнения с тем имеется ли что-то в файле
 
             Metods metods = new Metods();
-            string[] Text = metods.GetQuestions();
+            List<string> Text = metods.GetQuestions();
 
-            bool actual = Text.Length > 0 ? true : false; // actual - это проверка есть ли в файле что-то
+            bool actual = Text.Count > 0 ? true : false; // actual - это проверка есть ли в файле что-то
             Assert.AreEqual(expected, actual); // сравниваем expected и actual
 
         }

@@ -13,7 +13,7 @@ namespace Practika_Test
         static void Main(string[] args)
         {
             Metods metods = new Metods(); // создание нового экземпляра объекта
-            string[] Text = metods.GetQuestions();
+            List<string> Text = metods.GetQuestions();
             
 
             Console.ReadKey();

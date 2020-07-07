@@ -9,16 +9,16 @@ namespace BusnessLogic
 {
    public class Metods
     {
-      public  string[] GetQuestions()
+      public  List <string> GetQuestions()
         { 
         string testFolder = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1";
-        string testFile = "Vopros1.txt";
+        string testFile = "Vopros.txt";
 
-        string[] str;
+            List<string> str = new List<string>();
 
         try  
             {
-                str = File.ReadAllLines(Path.Combine(testFolder,testFile)); // Path.Combine - функция соединения
+                str = File.ReadAllLines(Path.Combine(testFolder,testFile)).ToList(); // Path.Combine - функция соединения
 
             }
 
@@ -31,7 +31,7 @@ namespace BusnessLogic
                 Console.WriteLine("Файл по указанному пути не найден!");
             }
 
-        return new string[5];
+        return str;
         }
 
        
