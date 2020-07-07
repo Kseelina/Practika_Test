@@ -9,17 +9,16 @@ namespace BusnessLogic
 {
    public class Metods
     {
-      public  List <string> GetQuestions()
+      public  List <string> GetQuestions(string file)
         { 
-        string testFolder = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1";
-        string testFile = "Vopros.txt";
-
+        
             List<string> str = new List<string>();
-
-        try  
+       /* Обработчик ошибок, чтобы ошибка не закрывала программу, а выводилась в понятном для пользователя виде
+          и программа продолжала работать*/
+            try
             {
-                str = File.ReadAllLines(Path.Combine(testFolder,testFile)).ToList(); // Path.Combine - функция соединения
-
+                str = File.ReadAllLines(file).ToList();  
+                // ToList - Преобразует полученное значение в тип лист
             }
 
             catch (FileNotFoundException) // Для конкретного случая, что файл не найден
