@@ -55,6 +55,10 @@
       <Project>{2d5e56a6-d4c8-4d8b-b782-e6f53de5aa53}</Project>
       <Name>BusnessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{ca4ab004-7a0e-4595-beed-f4565a652eb5}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

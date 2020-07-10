@@ -19,6 +19,7 @@ namespace Practika_Test
             Metods metods = new Metods(); // создание нового экземпляра объекта
             List<string> Text = metods.GetQuestions(Path.Combine(testFolder, testFile));
             // Path.Combine - функция соединения
+            metods.SetTest(Path.Combine(testFolder, testFile));
 
             Console.ReadKey();
         }

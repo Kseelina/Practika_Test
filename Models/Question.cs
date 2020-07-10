@@ -13,10 +13,10 @@ namespace Models
         // Текст
         // Варианты ответа (класс Answer)
 
-        int Number { get; set; } // get, set - можем и получать и записывать характеристики
-        string Image { get; set; }
-        string Text { get; set; }
-        List<Answer> Answers { get; set; }
+        public int Number { get; set; } // get, set - можем и получать и записывать характеристики
+        public string Image { get; set; }
+        public string Text { get; set; }
+        public List<Answer> Answers { get; set; }
         // Объявляем тип список <вариантов ответов>
     }
 }

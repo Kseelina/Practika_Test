@@ -15,9 +15,9 @@ namespace Models
         //Текст варианта ответа
         // верный / неверный
 
-        int Number { get; set; }
-        string Image { get; set; }
-        string Text { get; set; }
-        bool IsRight { get; set; }
+        public int Number { get; set; }
+        public string Image { get; set; }
+        public string Text { get; set; }
+        public bool IsRight { get; set; }
     }
 }
