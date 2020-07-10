@@ -60,8 +60,10 @@ namespace BusnessLogic
                     {
                         Question qustion = new Question();
                         qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
-                        if (str[i].Contains("#?"))
+                        if (str[i].Contains("#?")) // если имеется картинка в вопросе
                         {
+                            /* Разбиваем текст и картинку вопроса
+                            и записываем по отдельности в параметры вопроса:*/
                             string[] auesTaxt = str[i].Split(new string[] { "#?" }, StringSplitOptions.RemoveEmptyEntries);
                             qustion.Image = auesTaxt[1];
                             qustion.Text = auesTaxt[0];
@@ -75,13 +77,19 @@ namespace BusnessLogic
                         if (str[i].Contains("#?"))
                         {
                             string[] auesTaxt = str[i].Split(new string[] { "#?" }, StringSplitOptions.RemoveEmptyEntries);
-                            if (auesTaxt.Count()==1) { answer.Image = auesTaxt [0]; } // есои есть только картинка
+                            if (auesTaxt.Count()==1) { answer.Image = auesTaxt [0]; } // если есть только картинка
                             else  // иначе есть и каринка и текст ответа
                                     {
-                                        answer.Image = auesTaxt[1];
-                                        answer.Text = auesTaxt[0]; 
+                                        answer.Image = auesTaxt[1]; // записываем ссылку на картинку в параметры ответа
+                                        answer.Text = auesTaxt[0];  // записываем текст ответа в параметры ответа
                                     }
                             
+                        }
+                        if (str[i].EndsWith("*")) // если ответ верный
+                        {
+                            answer.Text = str[i].TrimEnd('*'); // избавляемся от знака правильного ответа и записываем в параметр ответа
+                            answer.IsRight = true;             // говорим, что данный ответ является верным
+                          
                         }
 
                     }
