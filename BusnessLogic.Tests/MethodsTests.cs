@@ -23,12 +23,12 @@ namespace BusnessLogic.Tests
         [TestMethod]
         public void SetTestChek() // правильно ли, или вообще считался ли тест
         {
-            bool expec = true; 
+            bool expected = true; 
             Metods metods = new Metods();
             string file = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1\Vopros.txt";
             List <Question> Text = metods.SetTest(file);
-            bool act = Text.Count > 0 ? true : false; 
-            Assert.AreEqual(expec, act); 
+            bool actual = Text.Count > 0 ? true : false; 
+            Assert.AreEqual(expected, actual); 
 
         }
     }

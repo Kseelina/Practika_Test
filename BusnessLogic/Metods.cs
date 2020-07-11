@@ -44,7 +44,10 @@ namespace BusnessLogic
             // считывание вопроса в переменную str
             List<string> str = GetQuestions(file);
 
-            // вводим цикл дляя перебора строк теста; str.Count - определяет размер списка
+            Question qustion = new Question();
+            Answer answer = new Answer();
+
+            //вводим цикл дляя перебора строк теста; str.Count - определяет размер списка
             for (int i = 0; i < str.Count; i++)
             {
                 // запоминаем число ответов; int.Parse - преобразует строку в число 
@@ -58,7 +61,7 @@ namespace BusnessLogic
                 {
                     if (m==n+1) // строка с вопросом
                     {
-                        Question qustion = new Question();
+                        qustion.Number++;
                         qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
                         if (str[i].Contains("#?")) // если имеется картинка в вопросе
                         {
@@ -72,7 +75,7 @@ namespace BusnessLogic
                     }
                     else if(m<n) // перебор вариантов ответа
                     {
-                        Answer answer = new Answer();
+                        answer.Number++;
                         answer.Text = str[i];          // считывание ответа из блокнота в класс Answer (в параметр текст)
                         if (str[i].Contains("#?"))
                         {
@@ -99,6 +102,7 @@ namespace BusnessLogic
 
             }
 
+            
             return quiz;
         }
     }
