@@ -24,8 +24,10 @@ namespace BusnessLogic
 
             catch (FileNotFoundException) // Для конкретного случая, что файл не найден
             {
-                Console.WriteLine("Ошибка! Файл по указанному пути не найден!");
+                //Console.WriteLine("Ошибка! Файл по указанному пути не найден!");
+                throw new Exception($"Ошибка! Файл по пути {file} не найден!");
             }
+                
             catch (Exception) // Просто непредвидимая ошибка
             {
                 Console.WriteLine("Файл по указанному пути не найден!");

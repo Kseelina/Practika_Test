@@ -22,12 +22,25 @@ namespace Practika_Test
             string testFolder = ConfigurationManager.AppSettings["questFolder"];
             string testFile = ConfigurationManager.AppSettings["questFile"];
 
-            Metods metods = new Metods(); // создание нового экземпляра объекта
-            List<string> Text = metods.GetQuestions(Path.Combine(testFolder, testFile));
-            // Path.Combine - функция соединения
-            logger.Info("Файл с вопросами найден и успешно считан.");
-            List <Question> questions =metods.SetTest(Path.Combine(testFolder, testFile));
-            logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы");
+            try
+            {
+              Metods metods = new Metods(); // создание нового экземпляра объекта
+              List<string> Text = metods.GetQuestions(Path.Combine(testFolder, testFile));
+              // Path.Combine - функция соединения
+              logger.Info("Файл с вопросами найден и успешно считан.");
+              List <Question> questions =metods.SetTest(Path.Combine(testFolder, testFile));
+              logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка! Файл по указанному пути не найден!"); // выводит поьзователю
+                // а в лог файл выводится:
+                logger.Error (e.Message); /* внутреннее сообщение об ошибке ; Message - выводит сообщение из класса 
+                                           Metods  из функции GetQuestions (throw new Exception($"Ошибка! Файл по пути {file} не найден!");)*/
+
+            }
+
+            
             Console.ReadKey();
         }
 
