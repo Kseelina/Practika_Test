@@ -13,6 +13,11 @@ namespace Models
         // Текст
         // Варианты ответа (класс Answer)
 
+        public Question()
+        {
+            Answers = new List<Answer>();
+        }
+
         public int Number { get; set; } // get, set - можем и получать и записывать характеристики
         public string Image { get; set; }
         public string Text { get; set; }

@@ -61,6 +61,7 @@ namespace BusnessLogic
                 {
                     if (m==n+1) // строка с вопросом
                     {
+                        answer.Number = 0; // обнуление номера ответа; нумерация ответов для нового вопроса начинается сначала
                         qustion.Number++;
                         qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
                         if (str[i].Contains("#?")) // если имеется картинка в вопросе
@@ -73,7 +74,7 @@ namespace BusnessLogic
                         }
 
                     }
-                    else if(m<n) // перебор вариантов ответа
+                    else if(m<=n) // перебор вариантов ответа
                     {
                         answer.Number++;
                         answer.Text = str[i];          // считывание ответа из блокнота в класс Answer (в параметр текст)
@@ -92,10 +93,11 @@ namespace BusnessLogic
                         {
                             answer.Text = str[i].TrimEnd('*'); // избавляемся от знака правильного ответа и записываем в параметр ответа
                             answer.IsRight = true;             // говорим, что данный ответ является верным
-                          
                         }
+                        else { answer.IsRight = false;} // говорим, что данный ответ является неверным
 
-                    }
+                        }
+                   // qustion.Answers = answe;
                     m--;
                     i++;
                 }
