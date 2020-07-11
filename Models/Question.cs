@@ -13,7 +13,7 @@ namespace Models
         // Текст
         // Варианты ответа (класс Answer)
 
-        public Question()
+        public Question() // для связи между вопросами (Question) и ответами (Answers)
         {
             Answers = new List<Answer>();
         }

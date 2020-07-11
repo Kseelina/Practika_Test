@@ -44,7 +44,7 @@ namespace BusnessLogic
             // считывание вопроса в переменную str
             List<string> str = GetQuestions(file);
 
-            Question qustion = new Question();
+            Question qustion = new Question(); // создание пустых конструкторов
             Answer answer = new Answer();
 
             //вводим цикл дляя перебора строк теста; str.Count - определяет размер списка
@@ -62,6 +62,10 @@ namespace BusnessLogic
                     if (m==n+1) // строка с вопросом
                     {
                         answer.Number = 0; // обнуление номера ответа; нумерация ответов для нового вопроса начинается сначала
+                        answer.Text = null; // обнулякм текст в ответах на новый вопрос
+                        answer.Image = null; // обнулякм картинки в ответах на новый вопрос
+                        qustion.Image = null; // обнулякм картинку в новом вопросе
+
                         qustion.Number++;
                         qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
                         if (str[i].Contains("#?")) // если имеется картинка в вопросе
@@ -81,7 +85,11 @@ namespace BusnessLogic
                         if (str[i].Contains("#?"))
                         {
                             string[] auesTaxt = str[i].Split(new string[] { "#?" }, StringSplitOptions.RemoveEmptyEntries);
-                            if (auesTaxt.Count()==1) { answer.Image = auesTaxt [0]; } // если есть только картинка
+                            if (auesTaxt.Count()==1) // если есть только картинка
+                            { 
+                                answer.Image = auesTaxt [0];
+                                answer.Text = null;
+                            } 
                             else  // иначе есть и каринка и текст ответа
                                     {
                                         answer.Image = auesTaxt[1]; // записываем ссылку на картинку в параметры ответа
@@ -96,15 +104,15 @@ namespace BusnessLogic
                         }
                         else { answer.IsRight = false;} // говорим, что данный ответ является неверным
 
+                        // заполняем параметр Answers в классе вопрос (Qustion) значениями параметров из класса ответ (Answer):
+                        qustion.Answers.Add(answer);
+                        
                         }
-                   // qustion.Answers = answe;
+                    quiz.Add(qustion);
                     m--;
                     i++;
                 }
-
             }
-
-            
             return quiz;
         }
     }
