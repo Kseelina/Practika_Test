@@ -33,11 +33,10 @@ namespace Practika_Test
             }
             catch (Exception e)
             {
-                Console.WriteLine("Ошибка! Файл по указанному пути не найден!"); // выводит поьзователю
+               // Console.WriteLine("Ошибка! Файл по указанному пути не найден!"); // выводит поьзователю
                 // а в лог файл выводится:
                 logger.Error (e.Message); /* внутреннее сообщение об ошибке ; Message - выводит сообщение из класса 
                                            Metods  из функции GetQuestions (throw new Exception($"Ошибка! Файл по пути {file} не найден!");)*/
-
             }
 
             
