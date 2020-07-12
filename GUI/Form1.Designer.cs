@@ -57,10 +57,12 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(0, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 31);
             this.label1.TabIndex = 0;
@@ -69,11 +71,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 31);
+            this.pictureBox1.Location = new System.Drawing.Point(60, 74);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(568, 419);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.Size = new System.Drawing.Size(281, 177);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -116,10 +116,9 @@
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(389, 31);
+            this.panel1.Location = new System.Drawing.Point(389, 55);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(179, 419);
+            this.panel1.Size = new System.Drawing.Size(179, 395);
             this.panel1.TabIndex = 12;
             // 
             // radioButton1
@@ -184,15 +183,15 @@
             // 
             // panel2
             // 
+            this.panel2.AutoSize = true;
             this.panel2.Controls.Add(this.radioButton5);
             this.panel2.Controls.Add(this.radioButton4);
             this.panel2.Controls.Add(this.radioButton3);
             this.panel2.Controls.Add(this.radioButton2);
             this.panel2.Controls.Add(this.radioButton1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 263);
+            this.panel2.Location = new System.Drawing.Point(71, 257);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(389, 187);
+            this.panel2.Size = new System.Drawing.Size(140, 163);
             this.panel2.TabIndex = 13;
             // 
             // button1
@@ -217,10 +216,9 @@
             // 
             this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.button2);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 375);
+            this.panel3.Location = new System.Drawing.Point(0, 351);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(179, 44);
+            this.panel3.Size = new System.Drawing.Size(143, 44);
             this.panel3.TabIndex = 13;
             // 
             // Form1
