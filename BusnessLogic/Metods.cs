@@ -41,14 +41,15 @@ namespace BusnessLogic
         public List<Question> SetTest(string file)
         {
             int n; // переменная, которая хранит в себе количество ответов на вопрос
-            int m;  
+            int m;
+            int number_question = 1; // номер вопроса начинается с 1
             /*Создаём новый тип список, и выделяем для него память ; List<Question>() - являетчя функцией*/
             List<Question> quiz = new List<Question>();
             // считывание вопроса в переменную str
             List<string> str = GetQuestions(file);
 
-            Question qustion = new Question(); // создание пустых конструкторов
-            Answer answer = new Answer();
+            //Question qustion = new Question(); // создание пустых конструкторов
+            //Answer answer = new Answer();
 
             //вводим цикл дляя перебора строк теста; str.Count - определяет размер списка
             for (int i = 0; i < str.Count; i++)
@@ -64,22 +65,29 @@ namespace BusnessLogic
                     throw new Exception($"Ошибка! В файле по указанному пути {file} не удалось преобразовать строку номер {i+1} в число");
                     
                 }
-
-
                 // TryParse - возвращает значение того, что произошла ошибка при переводе из одного типа данных в другой
                 // Parse   - выводит ошибку, что произошла ошибка при переводе из одного типа данных в другой  
 
                 m = n + 2; // Запоминаем количество ответов + сам вопрос + пустая строка 
-                while(m>0) // пока не закончится весь блок в котором содерится и вопрос и варианты ответов к нему
+
+                Question qustion = new Question(); // создание пустых конструкторов
+
+                int number_answer = 1;
+
+                while (m>0) // пока не закончится весь блок в котором содерится и вопрос и варианты ответов к нему
                 {
+                    Answer answer = new Answer();
+                    
+
                     if (m==n+1) // строка с вопросом
                     {
-                        answer.Number = 0; // обнуление номера ответа; нумерация ответов для нового вопроса начинается сначала
-                        answer.Text = null; // обнулякм текст в ответах на новый вопрос
-                        answer.Image = null; // обнулякм картинки в ответах на новый вопрос
-                        qustion.Image = null; // обнулякм картинку в новом вопросе
 
-                        qustion.Number++;
+                        //answer.Number = 0; // обнуление номера ответа; нумерация ответов для нового вопроса начинается сначала
+                        //answer.Text = null; // обнулякм текст в ответах на новый вопрос
+                        //answer.Image = null; // обнулякм картинки в ответах на новый вопрос
+                        //qustion.Image = null; // обнулякм картинку в новом вопросе
+
+                        qustion.Number= number_question++;
                         qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
                         if (str[i].Contains("#?")) // если имеется картинка в вопросе
                         {
@@ -93,7 +101,8 @@ namespace BusnessLogic
                     }
                     else if(m<=n) // перебор вариантов ответа
                     {
-                        answer.Number++;
+                       
+                        answer.Number=number_answer++;
                         answer.Text = str[i];          // считывание ответа из блокнота в класс Answer (в параметр текст)
                         if (str[i].Contains("#?"))
                         {
@@ -119,7 +128,7 @@ namespace BusnessLogic
 
                         // заполняем параметр Answers в классе вопрос (Qustion) значениями параметров из класса ответ (Answer):
                         qustion.Answers.Add(answer);
-                        }
+                    }
                     m--;
                     i++;
                 }
