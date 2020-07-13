@@ -46,29 +46,16 @@ namespace GUI
                 logger.Error(e.Message); /* внутреннее сообщение об ошибке ; Message - выводит сообщение из класса 
                                            Metods  из функции GetQuestions (throw new Exception($"Ошибка! Файл по пути {file} не найден!");)*/
             }
-        }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+            
 
-        }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
+        
 
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void Next_Click(object sender, EventArgs e)
         {
 
         }

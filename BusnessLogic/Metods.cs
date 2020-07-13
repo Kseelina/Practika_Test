@@ -119,14 +119,14 @@ namespace BusnessLogic
 
                         // заполняем параметр Answers в классе вопрос (Qustion) значениями параметров из класса ответ (Answer):
                         qustion.Answers.Add(answer);
-                        
                         }
-                    quiz.Add(qustion);
                     m--;
                     i++;
                 }
+                quiz.Add(qustion);
             }
             return quiz;
         }
+        
     }
 }
