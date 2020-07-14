@@ -20,12 +20,12 @@ namespace GUI
     public partial class Form1 : Form
     {
         private List<Question> questions = new List<Question>();
-
+        Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
+        
         public Form1()
         {
             InitializeComponent();
 
-            Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
             logger.Info("Программа успешно запущена.");          // вывод сообщения в лог файле
 
 
@@ -42,6 +42,7 @@ namespace GUI
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
                 FillForm();
                 logger.Info("Форма успешно заполнена.");
+                
             }
             catch (Exception e)
             {
@@ -60,7 +61,18 @@ namespace GUI
             {
                 Question question = questions[0]; // вытаскиваем нулевой вопрос
                 TextQuestion.Text = "Вопрос " + question.Number + ". " + question.Text; // текст вопроса
-                QuestionImage.ImageLocation = question.Image;
+
+                try
+                {
+                    QuestionImage.ImageLocation = Path.Combine(ConfigurationManager.AppSettings["questFolder"], question.Image);
+
+                }
+                catch (Exception)
+                {
+
+                    throw new Exception($"Ошибка! Картинка {question.Image} не найдена по указанному пути {ConfigurationManager.AppSettings["questFolder"]}.");
+                }
+                
 
 
             }
@@ -75,6 +87,23 @@ namespace GUI
         private void Next_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
+        {
+            DialogResult dialog = MessageBox.Show
+            ( "Вы действительно хотите выйти из программы?","Завершение программы",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning );
+            if (dialog == DialogResult.Yes)
+            {
+                logger.Info("Программа успешно закрыта.");
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

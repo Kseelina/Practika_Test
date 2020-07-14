@@ -32,19 +32,19 @@
             this.TextQuestion = new System.Windows.Forms.Label();
             this.QuestionImage = new System.Windows.Forms.PictureBox();
             this.QuestionField = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
             this.Navigation = new System.Windows.Forms.Panel();
-            this.Next = new System.Windows.Forms.Button();
-            this.Buck = new System.Windows.Forms.Button();
-            this.QuestionNumber = new System.Windows.Forms.LinkLabel();
             this.NavigatingNum = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
+            this.QuestionNumber = new System.Windows.Forms.LinkLabel();
+            this.Next = new System.Windows.Forms.Button();
+            this.Buck = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.QuestionImage)).BeginInit();
             this.QuestionField.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.Navigation.SuspendLayout();
             this.NavigatingNum.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // TextQuestion
@@ -63,7 +63,6 @@
             this.QuestionImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.QuestionImage.Image = ((System.Drawing.Image)(resources.GetObject("QuestionImage.Image")));
             this.QuestionImage.Location = new System.Drawing.Point(164, 61);
             this.QuestionImage.Name = "QuestionImage";
             this.QuestionImage.Size = new System.Drawing.Size(286, 190);
@@ -86,16 +85,16 @@
             this.QuestionField.Size = new System.Drawing.Size(702, 409);
             this.QuestionField.TabIndex = 14;
             // 
-            // panel4
+            // AnswerField
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.AnswerField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.Controls.Add(this.QuestionField);
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(702, 409);
-            this.panel4.TabIndex = 15;
+            this.AnswerField.AutoScroll = true;
+            this.AnswerField.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.AnswerField.Location = new System.Drawing.Point(0, 257);
+            this.AnswerField.Name = "AnswerField";
+            this.AnswerField.Size = new System.Drawing.Size(698, 152);
+            this.AnswerField.TabIndex = 18;
             // 
             // Navigation
             // 
@@ -108,37 +107,6 @@
             this.Navigation.Name = "Navigation";
             this.Navigation.Size = new System.Drawing.Size(173, 409);
             this.Navigation.TabIndex = 13;
-            // 
-            // Next
-            // 
-            this.Next.Location = new System.Drawing.Point(105, 210);
-            this.Next.Name = "Next";
-            this.Next.Size = new System.Drawing.Size(68, 41);
-            this.Next.TabIndex = 12;
-            this.Next.Text = "Далее";
-            this.Next.UseVisualStyleBackColor = true;
-            this.Next.Click += new System.EventHandler(this.Next_Click);
-            // 
-            // Buck
-            // 
-            this.Buck.Location = new System.Drawing.Point(2, 210);
-            this.Buck.Name = "Buck";
-            this.Buck.Size = new System.Drawing.Size(68, 40);
-            this.Buck.TabIndex = 11;
-            this.Buck.Text = "Назад";
-            this.Buck.UseVisualStyleBackColor = true;
-            // 
-            // QuestionNumber
-            // 
-            this.QuestionNumber.AutoSize = true;
-            this.QuestionNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.QuestionNumber.Font = new System.Drawing.Font("Times New Roman", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.QuestionNumber.Location = new System.Drawing.Point(76, 215);
-            this.QuestionNumber.Name = "QuestionNumber";
-            this.QuestionNumber.Size = new System.Drawing.Size(25, 28);
-            this.QuestionNumber.TabIndex = 15;
-            this.QuestionNumber.TabStop = true;
-            this.QuestionNumber.Text = "1";
             // 
             // NavigatingNum
             // 
@@ -161,16 +129,47 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "1";
             // 
-            // AnswerField
+            // QuestionNumber
             // 
-            this.AnswerField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.QuestionNumber.AutoSize = true;
+            this.QuestionNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.QuestionNumber.Font = new System.Drawing.Font("Times New Roman", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.QuestionNumber.Location = new System.Drawing.Point(76, 215);
+            this.QuestionNumber.Name = "QuestionNumber";
+            this.QuestionNumber.Size = new System.Drawing.Size(25, 28);
+            this.QuestionNumber.TabIndex = 15;
+            this.QuestionNumber.TabStop = true;
+            this.QuestionNumber.Text = "1";
+            // 
+            // Next
+            // 
+            this.Next.Location = new System.Drawing.Point(105, 210);
+            this.Next.Name = "Next";
+            this.Next.Size = new System.Drawing.Size(68, 41);
+            this.Next.TabIndex = 12;
+            this.Next.Text = "Далее";
+            this.Next.UseVisualStyleBackColor = true;
+            this.Next.Click += new System.EventHandler(this.Next_Click);
+            // 
+            // Buck
+            // 
+            this.Buck.Location = new System.Drawing.Point(2, 210);
+            this.Buck.Name = "Buck";
+            this.Buck.Size = new System.Drawing.Size(68, 40);
+            this.Buck.TabIndex = 11;
+            this.Buck.Text = "Назад";
+            this.Buck.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AnswerField.AutoScroll = true;
-            this.AnswerField.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AnswerField.Location = new System.Drawing.Point(0, 257);
-            this.AnswerField.Name = "AnswerField";
-            this.AnswerField.Size = new System.Drawing.Size(698, 152);
-            this.AnswerField.TabIndex = 18;
+            this.panel4.Controls.Add(this.QuestionField);
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(702, 409);
+            this.panel4.TabIndex = 15;
             // 
             // Form1
             // 
@@ -182,13 +181,14 @@
             this.MinimumSize = new System.Drawing.Size(720, 450);
             this.Name = "Form1";
             this.Text = "Тест";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.QuestionImage)).EndInit();
             this.QuestionField.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.Navigation.ResumeLayout(false);
             this.Navigation.PerformLayout();
             this.NavigatingNum.ResumeLayout(false);
             this.NavigatingNum.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
