@@ -121,8 +121,11 @@ namespace BusnessLogic
                         }
                         if (str[i].EndsWith("*")) // если ответ верный
                         {
-                            answer.Text = str[i].TrimEnd('*'); // избавляемся от знака правильного ответа и записываем в параметр ответа
-                            answer.IsRight = true;             // говорим, что данный ответ является верным
+                            // избавляемся от знака правильного ответа и записываем в параметр ответа
+                            if (answer.Image != null) { answer.Image = answer.Image.TrimEnd('*'); }
+                            if (answer.Text != null) { answer.Text = answer.Text.TrimEnd('*');}
+                             
+                            answer.IsRight = true; // говорим, что данный ответ является верным
                         }
                         else { answer.IsRight = false;} // говорим, что данный ответ является неверным
 

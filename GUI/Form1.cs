@@ -21,7 +21,7 @@ namespace GUI
     {
         private List<Question> questions = new List<Question>();
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
-        int NumberCurrentQuestion = 0; // Номер текущего вопроса
+        int NumberCurrentQuestion = 1; // Номер текущего вопроса
 
         public Form1()
         {
@@ -63,8 +63,8 @@ namespace GUI
                 int N = NumberOfCorrectAnswers(NumberCurrentQuestion); // количество верных вариантов ответов
                 Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
                 TextQuestion.Text = "Вопрос " + question.Number + ". " + question.Text; // текст вопроса
-                if (question.Image!=null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
-                
+                if (question.Image!=null) { QuestionImage.Visible = true; QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
+                else { QuestionImage.Visible = false; }
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
@@ -80,7 +80,7 @@ namespace GUI
                                 CheckBox answerBox = new CheckBox();
                                 PictureBox answerPicture = new PictureBox();
                                 answerBox.Text = answer.Text;
-                                answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
+                                answerPicture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                                 AnswerField.Controls.Add(answerBox);
                             // Визуализация
 
@@ -91,7 +91,7 @@ namespace GUI
                                 RadioButton answerBox = new RadioButton();
                                 PictureBox answerPicture = new PictureBox();
                                 answerBox.Text = answer.Text;
-                                answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
+                                answerPicture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                                 AnswerField.Controls.Add(answerBox);
                             // Визуализация
 
@@ -127,10 +127,12 @@ namespace GUI
                         else if(answer.Text == null && answer.Image != null)
                         {
                             PictureBox answerBox = new PictureBox();
-                            answerBox.ImageLocation = Path.Combine(ImageFolder, question.Image);
+                            answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                             AnswerField.Controls.Add(answerBox);
                         // Визуализация
+                        answerBox.SizeMode = PictureBoxSizeMode.Zoom;
                         AnswerField.FlowDirection = FlowDirection.LeftToRight;
+                        
                     }
                     
                 }
@@ -168,7 +170,7 @@ namespace GUI
         private void Next_Click(object sender, EventArgs e)
         {
             NumberCurrentQuestion++;
-           
+            AnswerField.Controls.Clear();
             FillForm();
         }
 
