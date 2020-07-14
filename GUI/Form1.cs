@@ -21,7 +21,8 @@ namespace GUI
     {
         private List<Question> questions = new List<Question>();
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
-        
+        int NumberCurrentQuestion = 0; // Номер текущего вопроса
+
         public Form1()
         {
             InitializeComponent();
@@ -58,7 +59,7 @@ namespace GUI
            
             try
             {
-                int NumberCurrentQuestion = 0; // Номер текущего вопроса
+                
                 int N = NumberOfCorrectAnswers(NumberCurrentQuestion); // количество верных вариантов ответов
                 Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
                 TextQuestion.Text = "Вопрос " + question.Number + ". " + question.Text; // текст вопроса
@@ -81,7 +82,10 @@ namespace GUI
                                 answerBox.Text = answer.Text;
                                 answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
                                 AnswerField.Controls.Add(answerBox);
-                            }
+                            // Визуализация
+
+                            AnswerField.FlowDirection = FlowDirection.LeftToRight;
+                        }
                             else 
                             {
                                 RadioButton answerBox = new RadioButton();
@@ -89,6 +93,9 @@ namespace GUI
                                 answerBox.Text = answer.Text;
                                 answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
                                 AnswerField.Controls.Add(answerBox);
+                            // Визуализация
+
+                            AnswerField.FlowDirection = FlowDirection.LeftToRight;
                         }
                         }
 
@@ -97,18 +104,24 @@ namespace GUI
                         {
                             if (N>1) // Чекбоксы
                             {
+                                // вывод элементов
                                 CheckBox answerBox = new CheckBox();
                                 answerBox.Text = answer.Text;
                                 AnswerField.Controls.Add(answerBox);
+                            // Визуализация
+                            AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
                             }
                             else 
                             {
+                                // вывод элементов
                                 RadioButton answerBox = new RadioButton();
                                 answerBox.Text = answer.Text;
                                 AnswerField.Controls.Add(answerBox);
-                            }
-
+                            // Визуализация
+                            AnswerField.FlowDirection = FlowDirection.TopDown;
                         }
+
+                    }
 
                         //Если в ответах тоько картинка
                         else if(answer.Text == null && answer.Image != null)
@@ -116,10 +129,12 @@ namespace GUI
                             PictureBox answerBox = new PictureBox();
                             answerBox.ImageLocation = Path.Combine(ImageFolder, question.Image);
                             AnswerField.Controls.Add(answerBox);
-                        }
+                        // Визуализация
+                        AnswerField.FlowDirection = FlowDirection.LeftToRight;
+                    }
                     
                 }
-                NumberCurrentQuestion++;
+                
 
 
                     // Проверка на наличие картинки?
@@ -152,7 +167,9 @@ namespace GUI
 
         private void Next_Click(object sender, EventArgs e)
         {
-
+            NumberCurrentQuestion++;
+           
+            FillForm();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
