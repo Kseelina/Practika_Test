@@ -28,7 +28,6 @@ namespace GUI
 
             logger.Info("Программа успешно запущена.");          // вывод сообщения в лог файле
 
-
             string testFolder = ConfigurationManager.AppSettings["questFolder"];
             string testFile = ConfigurationManager.AppSettings["questFile"];
 
@@ -51,30 +50,77 @@ namespace GUI
                 logger.Error(e.Message); /* внутреннее сообщение об ошибке ; Message - выводит сообщение из класса 
                                            Metods  из функции GetQuestions (throw new Exception($"Ошибка! Файл по пути {file} не найден!");)*/
             }
-
         }
 
         void FillForm () // функция переноса значений в форму из Metods
         {
-           
+           string ImageFolder =  ConfigurationManager.AppSettings["questFolder"];
             try
             {
+                int N = NumberOfCorrectAnswers(); // функция на вызов подсчёта сколько ответов в вопросе правильных
                 Question question = questions[0]; // вытаскиваем нулевой вопрос
                 TextQuestion.Text = "Вопрос " + question.Number + ". " + question.Text; // текст вопроса
-
-                try
+                if (question.Image!=null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
+                
+                // Вытаскиваем ответы
+                /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
+                    имя вариант ответ в списке, который находится в переменной question и в свойстве 
+                 список вопросов ; другими словами обращается к списку и берёт от туда значения*/
+                foreach (Answer answer in question.Answers)
                 {
-                    QuestionImage.ImageLocation = Path.Combine(ConfigurationManager.AppSettings["questFolder"], question.Image);
+                        // Если в ответах и текст и картинка
+                        if (answer.Text!=null && answer.Image!=null)
+                        {
+                            if (N>1) // Чекбоксы
+                            {
+                                CheckBox answerBox = new CheckBox();
+                                PictureBox answerPicture = new PictureBox();
+                                answerBox.Text = answer.Text;
+                                answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
+                            }
+                            else 
+                            {
+                                RadioButton answerBox = new RadioButton();
+                                PictureBox answerPicture = new PictureBox();
+                                answerBox.Text = answer.Text;
+                                answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
+                            }
+                        }
 
-                }
-                catch (Exception)
-                {
+                        //Если в ответах только текст
+                        else if(answer.Text != null && answer.Image == null)
+                        {
+                            if (N>1) // Чекбоксы
+                            {
+                                CheckBox answerBox = new CheckBox();
+                                answerBox.Text = answer.Text;
+                            }
+                            else 
+                            {
+                                RadioButton answerBox = new RadioButton();
+                                answerBox.Text = answer.Text;
+                            }
 
-                    throw new Exception($"Ошибка! Картинка {question.Image} не найдена по указанному пути {ConfigurationManager.AppSettings["questFolder"]}.");
+                        }
+
+                        //Если в ответах тоько картинка
+                        else if(answer.Text == null && answer.Image != null)
+                        {
+                            PictureBox answerBox = new PictureBox();
+                            answerBox.ImageLocation = Path.Combine(ImageFolder, question.Image);
+
+                        }
+                    
                 }
                 
 
 
+                    // Проверка на наличие картинки?
+                    //if (QuestionImage) /?
+                    //{ ?
+                    //     logger.Error($"Ошибка! Картинка {question.Image} не найдена по указанному пути {ConfigurationManager.AppSettings["questFolder"]}."); 
+                    //}/?
+      
             }
             catch (Exception) // Указание ошибки, о неспособности передать в форму значений
             {
@@ -84,7 +130,21 @@ namespace GUI
             
         }
 
-        private void Next_Click(object sender, EventArgs e)
+
+        int NumberOfCorrectAnswers ()
+        {
+            Question question = new Question();
+            Answer answer = new Answer();
+        // цикл на количество правильных ответов
+        int N = 0; // колличество правильных вариантов ответов
+        for (int i = 0; i<question.Answers.Count(); i++)
+        {
+               if (  answer.IsRight == true) { N++; }
+        }
+        return N;
+        }
+
+private void Next_Click(object sender, EventArgs e)
         {
 
         }
