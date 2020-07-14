@@ -55,10 +55,12 @@ namespace GUI
         void FillForm () // функция переноса значений в форму из Metods
         {
            string ImageFolder =  ConfigurationManager.AppSettings["questFolder"];
+           
             try
             {
-                int N = NumberOfCorrectAnswers(); // функция на вызов подсчёта сколько ответов в вопросе правильных
-                Question question = questions[0]; // вытаскиваем нулевой вопрос
+                int NumberCurrentQuestion = 0; // Номер текущего вопроса
+                int N = NumberOfCorrectAnswers(NumberCurrentQuestion); // количество верных вариантов ответов
+                Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
                 TextQuestion.Text = "Вопрос " + question.Number + ". " + question.Text; // текст вопроса
                 if (question.Image!=null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
                 
@@ -68,8 +70,9 @@ namespace GUI
                  список вопросов ; другими словами обращается к списку и берёт от туда значения*/
                 foreach (Answer answer in question.Answers)
                 {
-                        // Если в ответах и текст и картинка
-                        if (answer.Text!=null && answer.Image!=null)
+
+                    // Если в ответах и текст и картинка
+                    if (answer.Text!=null && answer.Image!=null)
                         {
                             if (N>1) // Чекбоксы
                             {
@@ -77,6 +80,7 @@ namespace GUI
                                 PictureBox answerPicture = new PictureBox();
                                 answerBox.Text = answer.Text;
                                 answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
+                                AnswerField.Controls.Add(answerBox);
                             }
                             else 
                             {
@@ -84,7 +88,8 @@ namespace GUI
                                 PictureBox answerPicture = new PictureBox();
                                 answerBox.Text = answer.Text;
                                 answerPicture.ImageLocation = Path.Combine(ImageFolder, question.Image);
-                            }
+                                AnswerField.Controls.Add(answerBox);
+                        }
                         }
 
                         //Если в ответах только текст
@@ -94,11 +99,13 @@ namespace GUI
                             {
                                 CheckBox answerBox = new CheckBox();
                                 answerBox.Text = answer.Text;
+                                AnswerField.Controls.Add(answerBox);
                             }
                             else 
                             {
                                 RadioButton answerBox = new RadioButton();
                                 answerBox.Text = answer.Text;
+                                AnswerField.Controls.Add(answerBox);
                             }
 
                         }
@@ -108,11 +115,11 @@ namespace GUI
                         {
                             PictureBox answerBox = new PictureBox();
                             answerBox.ImageLocation = Path.Combine(ImageFolder, question.Image);
-
+                            AnswerField.Controls.Add(answerBox);
                         }
                     
                 }
-                
+                NumberCurrentQuestion++;
 
 
                     // Проверка на наличие картинки?
@@ -131,20 +138,19 @@ namespace GUI
         }
 
 
-        int NumberOfCorrectAnswers ()
+        int NumberOfCorrectAnswers(int NumberCurrentQuestion) // Функция для определения количеств правильных ответов в вопросе
         {
-            Question question = new Question();
-            Answer answer = new Answer();
-        // цикл на количество правильных ответов
-        int N = 0; // колличество правильных вариантов ответов
-        for (int i = 0; i<question.Answers.Count(); i++)
-        {
-               if (  answer.IsRight == true) { N++; }
-        }
-        return N;
+            Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
+            // цикл на количество правильных ответов
+            int N = 0; // колличество правильных вариантов ответов
+            foreach (Answer answer in question.Answers)
+            {
+                if (answer.IsRight == true) { N++; }
+            }
+            return N;
         }
 
-private void Next_Click(object sender, EventArgs e)
+        private void Next_Click(object sender, EventArgs e)
         {
 
         }
