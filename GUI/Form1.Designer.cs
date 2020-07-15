@@ -159,6 +159,7 @@
             this.Buck.TabIndex = 11;
             this.Buck.Text = "Назад";
             this.Buck.UseVisualStyleBackColor = true;
+            this.Buck.Click += new System.EventHandler(this.Buck_Click);
             // 
             // panel4
             // 

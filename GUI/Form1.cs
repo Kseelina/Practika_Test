@@ -21,11 +21,17 @@ namespace GUI
     {
         private List<Question> questions = new List<Question>();
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
-        int NumberCurrentQuestion = 1; // Номер текущего вопроса
+        int QuestionNumberList = 0;    // номер вопроса, который идёт в списке лист он же question.Number
+        int NumberCurrentQuestion = 1; // Номер текущего вопроса; текущий вопрос - это то что видит пользователь
+
+
 
         public Form1()
         {
             InitializeComponent();
+            
+            // Визуализация (то что видит пользователь и с чем взаимодействует)
+            Buck.Enabled = false; // Кнопка Назад изначально неактивна
 
             logger.Info("Программа успешно запущена.");          // вывод сообщения в лог файле
 
@@ -59,12 +65,13 @@ namespace GUI
            
             try
             {
+                QuestionNumberList = NumberCurrentQuestion - 1; // на будущее для рандомизвации, а пока так
+
+                int N = NumberOfCorrectAnswers(QuestionNumberList); // количество верных вариантов ответов
+                Question question = questions[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
+                TextQuestion.Text = "Вопрос " + NumberCurrentQuestion + ". " + question.Text; // текст вопроса
+                if (question.Image!=null) {  QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
                 
-                int N = NumberOfCorrectAnswers(NumberCurrentQuestion); // количество верных вариантов ответов
-                Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
-                TextQuestion.Text = "Вопрос " + question.Number + ". " + question.Text; // текст вопроса
-                if (question.Image!=null) { QuestionImage.Visible = true; QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
-                else { QuestionImage.Visible = false; }
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
@@ -72,7 +79,9 @@ namespace GUI
                 foreach (Answer answer in question.Answers)
                 {
 
-                    // Если в ответах и текст и картинка
+
+
+                    // Если в ответе и текст и картинка
                     if (answer.Text!=null && answer.Image!=null)
                         {
                             if (N>1) // Чекбоксы
@@ -130,7 +139,7 @@ namespace GUI
                             answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                             AnswerField.Controls.Add(answerBox);
                         // Визуализация
-                        answerBox.SizeMode = PictureBoxSizeMode.Zoom;
+                        answerBox.SizeMode = PictureBoxSizeMode.Zoom; 
                         AnswerField.FlowDirection = FlowDirection.LeftToRight;
                         
                     }
@@ -167,20 +176,57 @@ namespace GUI
             return N;
         }
 
-        private void Next_Click(object sender, EventArgs e)
+        private void Next_Click(object sender, EventArgs e) // кнопка далее
         {
-            NumberCurrentQuestion++;
-            AnswerField.Controls.Clear();
-            FillForm();
+
+            if (NumberCurrentQuestion == 14)
+            {
+                Next.Text = "Завершить";
+            }
+
+            else { Next.Text = "Далее"; }
+
+            if (NumberCurrentQuestion == 15)
+            {
+                Result result = new Result();
+                this.Hide();
+                result.ShowDialog();
+                this.Show();
+            }
+            else 
+            {
+                Buck.Enabled = true; // Кнопка Назад становится активна
+                NumberCurrentQuestion++; // увеличение текущего номера вопроса
+                AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+                QuestionImage.Image = null; // очистка от картинки в вопросе
+
+                FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
+            }
+            
+        }
+
+        private void Buck_Click(object sender, EventArgs e) // кнопка назад
+        {
+            NumberCurrentQuestion--;
+            if (NumberCurrentQuestion ==1)
+            {
+                Buck.Enabled = false;
+            }
+            else { Buck.Enabled = true; }
+            
+            
+            AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+            QuestionImage.Image = null; // очистка от картинки в вопросе
+
+            FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
         {
-            DialogResult dialog = MessageBox.Show
-            ( "Вы действительно хотите выйти из программы?","Завершение программы",
+            if (MessageBox.Show  ( "Вы действительно хотите выйти из программы?","Завершение программы",
             MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning );
-            if (dialog == DialogResult.Yes)
+            MessageBoxIcon.Warning )== DialogResult.Yes)
             {
                 logger.Info("Программа успешно закрыта.");
                 e.Cancel = false;
@@ -190,5 +236,7 @@ namespace GUI
                 e.Cancel = true;
             }
         }
+
+        
     }
 }
