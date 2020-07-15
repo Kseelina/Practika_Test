@@ -17,6 +17,11 @@ using Models;
 
 namespace GUI
 {
+    /// <summary>
+    /// Главная визуальная форма программы, в которой выполняется загрузка каждого вопроса
+    /// (+ ответы к вопросам) из теста (из класса Metods)
+    /// Тутже выполняется визуализация формы пользователя (размещение и вид элементов управления )
+    /// </summary>
     public partial class Form1 : Form
     {
         private List<Question> questions = new List<Question>();
@@ -164,17 +169,17 @@ namespace GUI
         }
 
 
-        int NumberOfCorrectAnswers(int NumberCurrentQuestion) // Функция для определения количеств правильных ответов в вопросе
-        {
-            Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
-            // цикл на количество правильных ответов
-            int N = 0; // колличество правильных вариантов ответов
-            foreach (Answer answer in question.Answers)
-            {
-                if (answer.IsRight == true) { N++; }
-            }
-            return N;
-        }
+        //int NumberOfCorrectAnswers(int NumberCurrentQuestion) // Функция для определения количеств правильных ответов в вопросе
+        //{
+        //    Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
+        //    цикл на количество правильных ответов
+        //    int N = 0; // колличество правильных вариантов ответов
+        //    foreach (Answer answer in question.Answers)
+        //    {
+        //        if (answer.IsRight == true) { N++; }
+        //    }
+        //    return N;
+        //}
 
         private void Next_Click(object sender, EventArgs e) // кнопка далее
         {
