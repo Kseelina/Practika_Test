@@ -9,8 +9,21 @@ using NLog;
 
 namespace BusnessLogic
 {
-   public class Metods
+    /// <summary>
+    /// Класс Metods отвечает за нахождение теста (в случае чего в логах пропишет, что путь не найден)
+    /// А так же за считывание каждого блока (вопроса) и помещение вопроса с вариантами ответов в 
+    /// тип Лист для дальнейшей работы программы с тестом
+    /// Был создан для того, чтобы GUI (визуальная форма )
+    /// </summary>
+
+
+    public class Metods
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
       public  List <string> GetQuestions(string file)
         { 
         
@@ -81,11 +94,6 @@ namespace BusnessLogic
 
                     if (m==n+1) // строка с вопросом
                     {
-
-                        //answer.Number = 0; // обнуление номера ответа; нумерация ответов для нового вопроса начинается сначала
-                        //answer.Text = null; // обнулякм текст в ответах на новый вопрос
-                        //answer.Image = null; // обнулякм картинки в ответах на новый вопрос
-                        //qustion.Image = null; // обнулякм картинку в новом вопросе
 
                         qustion.Number= number_question++;
                         qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)

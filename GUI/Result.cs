@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 namespace GUI
 {
+
+    /// <summary>
+    /// Форма для вывода окна результата
+    /// </summary>
     public partial class Result : Form
     {
         public Result()
@@ -21,5 +25,6 @@ namespace GUI
         {
 
         }
+
     }
 }

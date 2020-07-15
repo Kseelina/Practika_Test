@@ -6,6 +6,12 @@ using System.IO;
 
 namespace BusnessLogic.Tests
 {
+
+    /// <summary>
+    /// Модельное тестировае: Проверка GetQuestions на то, имеется ли в файле хоть что-то
+    /// Проверка SetTest на то, что программа считала значения с файла и успешно преобразовала их
+    /// в понятный для программы вид (тип List <Question>)
+    /// </summary>
     [TestClass]
     public class MethodsTests // Модульное тестирование
     {

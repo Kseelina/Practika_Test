@@ -8,20 +8,19 @@ namespace Models
 {
    public class Question
     {
-        // Номер
-        // Картинка
-        // Текст
-        // Варианты ответа (класс Answer)
+        /// <summary>
+        /// Класс, отвечает за параметры каждого вопроса (точнее что содержит каждый вопрос)
+        /// </summary>
 
         public Question() // для связи между вопросами (Question) и ответами (Answers)
         {
             Answers = new List<Answer>();
         }
-
-        public int Number { get; set; } // get, set - можем и получать и записывать характеристики
-        public string Image { get; set; }
-        public string Text { get; set; }
-        public List<Answer> Answers { get; set; }
+// get, set - можем и получать и записывать характеристики
+        public int Number { get; set; }  // Номер
+        public string Image { get; set; }   // Картинка с вопросом
+        public string Text { get; set; }// Текст вопроса
+        public List<Answer> Answers { get; set; } // Варианты ответа (класс Answer)
         // Объявляем тип список <вариантов ответов>
     }
 }
