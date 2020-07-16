@@ -13,7 +13,8 @@ using System.IO;
 using BusnessLogic;
 using Models;
 
- 
+
+
 
 namespace GUI
 {
@@ -24,9 +25,27 @@ namespace GUI
     /// </summary>
     public partial class Form1 : Form
     {
+        const int NumQuestInTest = 15;
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         private List<Question> questions = new List<Question>();
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
+
+        //Рандомизирование вопросов
+        List<Question> RandomQuestions(List<Question> questions)
+        {
+            List<Question> NewListQuestions = new List<Question>();
+            Random random = new Random(); // создание объекта рандом
+            int i = 0;
+            while(i< NumQuestInTest)
+            {
+                // LINQ конструкция: для рандомного разбросса вопросов теста
+                NewListQuestions.Add(questions.ElementAt(random.Next(0, questions.Count())));
+                i++;
+            }
+
+            return NewListQuestions;
+        }
+
         int QuestionNumberList = 0;    // номер вопроса, который идёт в списке лист он же question.Number
         int NumberCurrentQuestion = 1; // Номер текущего вопроса; текущий вопрос - это то что видит пользователь
 
@@ -54,6 +73,7 @@ namespace GUI
                 // Path.Combine - функция соединения
                 logger.Info("Файл с вопросами найден и успешно считан.");
                 questions = metods.SetTest(Path.Combine(testFolder, testFile));
+                RandomQuestions(questions); // вызов функции рандома вопросов
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
                 FillForm();
                 logger.Info("Форма успешно заполнена.");
