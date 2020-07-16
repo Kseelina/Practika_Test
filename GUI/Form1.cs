@@ -72,14 +72,28 @@ namespace GUI
         {
             try
             {
- /*?*/          QuestionNumberList = NumberCurrentQuestion - 1; // на будущее для рандомизвации, а пока так
+ /*?*/          QuestionNumberList = NumberCurrentQuestion - 1; // на будущее для рандомизации, а пока так
 
                 Question question = questions[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
                 // LINQ конструкция: для определения количество верных вариантов ответов:
                 int N = question.Answers.Count (x=>x.IsRight == true )  ; 
                 TextQuestion.Text = "Вопрос " + NumberCurrentQuestion + ". " + question.Text; // текст вопроса
                 if (question.Image!=null) {  QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
-                
+
+                // Автозаполнение ссылок на вопросы
+                int i = 1;
+                while (i<= questions.Count)
+                {
+                    LinkLabel label = new LinkLabel(); // создание объекта LinkLabel
+                    label.Text = i++.ToString(); // запись текста от 1 до 15(максимум в тесте 15 вопросов)
+                    label.Width = 35;
+                    label.Height = 35;
+                    label.Font = new Font("Times New Roman", 14);
+                    label.TextAlign = ContentAlignment.TopCenter; // выравнивание по центру
+                    label.BorderStyle = BorderStyle.FixedSingle; // рамки
+                    NavigatingNum.Controls.Add(label); // добавление элемента на панель в форму
+                }
+
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
@@ -91,6 +105,10 @@ namespace GUI
                     if (answer.Text != null && answer.Image != null)
                     {
                         /*?*/
+                        AnswerField.FlowDirection = FlowDirection.LeftToRight;
+                        PostingOneAnswerForm(answer);
+                        PostingPictureForm(answer);
+                       
                     }
 
                     //Если в ответах только текст
@@ -152,7 +170,6 @@ namespace GUI
                 NumberCurrentQuestion++; // увеличение текущего номера вопроса
                 AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
                 QuestionImage.Image = null; // очистка от картинки в вопросе
-
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
             }
             
@@ -166,8 +183,8 @@ namespace GUI
                 Buck.Enabled = false;
             }
             else { Buck.Enabled = true; }
-            
-            
+
+
             AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
             QuestionImage.Image = null; // очистка от картинки в вопросе
 
@@ -196,20 +213,22 @@ namespace GUI
             answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
             AnswerField.Controls.Add(answerBox);
             // Визуализация
+            
             answerBox.SizeMode = PictureBoxSizeMode.Zoom;
             AnswerField.FlowDirection = FlowDirection.LeftToRight;
+            
+
+
         }
 
         void PostingOneAnswerForm(Answer answer) // Вывод радиобатонов
         {
             RadioButton answerBox = new RadioButton();
-            PictureBox answerPicture = new PictureBox();
             answerBox.Text = answer.Text;
-            answerPicture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
             AnswerField.Controls.Add(answerBox);
             // Визуализация
-
-            AnswerField.FlowDirection = FlowDirection.LeftToRight;
+            AnswerField.FlowDirection = FlowDirection.TopDown;
+            answerBox.Width = 400;
         }
 
         void PostingFewAnswersForm(Answer answer) //Вывод чекбоксов
@@ -220,9 +239,8 @@ namespace GUI
             AnswerField.Controls.Add(answerBox);
             // Визуализация
             AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
-
+            answerBox.Width = 700;
         }
-
     }
 }
 

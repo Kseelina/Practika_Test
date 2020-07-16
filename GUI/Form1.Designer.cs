@@ -34,38 +34,37 @@
             this.QuestionField = new System.Windows.Forms.Panel();
             this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
             this.Navigation = new System.Windows.Forms.Panel();
-            this.NavigatingNum = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.QuestionNumber = new System.Windows.Forms.LinkLabel();
             this.Next = new System.Windows.Forms.Button();
             this.Buck = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.NavigatingNum = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.QuestionImage)).BeginInit();
             this.QuestionField.SuspendLayout();
             this.Navigation.SuspendLayout();
-            this.NavigatingNum.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // TextQuestion
             // 
-            this.TextQuestion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TextQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TextQuestion.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TextQuestion.Location = new System.Drawing.Point(0, 0);
             this.TextQuestion.MinimumSize = new System.Drawing.Size(520, 0);
             this.TextQuestion.Name = "TextQuestion";
-            this.TextQuestion.Size = new System.Drawing.Size(529, 85);
+            this.TextQuestion.Size = new System.Drawing.Size(529, 59);
             this.TextQuestion.TabIndex = 0;
             this.TextQuestion.Text = "Вопрос";
             // 
             // QuestionImage
             // 
-            this.QuestionImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.QuestionImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.QuestionImage.Location = new System.Drawing.Point(164, 61);
+            this.QuestionImage.Location = new System.Drawing.Point(130, 62);
             this.QuestionImage.Name = "QuestionImage";
-            this.QuestionImage.Size = new System.Drawing.Size(286, 190);
+            this.QuestionImage.Size = new System.Drawing.Size(330, 188);
             this.QuestionImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.QuestionImage.TabIndex = 1;
             this.QuestionImage.TabStop = false;
@@ -75,10 +74,10 @@
             this.QuestionField.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.QuestionField.Controls.Add(this.Navigation);
             this.QuestionField.Controls.Add(this.AnswerField);
             this.QuestionField.Controls.Add(this.QuestionImage);
             this.QuestionField.Controls.Add(this.TextQuestion);
-            this.QuestionField.Controls.Add(this.Navigation);
             this.QuestionField.Location = new System.Drawing.Point(0, 0);
             this.QuestionField.MinimumSize = new System.Drawing.Size(690, 25);
             this.QuestionField.Name = "QuestionField";
@@ -89,12 +88,12 @@
             // 
             this.AnswerField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AnswerField.AutoScroll = true;
-            this.AnswerField.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AnswerField.Location = new System.Drawing.Point(0, 257);
+            this.AnswerField.AutoSize = true;
+            this.AnswerField.Location = new System.Drawing.Point(5, 256);
+            this.AnswerField.MinimumSize = new System.Drawing.Size(520, 150);
             this.AnswerField.Name = "AnswerField";
-            this.AnswerField.Size = new System.Drawing.Size(698, 152);
-            this.AnswerField.TabIndex = 18;
+            this.AnswerField.Size = new System.Drawing.Size(520, 152);
+            this.AnswerField.TabIndex = 14;
             // 
             // Navigation
             // 
@@ -108,42 +107,22 @@
             this.Navigation.Size = new System.Drawing.Size(173, 409);
             this.Navigation.TabIndex = 13;
             // 
-            // NavigatingNum
-            // 
-            this.NavigatingNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NavigatingNum.Controls.Add(this.linkLabel1);
-            this.NavigatingNum.Location = new System.Drawing.Point(6, 2);
-            this.NavigatingNum.Name = "NavigatingNum";
-            this.NavigatingNum.Size = new System.Drawing.Size(163, 202);
-            this.NavigatingNum.TabIndex = 16;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.linkLabel1.Font = new System.Drawing.Font("Times New Roman", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.linkLabel1.Location = new System.Drawing.Point(3, 7);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(25, 28);
-            this.linkLabel1.TabIndex = 16;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "1";
-            // 
             // QuestionNumber
             // 
             this.QuestionNumber.AutoSize = true;
             this.QuestionNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.QuestionNumber.Font = new System.Drawing.Font("Times New Roman", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.QuestionNumber.Location = new System.Drawing.Point(76, 215);
+            this.QuestionNumber.Location = new System.Drawing.Point(73, 168);
             this.QuestionNumber.Name = "QuestionNumber";
             this.QuestionNumber.Size = new System.Drawing.Size(25, 28);
             this.QuestionNumber.TabIndex = 15;
             this.QuestionNumber.TabStop = true;
             this.QuestionNumber.Text = "1";
+            this.QuestionNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Next
             // 
-            this.Next.Location = new System.Drawing.Point(105, 210);
+            this.Next.Location = new System.Drawing.Point(102, 163);
             this.Next.Name = "Next";
             this.Next.Size = new System.Drawing.Size(68, 41);
             this.Next.TabIndex = 12;
@@ -153,7 +132,7 @@
             // 
             // Buck
             // 
-            this.Buck.Location = new System.Drawing.Point(2, 210);
+            this.Buck.Location = new System.Drawing.Point(-1, 163);
             this.Buck.Name = "Buck";
             this.Buck.Size = new System.Drawing.Size(68, 40);
             this.Buck.TabIndex = 11;
@@ -172,6 +151,14 @@
             this.panel4.Size = new System.Drawing.Size(702, 409);
             this.panel4.TabIndex = 15;
             // 
+            // NavigatingNum
+            // 
+            this.NavigatingNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NavigatingNum.Location = new System.Drawing.Point(3, 8);
+            this.NavigatingNum.Name = "NavigatingNum";
+            this.NavigatingNum.Size = new System.Drawing.Size(169, 149);
+            this.NavigatingNum.TabIndex = 16;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,14 +168,14 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(720, 450);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Тест";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.QuestionImage)).EndInit();
             this.QuestionField.ResumeLayout(false);
+            this.QuestionField.PerformLayout();
             this.Navigation.ResumeLayout(false);
             this.Navigation.PerformLayout();
-            this.NavigatingNum.ResumeLayout(false);
-            this.NavigatingNum.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -204,9 +191,8 @@
         private System.Windows.Forms.Button Buck;
         private System.Windows.Forms.Button Next;
         private System.Windows.Forms.LinkLabel QuestionNumber;
-        private System.Windows.Forms.Panel NavigatingNum;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.FlowLayoutPanel AnswerField;
+        private System.Windows.Forms.FlowLayoutPanel NavigatingNum;
     }
 }
 
