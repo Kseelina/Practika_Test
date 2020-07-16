@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Result";
             this.Text = "Result";
-            this.Load += new System.EventHandler(this.Result_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Result_FormClosing);
             this.ResumeLayout(false);
 
         }

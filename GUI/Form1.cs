@@ -25,29 +25,33 @@ namespace GUI
     /// </summary>
     public partial class Form1 : Form
     {
-        const int NumQuestInTest = 15;
+        int QuestionNumberList = 0;    // номер вопроса, который идёт в списке лист
+        const int NumQuestInTest = 15; // В тесте всегда 15 вопросов
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         private List<Question> questions = new List<Question>();
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
 
-        //Рандомизирование вопросов
-        List<Question> RandomQuestions(List<Question> questions)
+//----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
+       
+        List<Question> RandomQuestions()
         {
             List<Question> NewListQuestions = new List<Question>();
+            Question question = new Question();
             Random random = new Random(); // создание объекта рандом
             int i = 0;
             while(i< NumQuestInTest)
             {
                 // LINQ конструкция: для рандомного разбросса вопросов теста
+
                 NewListQuestions.Add(questions.ElementAt(random.Next(0, questions.Count())));
+                NewListQuestions.ForEach  (x => x.Number = i);
                 i++;
             }
-
             return NewListQuestions;
         }
-
-        int QuestionNumberList = 0;    // номер вопроса, который идёт в списке лист он же question.Number
-        int NumberCurrentQuestion = 1; // Номер текущего вопроса; текущий вопрос - это то что видит пользователь
+//--------------------------------------------------------------------------------------------------
+        
+        
 
 
         /// <summary>
@@ -73,8 +77,21 @@ namespace GUI
                 // Path.Combine - функция соединения
                 logger.Info("Файл с вопросами найден и успешно считан.");
                 questions = metods.SetTest(Path.Combine(testFolder, testFile));
-                RandomQuestions(questions); // вызов функции рандома вопросов
+                questions = RandomQuestions(); // вызов функции рандома вопросов
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
+                // Автозаполнение ссылок на вопросы
+                int i = 1;
+                while (i <= questions.Count)
+                {
+                    LinkLabel label = new LinkLabel(); // создание объекта LinkLabel
+                    label.Text = i++.ToString(); // запись текста от 1 до 15(максимум в тесте 15 вопросов)
+                    label.Width = 35;
+                    label.Height = 35;
+                    label.Font = new Font("Times New Roman", 14);
+                    label.TextAlign = ContentAlignment.TopCenter; // выравнивание по центру
+                    label.BorderStyle = BorderStyle.FixedSingle; // рамки
+                    NavigatingNum.Controls.Add(label); // добавление элемента на панель в форму
+                }
                 FillForm();
                 logger.Info("Форма успешно заполнена.");
                 
@@ -92,28 +109,12 @@ namespace GUI
         {
             try
             {
- /*?*/          QuestionNumberList = NumberCurrentQuestion - 1; // на будущее для рандомизации, а пока так
-
                 Question question = questions[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
                 // LINQ конструкция: для определения количество верных вариантов ответов:
                 int N = question.Answers.Count (x=>x.IsRight == true )  ; 
-                TextQuestion.Text = "Вопрос " + NumberCurrentQuestion + ". " + question.Text; // текст вопроса
+                TextQuestion.Text = "Вопрос " + (QuestionNumberList+1) + ". " + question.Text; // текст вопроса
                 if (question.Image!=null) {  QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
-
-                // Автозаполнение ссылок на вопросы
-                int i = 1;
-                while (i<= questions.Count)
-                {
-                    LinkLabel label = new LinkLabel(); // создание объекта LinkLabel
-                    label.Text = i++.ToString(); // запись текста от 1 до 15(максимум в тесте 15 вопросов)
-                    label.Width = 35;
-                    label.Height = 35;
-                    label.Font = new Font("Times New Roman", 14);
-                    label.TextAlign = ContentAlignment.TopCenter; // выравнивание по центру
-                    label.BorderStyle = BorderStyle.FixedSingle; // рамки
-                    NavigatingNum.Controls.Add(label); // добавление элемента на панель в форму
-                }
-
+                
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
@@ -128,7 +129,6 @@ namespace GUI
                         AnswerField.FlowDirection = FlowDirection.LeftToRight;
                         PostingOneAnswerForm(answer);
                         PostingPictureForm(answer);
-                       
                     }
 
                     //Если в ответах только текст
@@ -166,39 +166,38 @@ namespace GUI
 
             }
         }
-
-        private void Next_Click(object sender, EventArgs e) // кнопка далее
+//---------------------------------Кноки Далее, Назад---------------------------------------------------------------
+        public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
 
-            if (NumberCurrentQuestion == 14)
+            if (QuestionNumberList+1 == NumQuestInTest-1)
             {
                 Next.Text = "Завершить";
             }
-
             else { Next.Text = "Далее"; }
 
-            if (NumberCurrentQuestion == 15)
+            if (QuestionNumberList+1 == NumQuestInTest) // завершить тест
             {
                 Result result = new Result();
                 this.Hide();
                 result.ShowDialog();
                 this.Show();
+
             }
             else 
             {
                 Buck.Enabled = true; // Кнопка Назад становится активна
-                NumberCurrentQuestion++; // увеличение текущего номера вопроса
+                QuestionNumberList++; // увеличение текущего номера вопроса
                 AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
                 QuestionImage.Image = null; // очистка от картинки в вопросе
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
             }
             
         }
-
-        private void Buck_Click(object sender, EventArgs e) // кнопка назад
+        public void Buck_Click(object sender, EventArgs e) // кнопка назад
         {
-            NumberCurrentQuestion--;
-            if (NumberCurrentQuestion ==1)
+            QuestionNumberList--;
+            if (QuestionNumberList+1 == 1)
             {
                 Buck.Enabled = false;
             }
@@ -212,21 +211,7 @@ namespace GUI
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
-        {
-            if (MessageBox.Show  ( "Вы действительно хотите выйти из программы?","Завершение программы",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning )== DialogResult.Yes)
-            {
-                logger.Info("Программа успешно закрыта.");
-                e.Cancel = false;
-            }
-            else
-            {
-                e.Cancel = true;
-            }
-        }
-
+//-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
         void PostingPictureForm(Answer answer)// Вывод картинки
         {
             PictureBox answerBox = new PictureBox();
@@ -237,8 +222,6 @@ namespace GUI
             answerBox.SizeMode = PictureBoxSizeMode.Zoom;
             AnswerField.FlowDirection = FlowDirection.LeftToRight;
             
-
-
         }
 
         void PostingOneAnswerForm(Answer answer) // Вывод радиобатонов
@@ -260,6 +243,22 @@ namespace GUI
             // Визуализация
             AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
             answerBox.Width = 700;
+        }
+        
+//---------------------------------Закрытие теста---------------------------------------------------
+        public void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
+        {
+            if (MessageBox.Show  ( "Вы действительно хотите выйти из программы?","Завершение программы",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning )== DialogResult.Yes)
+            {
+                logger.Info("Программа успешно закрыта.");
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

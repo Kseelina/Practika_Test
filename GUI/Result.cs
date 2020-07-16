@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
+
 namespace GUI
 {
 
@@ -16,15 +20,29 @@ namespace GUI
     /// </summary>
     public partial class Result : Form
     {
+        Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
+       
+
         public Result()
         {
             InitializeComponent();
         }
 
-        private void Result_Load(object sender, EventArgs e)
+        public void Result_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (MessageBox.Show("Вы действительно хотите выйти из программы?", "Завершение программы",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                logger.Info("Программа успешно закрыта.");
+                e.Cancel = false;
 
+                Application.Exit();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
-
     }
 }
