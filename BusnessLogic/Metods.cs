@@ -49,7 +49,7 @@ namespace BusnessLogic
         public List<Question> SetTest(string file)
         {
             int n; // переменная, которая хранит в себе количество ответов на вопрос
-            //int m;
+            
             int number_question = 1; // номер вопроса начинается с 1
             /*Создаём новый тип список, и выделяем для него память ; List<Question>() - являетчя функцией*/
             List<Question> quiz = new List<Question>();
@@ -77,36 +77,22 @@ namespace BusnessLogic
                 // TryParse - возвращает значение того, что произошла ошибка при переводе из одного типа данных в другой
                 // Parse   - выводит ошибку, что произошла ошибка при переводе из одного типа данных в другой  
 
-                //m = n + 2; // Запоминаем количество ответов + сам вопрос + пустая строка 
-
                 Question qustion = new Question(); // создание пустых конструкторов
 
                 int number_answer = 1;
 
-               // while (m>0) // пока не закончится весь блок в котором содерится и вопрос и варианты ответов к нему
-                //{
-                   
-                    
-
-                    //if (m==n+1) // строка с вопросом
-                    //{
-
-                        qustion.Number= number_question++;
-                        qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
-                        if (str[i].Contains("#?")) // если имеется картинка в вопросе
-                        {
-                            /* Разбиваем текст и картинку вопроса
-                            и записываем по отдельности в параметры вопроса:*/
-                            string[] auesTaxt = str[i].Split(new string[] { "#?" }, StringSplitOptions.RemoveEmptyEntries);
-                            qustion.Image = auesTaxt[1];
-                            qustion.Text = auesTaxt[0];
-                        }
-                i++;
-                    //}
-                   // else if(m<=n) // перебор вариантов ответа
-                   // {
-
-                     while(n>0)
+                 qustion.Number= number_question++;
+                 qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
+                 if (str[i].Contains("#?")) // если имеется картинка в вопросе
+                     {
+                         /* Разбиваем текст и картинку вопроса
+                         и записываем по отдельности в параметры вопроса:*/
+                         string[] auesTaxt = str[i].Split(new string[] { "#?" }, StringSplitOptions.RemoveEmptyEntries);
+                         qustion.Image = auesTaxt[1];
+                         qustion.Text = auesTaxt[0];
+                      }
+                 i++;
+                 while(n>0)
                      {  
                         Answer answer = new Answer();
                         answer.Number=number_answer++;
@@ -138,8 +124,6 @@ namespace BusnessLogic
 
                         // заполняем параметр Answers в классе вопрос (Qustion) значениями параметров из класса ответ (Answer):
                         qustion.Answers.Add(answer);
-                        // }
-                        //    m--;
                         
                          i++;
                          n--;

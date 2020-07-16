@@ -11,8 +11,8 @@ namespace Models
     /// </summary>
 
     // public - доступен во всей программе
-    // private -  доступ только внутри (ограниченный) по defolt
-   public class Answer
+    // private -  доступ только внутри (ограниченный) по default
+    public class Answer
     {
         public int Number { get; set; }// Номер
         public string Image { get; set; } // Картинка к варианту ответа

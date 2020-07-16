@@ -24,19 +24,23 @@ namespace GUI
     /// </summary>
     public partial class Form1 : Form
     {
+        string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         private List<Question> questions = new List<Question>();
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
         int QuestionNumberList = 0;    // номер вопроса, который идёт в списке лист он же question.Number
         int NumberCurrentQuestion = 1; // Номер текущего вопроса; текущий вопрос - это то что видит пользователь
 
 
-
+        /// <summary>
+        /// Инициализация формы, считывание файла и вызов FillForm() для заполнения формы 
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
             
             // Визуализация (то что видит пользователь и с чем взаимодействует)
             Buck.Enabled = false; // Кнопка Назад изначально неактивна
+
 
             logger.Info("Программа успешно запущена.");          // вывод сообщения в лог файле
 
@@ -63,17 +67,16 @@ namespace GUI
                                            Metods  из функции GetQuestions (throw new Exception($"Ошибка! Файл по пути {file} не найден!");)*/
             }
         }
-
+//------------------------------------------------------------------------------------------------
         void FillForm () // функция переноса значений в форму из Metods
         {
-           string ImageFolder =  ConfigurationManager.AppSettings["questFolder"];
-           
             try
             {
-                QuestionNumberList = NumberCurrentQuestion - 1; // на будущее для рандомизвации, а пока так
+ /*?*/          QuestionNumberList = NumberCurrentQuestion - 1; // на будущее для рандомизвации, а пока так
 
-                int N = NumberOfCorrectAnswers(QuestionNumberList); // количество верных вариантов ответов
                 Question question = questions[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
+                // LINQ конструкция: для определения количество верных вариантов ответов:
+                int N = question.Answers.Count (x=>x.IsRight == true )  ; 
                 TextQuestion.Text = "Вопрос " + NumberCurrentQuestion + ". " + question.Text; // текст вопроса
                 if (question.Image!=null) {  QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
                 
@@ -84,71 +87,30 @@ namespace GUI
                 foreach (Answer answer in question.Answers)
                 {
 
-
-
                     // Если в ответе и текст и картинка
-                    if (answer.Text!=null && answer.Image!=null)
-                        {
-                            if (N>1) // Чекбоксы
-                            {
-                                CheckBox answerBox = new CheckBox();
-                                PictureBox answerPicture = new PictureBox();
-                                answerBox.Text = answer.Text;
-                                answerPicture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
-                                AnswerField.Controls.Add(answerBox);
-                            // Визуализация
-
-                            AnswerField.FlowDirection = FlowDirection.LeftToRight;
-                        }
-                            else 
-                            {
-                                RadioButton answerBox = new RadioButton();
-                                PictureBox answerPicture = new PictureBox();
-                                answerBox.Text = answer.Text;
-                                answerPicture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
-                                AnswerField.Controls.Add(answerBox);
-                            // Визуализация
-
-                            AnswerField.FlowDirection = FlowDirection.LeftToRight;
-                        }
-                        }
-
-                        //Если в ответах только текст
-                        else if(answer.Text != null && answer.Image == null)
-                        {
-                            if (N>1) // Чекбоксы
-                            {
-                                // вывод элементов
-                                CheckBox answerBox = new CheckBox();
-                                answerBox.Text = answer.Text;
-                                AnswerField.Controls.Add(answerBox);
-                            // Визуализация
-                            AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
-                            }
-                            else 
-                            {
-                                // вывод элементов
-                                RadioButton answerBox = new RadioButton();
-                                answerBox.Text = answer.Text;
-                                AnswerField.Controls.Add(answerBox);
-                            // Визуализация
-                            AnswerField.FlowDirection = FlowDirection.TopDown;
-                        }
-
+                    if (answer.Text != null && answer.Image != null)
+                    {
+                        /*?*/
                     }
 
-                        //Если в ответах тоько картинка
-                        else if(answer.Text == null && answer.Image != null)
+                    //Если в ответах только текст
+                    else if (answer.Text != null && answer.Image == null)
+                    {
+                        if (N > 1) // чекбоксы (выбор нескольких вариантов ответа)
                         {
-                            PictureBox answerBox = new PictureBox();
-                            answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
-                            AnswerField.Controls.Add(answerBox);
-                        // Визуализация
-                        answerBox.SizeMode = PictureBoxSizeMode.Zoom; 
-                        AnswerField.FlowDirection = FlowDirection.LeftToRight;
-                        
+                            PostingFewAnswersForm(answer);
+                        }
+                        else // радиобатоны (выбор одного варианта ответа)
+                        {
+                            PostingOneAnswerForm(answer);
+                        }
                     }
-                    
+                    //Если в ответах тоько картинка
+                    else if (answer.Text == null && answer.Image != null)
+                    {
+                        PostingPictureForm(answer);
+                    }
+                                       
                 }
                 
 
@@ -165,20 +127,6 @@ namespace GUI
                 throw new Exception($"Ошибка! Возникла ошибка при передачи значения типа Question в форму.");
 
             }
-            
-        }
-
-
-        int NumberOfCorrectAnswers(int NumberCurrentQuestion) // Функция для определения количеств правильных ответов в вопросе
-        {
-            Question question = questions[NumberCurrentQuestion]; // вытаскиваем нулевой вопрос
-            //цикл на количество правильных ответов
-            int N = 0; // колличество правильных вариантов ответов
-            foreach (Answer answer in question.Answers)
-            {
-                if (answer.IsRight == true) { N++; }
-            }
-            return N;
         }
 
         private void Next_Click(object sender, EventArgs e) // кнопка далее
@@ -242,6 +190,40 @@ namespace GUI
             }
         }
 
-        
+        void PostingPictureForm(Answer answer)// Вывод картинки
+        {
+            PictureBox answerBox = new PictureBox();
+            answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
+            AnswerField.Controls.Add(answerBox);
+            // Визуализация
+            answerBox.SizeMode = PictureBoxSizeMode.Zoom;
+            AnswerField.FlowDirection = FlowDirection.LeftToRight;
+        }
+
+        void PostingOneAnswerForm(Answer answer) // Вывод радиобатонов
+        {
+            RadioButton answerBox = new RadioButton();
+            PictureBox answerPicture = new PictureBox();
+            answerBox.Text = answer.Text;
+            answerPicture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
+            AnswerField.Controls.Add(answerBox);
+            // Визуализация
+
+            AnswerField.FlowDirection = FlowDirection.LeftToRight;
+        }
+
+        void PostingFewAnswersForm(Answer answer) //Вывод чекбоксов
+        {
+            // вывод элементов
+            CheckBox answerBox = new CheckBox();
+            answerBox.Text = answer.Text;
+            AnswerField.Controls.Add(answerBox);
+            // Визуализация
+            AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
+
+        }
+
     }
 }
+
+
