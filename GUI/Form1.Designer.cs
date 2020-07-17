@@ -32,13 +32,13 @@
             this.TextQuestion = new System.Windows.Forms.Label();
             this.QuestionImage = new System.Windows.Forms.PictureBox();
             this.QuestionField = new System.Windows.Forms.Panel();
-            this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
             this.Navigation = new System.Windows.Forms.Panel();
+            this.NavigatingNum = new System.Windows.Forms.FlowLayoutPanel();
             this.QuestionNumber = new System.Windows.Forms.LinkLabel();
             this.Next = new System.Windows.Forms.Button();
             this.Buck = new System.Windows.Forms.Button();
+            this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.NavigatingNum = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.QuestionImage)).BeginInit();
             this.QuestionField.SuspendLayout();
             this.Navigation.SuspendLayout();
@@ -74,8 +74,8 @@
             this.QuestionField.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.QuestionField.Controls.Add(this.Navigation);
             this.QuestionField.Controls.Add(this.AnswerField);
+            this.QuestionField.Controls.Add(this.Navigation);
             this.QuestionField.Controls.Add(this.QuestionImage);
             this.QuestionField.Controls.Add(this.TextQuestion);
             this.QuestionField.Location = new System.Drawing.Point(0, 0);
@@ -83,17 +83,6 @@
             this.QuestionField.Name = "QuestionField";
             this.QuestionField.Size = new System.Drawing.Size(702, 409);
             this.QuestionField.TabIndex = 14;
-            // 
-            // AnswerField
-            // 
-            this.AnswerField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AnswerField.AutoSize = true;
-            this.AnswerField.Location = new System.Drawing.Point(5, 256);
-            this.AnswerField.MinimumSize = new System.Drawing.Size(520, 150);
-            this.AnswerField.Name = "AnswerField";
-            this.AnswerField.Size = new System.Drawing.Size(520, 152);
-            this.AnswerField.TabIndex = 14;
             // 
             // Navigation
             // 
@@ -106,6 +95,14 @@
             this.Navigation.Name = "Navigation";
             this.Navigation.Size = new System.Drawing.Size(173, 409);
             this.Navigation.TabIndex = 13;
+            // 
+            // NavigatingNum
+            // 
+            this.NavigatingNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NavigatingNum.Location = new System.Drawing.Point(3, 8);
+            this.NavigatingNum.Name = "NavigatingNum";
+            this.NavigatingNum.Size = new System.Drawing.Size(169, 149);
+            this.NavigatingNum.TabIndex = 16;
             // 
             // QuestionNumber
             // 
@@ -140,6 +137,16 @@
             this.Buck.UseVisualStyleBackColor = true;
             this.Buck.Click += new System.EventHandler(this.Buck_Click);
             // 
+            // AnswerField
+            // 
+            this.AnswerField.AutoSize = true;
+            this.AnswerField.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.AnswerField.Location = new System.Drawing.Point(0, 259);
+            this.AnswerField.MinimumSize = new System.Drawing.Size(520, 150);
+            this.AnswerField.Name = "AnswerField";
+            this.AnswerField.Size = new System.Drawing.Size(529, 150);
+            this.AnswerField.TabIndex = 14;
+            // 
             // panel4
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -150,14 +157,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(702, 409);
             this.panel4.TabIndex = 15;
-            // 
-            // NavigatingNum
-            // 
-            this.NavigatingNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.NavigatingNum.Location = new System.Drawing.Point(3, 8);
-            this.NavigatingNum.Name = "NavigatingNum";
-            this.NavigatingNum.Size = new System.Drawing.Size(169, 149);
-            this.NavigatingNum.TabIndex = 16;
             // 
             // Form1
             // 

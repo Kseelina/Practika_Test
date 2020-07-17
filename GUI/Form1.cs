@@ -28,14 +28,16 @@ namespace GUI
         int QuestionNumberList = 0;    // номер вопроса, который идёт в списке лист
         const int NumQuestInTest = 15; // В тесте всегда 15 вопросов
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
-        private List<Question> questions = new List<Question>();
+        List<Question> questions = new List<Question>(); // создаём пустой лист под будущие вопросы
+        List<Answer> AnswersUser = new List<Answer>(); // создаём пустой лист для записи ответов пользователя
+
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
 
 //----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
        
         List<Question> RandomQuestions()
         {
-            List<Question> NewListQuestions = new List<Question>();
+            List<Question> NewListQuestions = new List<Question>(); //Создаём новый лист под рандомизированные вопросы
             Question question = new Question();
             Random random = new Random(); // создание объекта рандом
             int i = 0;
@@ -49,9 +51,23 @@ namespace GUI
             }
             return NewListQuestions;
         }
-//--------------------------------------------------------------------------------------------------
+//----------------------------------Функия сохраения ответов пользователя----------------------------------------------------------------------------
         
-        
+        /// <summary>
+        /// Запоминаем в ответах:
+        /// Номер вопроса (текущий)
+        /// Если есть картинка и(или) текст
+        /// и положение отвеченного ответа как true
+        /// </summary>
+        /// <returns></returns>
+        List<Answer>  SaveAnswersUser ()
+        {
+
+
+
+
+            return AnswersUser;
+        }
 
 
         /// <summary>
@@ -176,12 +192,13 @@ namespace GUI
             }
             else { Next.Text = "Далее"; }
 
-            if (QuestionNumberList+1 == NumQuestInTest) // завершить тест
+            if (QuestionNumberList+1 == NumQuestInTest) // завершить тест и открыть форму результатов
             {
                 Result result = new Result();
                 this.Hide();
                 result.ShowDialog();
                 this.Show();
+                
 
             }
             else 
@@ -248,7 +265,7 @@ namespace GUI
 //---------------------------------Закрытие теста---------------------------------------------------
         public void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
         {
-            if (MessageBox.Show  ( "Вы действительно хотите выйти из программы?","Завершение программы",
+            if (MessageBox.Show  ( "Тест не пройден. Вы действительно хотите закрыть программу?","Завершение программы",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Warning )== DialogResult.Yes)
             {

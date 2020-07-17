@@ -9,9 +9,8 @@ namespace Models
    public class Question
     {
         /// <summary>
-        /// Класс, отвечает за параметры каждого вопроса (точнее что содержит каждый вопрос)
+        /// Jтвечает за параметры каждого вопроса (точнее что содержит каждый вопрос)
         /// </summary>
-
         public Question() // для связи между вопросами (Question) и ответами (Answers)
         {
             Answers = new List<Answer>();
