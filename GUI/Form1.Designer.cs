@@ -32,12 +32,12 @@
             this.TextQuestion = new System.Windows.Forms.Label();
             this.QuestionImage = new System.Windows.Forms.PictureBox();
             this.QuestionField = new System.Windows.Forms.Panel();
+            this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
             this.Navigation = new System.Windows.Forms.Panel();
             this.NavigatingNum = new System.Windows.Forms.FlowLayoutPanel();
             this.QuestionNumber = new System.Windows.Forms.LinkLabel();
             this.Next = new System.Windows.Forms.Button();
             this.Buck = new System.Windows.Forms.Button();
-            this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.QuestionImage)).BeginInit();
             this.QuestionField.SuspendLayout();
@@ -54,7 +54,7 @@
             this.TextQuestion.Location = new System.Drawing.Point(0, 0);
             this.TextQuestion.MinimumSize = new System.Drawing.Size(520, 0);
             this.TextQuestion.Name = "TextQuestion";
-            this.TextQuestion.Size = new System.Drawing.Size(529, 59);
+            this.TextQuestion.Size = new System.Drawing.Size(610, 84);
             this.TextQuestion.TabIndex = 0;
             this.TextQuestion.Text = "Вопрос";
             // 
@@ -64,7 +64,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionImage.Location = new System.Drawing.Point(130, 62);
             this.QuestionImage.Name = "QuestionImage";
-            this.QuestionImage.Size = new System.Drawing.Size(330, 188);
+            this.QuestionImage.Size = new System.Drawing.Size(411, 188);
             this.QuestionImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.QuestionImage.TabIndex = 1;
             this.QuestionImage.TabStop = false;
@@ -81,8 +81,18 @@
             this.QuestionField.Location = new System.Drawing.Point(0, 0);
             this.QuestionField.MinimumSize = new System.Drawing.Size(690, 25);
             this.QuestionField.Name = "QuestionField";
-            this.QuestionField.Size = new System.Drawing.Size(702, 409);
+            this.QuestionField.Size = new System.Drawing.Size(783, 434);
             this.QuestionField.TabIndex = 14;
+            // 
+            // AnswerField
+            // 
+            this.AnswerField.AutoSize = true;
+            this.AnswerField.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.AnswerField.Location = new System.Drawing.Point(0, 284);
+            this.AnswerField.MinimumSize = new System.Drawing.Size(520, 150);
+            this.AnswerField.Name = "AnswerField";
+            this.AnswerField.Size = new System.Drawing.Size(610, 150);
+            this.AnswerField.TabIndex = 14;
             // 
             // Navigation
             // 
@@ -91,9 +101,9 @@
             this.Navigation.Controls.Add(this.Next);
             this.Navigation.Controls.Add(this.Buck);
             this.Navigation.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Navigation.Location = new System.Drawing.Point(529, 0);
+            this.Navigation.Location = new System.Drawing.Point(610, 0);
             this.Navigation.Name = "Navigation";
-            this.Navigation.Size = new System.Drawing.Size(173, 409);
+            this.Navigation.Size = new System.Drawing.Size(173, 434);
             this.Navigation.TabIndex = 13;
             // 
             // NavigatingNum
@@ -137,16 +147,6 @@
             this.Buck.UseVisualStyleBackColor = true;
             this.Buck.Click += new System.EventHandler(this.Buck_Click);
             // 
-            // AnswerField
-            // 
-            this.AnswerField.AutoSize = true;
-            this.AnswerField.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.AnswerField.Location = new System.Drawing.Point(0, 259);
-            this.AnswerField.MinimumSize = new System.Drawing.Size(520, 150);
-            this.AnswerField.Name = "AnswerField";
-            this.AnswerField.Size = new System.Drawing.Size(529, 150);
-            this.AnswerField.TabIndex = 14;
-            // 
             // panel4
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -155,17 +155,17 @@
             this.panel4.Controls.Add(this.QuestionField);
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(702, 409);
+            this.panel4.Size = new System.Drawing.Size(783, 434);
             this.panel4.TabIndex = 15;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 411);
+            this.ClientSize = new System.Drawing.Size(785, 436);
             this.Controls.Add(this.panel4);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(720, 450);
+            this.MinimumSize = new System.Drawing.Size(800, 475);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Тест";

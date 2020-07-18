@@ -41,19 +41,22 @@ namespace GUI
             Question question = new Question();
             Random random = new Random(); // создание объекта рандом
             int i = 0;
+            bool add = true;
             int[] mass = new int[NumQuestInTest]; // объявление массива
             while(i< NumQuestInTest)
             {
+                add = true;
                 mass[i] = random.Next(0, questions.Count());
-
-                for (int j=0; j<i; j++)
+                
+                for (int j=1; j<i; j++)
                 {
-
+                    if (mass[i] == mass[j])
+                    {
+                        i--;
+                        add = false;
+                    }
                 }
-
-
-                NewListQuestions.Add(questions.ElementAt());
-               // NewListQuestions.ForEach  (x => x.Number = i);
+                if (add == true) { NewListQuestions.Add(questions.ElementAt(mass[i])); }
                 i++;
             }
             return NewListQuestions;
@@ -71,13 +74,18 @@ namespace GUI
             Question answerUser = new Question();
             answerUser.Number = question.Number; // Номер вопроса (Номер в списке файла)
 
-            foreach (Answer answer in question.Answers)
-            {
-                answerUser.IsRight = answer.IsRight;
-                
-            
+            //foreach (Answer answer1 in question.Answers)
+            //{
 
-            }
+            //    if ()
+            //    {
+            //        answer1.IsRight = true;
+            //    }
+            //    else
+            //    {
+            //        answer1.IsRight = false;
+            //    }
+            //}
             AnswersUser.Add(answerUser);
             return AnswersUser;
         }
@@ -198,12 +206,9 @@ namespace GUI
 //---------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
-            if (answerBox)
-            {
-                SaveAnswersUser(questions[QuestionNumberList], ); // запоминаем ответ пользователя
-            }
+            
+            SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
            
-
             if (QuestionNumberList+1 == NumQuestInTest-1)
             {
                 Next.Text = "Завершить";
@@ -232,7 +237,7 @@ namespace GUI
         }
         public void Buck_Click(object sender, EventArgs e) // кнопка назад
         {
-            SaveAnswersUser(questions[QuestionNumberList],); // запоминаем ответ пользователя
+            SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
             QuestionNumberList--;
             if (QuestionNumberList+1 == 1)
             {
