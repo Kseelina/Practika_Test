@@ -14,7 +14,7 @@ namespace Models
     // private -  доступ только внутри (ограниченный) по default
     public class Answer
     {
-        public int Number { get; set; }// Номер
+        public int Number { get; set; } // Номер
         public string Image { get; set; } // Картинка к варианту ответа
         public string Text { get; set; }   //Текст варианта ответа
         public bool IsRight { get; set; }  // верный / неверный

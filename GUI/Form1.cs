@@ -29,7 +29,7 @@ namespace GUI
         const int NumQuestInTest = 15; // В тесте всегда 15 вопросов
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         List<Question> questions = new List<Question>(); // создаём пустой лист под будущие вопросы
-        List<Answer> AnswersUser = new List<Answer>(); // создаём пустой лист для записи ответов пользователя
+        List<Question> AnswersUser = new List<Question>(); // создаём пустой лист для записи ответов пользователя
 
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
 
@@ -41,12 +41,19 @@ namespace GUI
             Question question = new Question();
             Random random = new Random(); // создание объекта рандом
             int i = 0;
+            int[] mass = new int[NumQuestInTest]; // объявление массива
             while(i< NumQuestInTest)
             {
-                // LINQ конструкция: для рандомного разбросса вопросов теста
+                mass[i] = random.Next(0, questions.Count());
 
-                NewListQuestions.Add(questions.ElementAt(random.Next(0, questions.Count())));
-                NewListQuestions.ForEach  (x => x.Number = i);
+                for (int j=0; j<i; j++)
+                {
+
+                }
+
+
+                NewListQuestions.Add(questions.ElementAt());
+               // NewListQuestions.ForEach  (x => x.Number = i);
                 i++;
             }
             return NewListQuestions;
@@ -55,17 +62,23 @@ namespace GUI
         
         /// <summary>
         /// Запоминаем в ответах:
-        /// Номер вопроса (текущий)
-        /// Если есть картинка и(или) текст
-        /// и положение отвеченного ответа как true
+        /// Номер вопроса (ID вопроса по номеру)
+        /// Положение отвеченного ответа как true
         /// </summary>
         /// <returns></returns>
-        List<Answer>  SaveAnswersUser ()
+       public List<Question>  SaveAnswersUser (Question question)
         {
+            Question answerUser = new Question();
+            answerUser.Number = question.Number; // Номер вопроса (Номер в списке файла)
 
+            foreach (Answer answer in question.Answers)
+            {
+                answerUser.IsRight = answer.IsRight;
+                
+            
 
-
-
+            }
+            AnswersUser.Add(answerUser);
             return AnswersUser;
         }
 
@@ -185,6 +198,11 @@ namespace GUI
 //---------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
+            if (answerBox)
+            {
+                SaveAnswersUser(questions[QuestionNumberList], ); // запоминаем ответ пользователя
+            }
+           
 
             if (QuestionNumberList+1 == NumQuestInTest-1)
             {
@@ -209,10 +227,12 @@ namespace GUI
                 QuestionImage.Image = null; // очистка от картинки в вопросе
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
             }
-            
+
+           
         }
         public void Buck_Click(object sender, EventArgs e) // кнопка назад
         {
+            SaveAnswersUser(questions[QuestionNumberList],); // запоминаем ответ пользователя
             QuestionNumberList--;
             if (QuestionNumberList+1 == 1)
             {
@@ -220,16 +240,14 @@ namespace GUI
             }
             else { Buck.Enabled = true; }
 
-
             AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
             QuestionImage.Image = null; // очистка от картинки в вопросе
 
             FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
-
         }
 
 //-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
-        void PostingPictureForm(Answer answer)// Вывод картинки
+       public void PostingPictureForm(Answer answer)// Вывод картинки
         {
             PictureBox answerBox = new PictureBox();
             answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
@@ -241,7 +259,7 @@ namespace GUI
             
         }
 
-        void PostingOneAnswerForm(Answer answer) // Вывод радиобатонов
+        public void PostingOneAnswerForm(Answer answer) // Вывод радиобатонов
         {
             RadioButton answerBox = new RadioButton();
             answerBox.Text = answer.Text;
@@ -251,7 +269,7 @@ namespace GUI
             answerBox.Width = 400;
         }
 
-        void PostingFewAnswersForm(Answer answer) //Вывод чекбоксов
+        public void PostingFewAnswersForm(Answer answer) //Вывод чекбоксов
         {
             // вывод элементов
             CheckBox answerBox = new CheckBox();
