@@ -35,7 +35,6 @@
             this.AnswerField = new System.Windows.Forms.FlowLayoutPanel();
             this.Navigation = new System.Windows.Forms.Panel();
             this.NavigatingNum = new System.Windows.Forms.FlowLayoutPanel();
-            this.QuestionNumber = new System.Windows.Forms.LinkLabel();
             this.Next = new System.Windows.Forms.Button();
             this.Buck = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -97,7 +96,6 @@
             // Navigation
             // 
             this.Navigation.Controls.Add(this.NavigatingNum);
-            this.Navigation.Controls.Add(this.QuestionNumber);
             this.Navigation.Controls.Add(this.Next);
             this.Navigation.Controls.Add(this.Buck);
             this.Navigation.Dock = System.Windows.Forms.DockStyle.Right;
@@ -114,24 +112,11 @@
             this.NavigatingNum.Size = new System.Drawing.Size(169, 149);
             this.NavigatingNum.TabIndex = 16;
             // 
-            // QuestionNumber
-            // 
-            this.QuestionNumber.AutoSize = true;
-            this.QuestionNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.QuestionNumber.Font = new System.Drawing.Font("Times New Roman", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.QuestionNumber.Location = new System.Drawing.Point(73, 168);
-            this.QuestionNumber.Name = "QuestionNumber";
-            this.QuestionNumber.Size = new System.Drawing.Size(25, 28);
-            this.QuestionNumber.TabIndex = 15;
-            this.QuestionNumber.TabStop = true;
-            this.QuestionNumber.Text = "1";
-            this.QuestionNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Next
             // 
-            this.Next.Location = new System.Drawing.Point(102, 163);
+            this.Next.Location = new System.Drawing.Point(91, 163);
             this.Next.Name = "Next";
-            this.Next.Size = new System.Drawing.Size(68, 41);
+            this.Next.Size = new System.Drawing.Size(79, 41);
             this.Next.TabIndex = 12;
             this.Next.Text = "Далее";
             this.Next.UseVisualStyleBackColor = true;
@@ -141,7 +126,7 @@
             // 
             this.Buck.Location = new System.Drawing.Point(-1, 163);
             this.Buck.Name = "Buck";
-            this.Buck.Size = new System.Drawing.Size(68, 40);
+            this.Buck.Size = new System.Drawing.Size(86, 40);
             this.Buck.TabIndex = 11;
             this.Buck.Text = "Назад";
             this.Buck.UseVisualStyleBackColor = true;
@@ -174,7 +159,6 @@
             this.QuestionField.ResumeLayout(false);
             this.QuestionField.PerformLayout();
             this.Navigation.ResumeLayout(false);
-            this.Navigation.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -189,7 +173,6 @@
         private System.Windows.Forms.Panel Navigation;
         private System.Windows.Forms.Button Buck;
         private System.Windows.Forms.Button Next;
-        private System.Windows.Forms.LinkLabel QuestionNumber;
         private System.Windows.Forms.FlowLayoutPanel AnswerField;
         private System.Windows.Forms.FlowLayoutPanel NavigatingNum;
     }

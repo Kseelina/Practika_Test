@@ -21,11 +21,11 @@ namespace BusnessLogic
     public class Metods
     {
         /// <summary>
-        /// 
+        /// GetQuestions - находит файл и считывает все его строки
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-      public  List <string> GetQuestions(string file)
+        public List <string> GetQuestions(string file)
         { 
         
             List <string> str = new List<string>();

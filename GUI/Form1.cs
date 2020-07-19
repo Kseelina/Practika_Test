@@ -116,12 +116,16 @@ namespace GUI
                 questions = metods.SetTest(Path.Combine(testFolder, testFile));
                 questions = RandomQuestions(); // вызов функции рандома вопросов
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
+
                 // Автозаполнение ссылок на вопросы
                 int i = 1;
                 while (i <= questions.Count)
                 {
                     LinkLabel label = new LinkLabel(); // создание объекта LinkLabel
+                    label.Name = "label" + i;
                     label.Text = i++.ToString(); // запись текста от 1 до 15(максимум в тесте 15 вопросов)
+                    // привязка к событию нажатия на ссылку (для перехода к вопросу данного номера):
+                    label.Click += LinkLabelOnClik; 
                     label.Width = 35;
                     label.Height = 35;
                     label.Font = new Font("Times New Roman", 14);
@@ -129,10 +133,11 @@ namespace GUI
                     label.BorderStyle = BorderStyle.FixedSingle; // рамки
                     NavigatingNum.Controls.Add(label); // добавление элемента на панель в форму
                 }
+
                 FillForm();
                 logger.Info("Форма успешно заполнена.");
-                
             }
+
             catch (Exception e)
             {
                 // Console.WriteLine("Ошибка! Файл по указанному пути не найден!"); // выводит поьзователю
@@ -208,47 +213,52 @@ namespace GUI
         {
             
             SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
-           
-            if (QuestionNumberList+1 == NumQuestInTest-1)
-            {
-                Next.Text = "Завершить";
-            }
-            else { Next.Text = "Далее"; }
 
-            if (QuestionNumberList+1 == NumQuestInTest) // завершить тест и открыть форму результатов
+            QuestionNumberList++; // увеличение текущего номера вопроса
+            VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
+
+            if (QuestionNumberList == NumQuestInTest) // завершить тест и открыть форму результатов
             {
                 Result result = new Result();
                 this.Hide();
                 result.ShowDialog();
                 this.Show();
-                
-
             }
             else 
             {
                 Buck.Enabled = true; // Кнопка Назад становится активна
-                QuestionNumberList++; // увеличение текущего номера вопроса
                 AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
                 QuestionImage.Image = null; // очистка от картинки в вопросе
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
             }
-
-           
         }
         public void Buck_Click(object sender, EventArgs e) // кнопка назад
         {
             SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
             QuestionNumberList--;
-            if (QuestionNumberList+1 == 1)
-            {
-                Buck.Enabled = false;
-            }
-            else { Buck.Enabled = true; }
+
+            VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
 
             AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
             QuestionImage.Image = null; // очистка от картинки в вопросе
 
             FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
+        }
+
+//--------------------------Функция проверки видимости кнопок дадее и назад-----------------------------
+        public void VisibilityButton() 
+        {
+            if (QuestionNumberList + 1 == 1)
+            {
+                Buck.Enabled = false;
+            }
+            else { Buck.Enabled = true; }
+
+            if (QuestionNumberList + 1 == NumQuestInTest)
+            {
+                Next.Text = "Завершить";
+            }
+            else { Next.Text = "Далее"; }
         }
 
 //-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
@@ -285,12 +295,33 @@ namespace GUI
             answerBox.Width = 700;
         }
         
-//---------------------------------Закрытие теста---------------------------------------------------
+
+//---------------------------Переход по номерам вопросов в панеле навигации---------------------------------
+        public void LinkLabelOnClik(object sender, EventArgs eventArgs)
+        {
+            //var label = (LinkLabel)sender;
+            if (sender is LinkLabel label)
+            {
+                QuestionNumberList = int.Parse(label.Text)-1;
+                AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+                QuestionImage.Image = null; // очистка от картинки в вопросе
+                
+                VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
+
+                FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
+            }
+        }
+
+
+
+
+
+        //---------------------------------Закрытие теста---------------------------------------------------
         public void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
         {
-            if (MessageBox.Show  ( "Тест не пройден. Вы действительно хотите закрыть программу?","Завершение программы",
+            if (MessageBox.Show("Тест не пройден. Вы действительно хотите закрыть программу?", "Завершение программы",
             MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning )== DialogResult.Yes)
+            MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 logger.Info("Программа успешно закрыта.");
                 e.Cancel = false;
