@@ -48,7 +48,7 @@ namespace GUI
                 add = true;
                 mass[i] = random.Next(0, questions.Count());
                 
-                for (int j=1; j<i; j++)
+                for (int j=0; j<i; j++)
                 {
                     if (mass[i] == mass[j])
                     {
@@ -74,40 +74,11 @@ namespace GUI
         { /* Панель ответов обращается к дочерним элементам. он берёт все эти элементы и 
             преобразовать в тип коннтрол, потому что все они являются дочерними элементами типа контрол*/
             
-            questions[QuestionNumberList].AnswersUser = 
-                AnswerField.Controls.OfType<RadioButton>().
-                Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x,y)=>x+"#"+y);
+            //questions[QuestionNumberList].AnswersUser = 
+            //    AnswerField.Controls.OfType<RadioButton>().
+            //    Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x,y)=>x+"#"+y);
 
         }
-
-
-       //public List<Question>  SaveAnswersUser (object sender, EventArgs eventArgs, Question question)
-       // {
-       //     Question answerUser = new Question();
-       //     answerUser.Number = question.Number; // Номер вопроса (Номер в списке файла)
-
-       //     foreach (Answer answer1 in question.Answers)
-       //     {
-       //         if ((sender is RadioButton answerBox)|| (sender is TextBox answerBox1))
-       //         {
-       //             answer1.IsRight = true;
-       //         }
-       //         else
-       //         {
-       //             answer1.IsRight = false;
-       //         }
-
-
-       //     }
-       //     AnswersUser.Add(answerUser);
-       //     return AnswersUser;
-       // }
-
-       // public void ClikCheck (object sender, EventArgs eventArgs)
-       // {
-
-       // }
-
 
         /// <summary>
         /// Инициализация формы, считывание файла и вызов FillForm() для заполнения формы 
@@ -118,7 +89,6 @@ namespace GUI
             
             // Визуализация (то что видит пользователь и с чем взаимодействует)
             Buck.Enabled = false; // Кнопка Назад изначально неактивна
-
 
             logger.Info("Программа успешно запущена.");          // вывод сообщения в лог файле
 
@@ -167,6 +137,8 @@ namespace GUI
 //------------------------------------------------------------------------------------------------
         void FillForm () // функция переноса значений в форму из Metods
         {
+            AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+            QuestionImage.Image = null; // очистка от картинки в вопросе
             try
             {
                 Question question = questions[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
@@ -243,8 +215,6 @@ namespace GUI
             else 
             {
                 Buck.Enabled = true; // Кнопка Назад становится активна
-                //AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
-                //QuestionImage.Image = null; // очистка от картинки в вопросе
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
             }
         }
@@ -254,16 +224,13 @@ namespace GUI
 
             VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
 
-            //AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
-            //QuestionImage.Image = null; // очистка от картинки в вопросе
-
             FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
         }
 
 //------------------------Функция проверки видимости кнопок дадее и назад с сохранением ответа пользователя-----------------------------
         public void VisibilityButton() 
         {
-           // SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
+            ChecAnswers();
 
             if (QuestionNumberList + 1 == 1)
             {
@@ -277,8 +244,6 @@ namespace GUI
             }
             else { Next.Text = "Далее"; }
 
-            AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
-            QuestionImage.Image = null; // очистка от картинки в вопросе
         }
 
 //-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
@@ -302,7 +267,7 @@ namespace GUI
         {
             RadioButton answerBox = new RadioButton();
             answerBox.Text = answer.Text;
- //           answerBox.Checked += ClikCheck;
+            answerBox.Tag = answer.Number;
             // Визуализация
             AnswerField.FlowDirection = FlowDirection.TopDown;
             answerBox.Width = 400;
@@ -314,7 +279,7 @@ namespace GUI
             // вывод элементов
             CheckBox answerBox = new CheckBox();
             answerBox.Text = answer.Text;
- //           answerBox.Checked += ClikCheck;
+ //        
             // Визуализация
             AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
             answerBox.Width = 700;
