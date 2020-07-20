@@ -20,7 +20,7 @@ namespace BusnessLogic.Tests
         {
             bool expected = true; // переменная для сравнения с тем имеется ли что-то в файле
             Metods metods = new Metods();
-            string file = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1\Vopros.txt";
+            string file = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test\Test_3_in_1\Vopros.txt";
             List <string> Text = metods.GetQuestions(file);
             bool actual = Text.Count > 0 ? true : false; // actual - это проверка есть ли в файле что-то
             Assert.AreEqual(expected, actual); // сравниваем expected и actual
@@ -31,7 +31,7 @@ namespace BusnessLogic.Tests
         {
             bool expected = true; 
             Metods metods = new Metods();
-            string file = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test_3_in_1\Vopros.txt";
+            string file = @"C:\Users\Brave\Documents\Visual Studio 2019\projects\C#\Practika_Test\Test\Test_3_in_1\Vopros.txt";
             List <Question> Text = metods.SetTest(file);
             bool actual = Text.Count > 0 ? true : false; 
             Assert.AreEqual(expected, actual); 

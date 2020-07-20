@@ -110,7 +110,6 @@ namespace BusnessLogic
                                         answer.Image = auesTaxt[1]; // записываем ссылку на картинку в параметры ответа
                                         answer.Text = auesTaxt[0];  // записываем текст ответа в параметры ответа
                                     }
-                            
                         }
                         if (str[i].EndsWith("*")) // если ответ верный
                         {
@@ -124,9 +123,9 @@ namespace BusnessLogic
 
                         // заполняем параметр Answers в классе вопрос (Qustion) значениями параметров из класса ответ (Answer):
                         qustion.Answers.Add(answer);
-                        
                          i++;
                          n--;
+                    
                      }
                 quiz.Add(qustion);
             }

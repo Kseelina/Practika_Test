@@ -21,5 +21,8 @@ namespace Models
         public string Text { get; set; }// Текст вопроса
         public List<Answer> Answers { get; set; } // Варианты ответа (класс Answer)
         // Объявляем тип список <вариантов ответов>
+        public string AnswersUser { get; set; } // Варианты ответа пользователя
+        // Объявляем тип список <вариантов ответов>
+
     }
 }

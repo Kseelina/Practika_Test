@@ -69,26 +69,44 @@ namespace GUI
         /// Положение отвеченного ответа как true
         /// </summary>
         /// <returns></returns>
-       public List<Question>  SaveAnswersUser (Question question)
-        {
-            Question answerUser = new Question();
-            answerUser.Number = question.Number; // Номер вопроса (Номер в списке файла)
+        /// 
+        void ChecAnswers()
+        { /* Панель ответов обращается к дочерним элементам. он берёт все эти элементы и 
+            преобразовать в тип коннтрол, потому что все они являются дочерними элементами типа контрол*/
+            
+            questions[QuestionNumberList].AnswersUser = 
+                AnswerField.Controls.OfType<RadioButton>().
+                Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x,y)=>x+"#"+y);
 
-            //foreach (Answer answer1 in question.Answers)
-            //{
-
-            //    if ()
-            //    {
-            //        answer1.IsRight = true;
-            //    }
-            //    else
-            //    {
-            //        answer1.IsRight = false;
-            //    }
-            //}
-            AnswersUser.Add(answerUser);
-            return AnswersUser;
         }
+
+
+       //public List<Question>  SaveAnswersUser (object sender, EventArgs eventArgs, Question question)
+       // {
+       //     Question answerUser = new Question();
+       //     answerUser.Number = question.Number; // Номер вопроса (Номер в списке файла)
+
+       //     foreach (Answer answer1 in question.Answers)
+       //     {
+       //         if ((sender is RadioButton answerBox)|| (sender is TextBox answerBox1))
+       //         {
+       //             answer1.IsRight = true;
+       //         }
+       //         else
+       //         {
+       //             answer1.IsRight = false;
+       //         }
+
+
+       //     }
+       //     AnswersUser.Add(answerUser);
+       //     return AnswersUser;
+       // }
+
+       // public void ClikCheck (object sender, EventArgs eventArgs)
+       // {
+
+       // }
 
 
         /// <summary>
@@ -189,6 +207,7 @@ namespace GUI
                     else if (answer.Text == null && answer.Image != null)
                     {
                         PostingPictureForm(answer);
+
                     }
                                        
                 }
@@ -211,9 +230,6 @@ namespace GUI
 //---------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
-            
-            SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
-
             QuestionNumberList++; // увеличение текущего номера вопроса
             VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
 
@@ -227,27 +243,28 @@ namespace GUI
             else 
             {
                 Buck.Enabled = true; // Кнопка Назад становится активна
-                AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
-                QuestionImage.Image = null; // очистка от картинки в вопросе
+                //AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+                //QuestionImage.Image = null; // очистка от картинки в вопросе
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
             }
         }
         public void Buck_Click(object sender, EventArgs e) // кнопка назад
         {
-            SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
             QuestionNumberList--;
 
             VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
 
-            AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
-            QuestionImage.Image = null; // очистка от картинки в вопросе
+            //AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+            //QuestionImage.Image = null; // очистка от картинки в вопросе
 
             FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
         }
 
-//--------------------------Функция проверки видимости кнопок дадее и назад-----------------------------
+//------------------------Функция проверки видимости кнопок дадее и назад с сохранением ответа пользователя-----------------------------
         public void VisibilityButton() 
         {
+           // SaveAnswersUser(questions[QuestionNumberList]); // запоминаем ответ пользователя
+
             if (QuestionNumberList + 1 == 1)
             {
                 Buck.Enabled = false;
@@ -259,6 +276,9 @@ namespace GUI
                 Next.Text = "Завершить";
             }
             else { Next.Text = "Далее"; }
+
+            AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+            QuestionImage.Image = null; // очистка от картинки в вопросе
         }
 
 //-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
@@ -266,22 +286,27 @@ namespace GUI
         {
             PictureBox answerBox = new PictureBox();
             answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
-            AnswerField.Controls.Add(answerBox);
+
+            answerBox.Tag = answer.Number;
             // Визуализация
-            
+
             answerBox.SizeMode = PictureBoxSizeMode.Zoom;
+            answerBox.Width = 140;
+            answerBox.Height = 140;
+            answerBox.Dock = DockStyle.Bottom;
             AnswerField.FlowDirection = FlowDirection.LeftToRight;
-            
+            AnswerField.Controls.Add(answerBox);
         }
 
         public void PostingOneAnswerForm(Answer answer) // Вывод радиобатонов
         {
             RadioButton answerBox = new RadioButton();
             answerBox.Text = answer.Text;
-            AnswerField.Controls.Add(answerBox);
+ //           answerBox.Checked += ClikCheck;
             // Визуализация
             AnswerField.FlowDirection = FlowDirection.TopDown;
             answerBox.Width = 400;
+            AnswerField.Controls.Add(answerBox);
         }
 
         public void PostingFewAnswersForm(Answer answer) //Вывод чекбоксов
@@ -289,25 +314,23 @@ namespace GUI
             // вывод элементов
             CheckBox answerBox = new CheckBox();
             answerBox.Text = answer.Text;
-            AnswerField.Controls.Add(answerBox);
+ //           answerBox.Checked += ClikCheck;
             // Визуализация
             AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
             answerBox.Width = 700;
+            AnswerField.Controls.Add(answerBox);
         }
         
 
 //---------------------------Переход по номерам вопросов в панеле навигации---------------------------------
         public void LinkLabelOnClik(object sender, EventArgs eventArgs)
         {
-            //var label = (LinkLabel)sender;
-            if (sender is LinkLabel label)
+            if (sender is LinkLabel label) // При нажатии на ссылку с номером вопроса в панели навигации
             {
                 QuestionNumberList = int.Parse(label.Text)-1;
                 AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
                 QuestionImage.Image = null; // очистка от картинки в вопросе
-                
                 VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
-
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
             }
         }

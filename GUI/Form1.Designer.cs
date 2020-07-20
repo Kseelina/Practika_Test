@@ -61,9 +61,9 @@
             // 
             this.QuestionImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.QuestionImage.Location = new System.Drawing.Point(130, 62);
+            this.QuestionImage.Location = new System.Drawing.Point(127, 62);
             this.QuestionImage.Name = "QuestionImage";
-            this.QuestionImage.Size = new System.Drawing.Size(411, 188);
+            this.QuestionImage.Size = new System.Drawing.Size(455, 216);
             this.QuestionImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.QuestionImage.TabIndex = 1;
             this.QuestionImage.TabStop = false;
@@ -85,23 +85,26 @@
             // 
             // AnswerField
             // 
+            this.AnswerField.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AnswerField.AutoSize = true;
-            this.AnswerField.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.AnswerField.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.AnswerField.Location = new System.Drawing.Point(0, 284);
             this.AnswerField.MinimumSize = new System.Drawing.Size(520, 150);
             this.AnswerField.Name = "AnswerField";
-            this.AnswerField.Size = new System.Drawing.Size(610, 150);
+            this.AnswerField.Size = new System.Drawing.Size(780, 150);
             this.AnswerField.TabIndex = 14;
             // 
             // Navigation
             // 
+            this.Navigation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Navigation.Controls.Add(this.NavigatingNum);
             this.Navigation.Controls.Add(this.Next);
             this.Navigation.Controls.Add(this.Buck);
-            this.Navigation.Dock = System.Windows.Forms.DockStyle.Right;
             this.Navigation.Location = new System.Drawing.Point(610, 0);
             this.Navigation.Name = "Navigation";
-            this.Navigation.Size = new System.Drawing.Size(173, 434);
+            this.Navigation.Size = new System.Drawing.Size(173, 209);
             this.Navigation.TabIndex = 13;
             // 
             // NavigatingNum
