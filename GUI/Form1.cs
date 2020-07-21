@@ -229,9 +229,11 @@ namespace GUI
             {
                 Result result = new Result();
                 result.Questions = questions;
-               // this.Hide();
                 result.ShowDialog();
-                this.Show();
+                result.Show();
+                
+                result.Hide();
+                
             }
             else
             {
@@ -371,17 +373,17 @@ namespace GUI
         public void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
         {
 
-                if (MessageBox.Show("Тест не пройден. Вы действительно хотите закрыть программу?", "Завершение программы",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    logger.Info("Программа успешно закрыта.");
-                    e.Cancel = false;
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
+                //if (MessageBox.Show("Тест не пройден. Вы действительно хотите закрыть программу?", "Завершение программы",
+                //MessageBoxButtons.YesNo,
+                //MessageBoxIcon.Warning) == DialogResult.Yes)
+                //{
+                //    logger.Info("Программа успешно закрыта.");
+                //    e.Cancel = false;
+                //}
+                //else
+                //{
+                //    e.Cancel = true;
+                //}
         }
     }
 }

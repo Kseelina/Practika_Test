@@ -24,12 +24,14 @@ namespace GUI
     /// </summary>
     public partial class Result : Form
     {
-        
-        Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
-        //List<Question> Questions = new List<Question>();
         public List<Question> Questions { get; set; } 
-        private string questFolder = ConfigurationManager.AppSettings["questFolder"];
+        Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
+                                                            //List<Question> Questions = new List<Question>();
 
+        bool ButtonRestart = false;
+
+
+        private string questFolder = ConfigurationManager.AppSettings["questFolder"];
 
         public Result()
         {
@@ -40,47 +42,56 @@ namespace GUI
         void FillFormResults()
         {
 
-            foreach(Question question in Questions)
-            {
-                Label TextQuestion = new Label(); // создаём для вывода вопроса
-                TextQuestion.Text = question.Text; // записываем сам вопрос
-                FindingResults.Controls.Add(TextQuestion);
-                if (question.Image != null) // проверка на наличие картинки в вопросе
-                {
-                    PictureBox pictureBox = new PictureBox(); // создаём картинку
-                    pictureBox.ImageLocation = Path.Combine(questFolder, question.Image); // путь до картинки
-                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // масштабируем с сохранением пропорций
-                    FindingResults.Controls.Add(pictureBox);
-                }
+            //foreach(Question question in Questions)
+            //{
+            //    Label TextQuestion = new Label(); // создаём для вывода вопроса
+            //    TextQuestion.Text = question.Text; // записываем сам вопрос
+            //    FindingResults.Controls.Add(TextQuestion);
+            //    if (question.Image != null) // проверка на наличие картинки в вопросе
+            //    {
+            //        PictureBox pictureBox = new PictureBox(); // создаём картинку
+            //        pictureBox.ImageLocation = Path.Combine(questFolder, question.Image); // путь до картинки
+            //        pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // масштабируем с сохранением пропорций
+            //        FindingResults.Controls.Add(pictureBox);
+            //    }
 
 
-            }
+            //}
 
             
 
         }
 
+
+
         public void Result_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-            if (MessageBox.Show("Вы действительно хотите выйти из программы?", "Завершение программы",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                logger.Info("Программа успешно закрыта.");
-                e.Cancel = false;
+            if (ButtonRestart==false)
+            {           
+                if (MessageBox.Show("Вы действительно хотите выйти из программы?", "Завершение программы",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    logger.Info("Программа успешно закрыта.");
+                    e.Cancel = false;
+                    ButtonRestart = true;
+                    Application.Exit();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
 
-                Application.Exit();
             }
-            else
-            {
-                e.Cancel = true;
-            }
+
+
         }
 
         public void button1_Click(object sender, EventArgs e)
         {
-            
+            ButtonRestart = true;
+            DialogResult = DialogResult.Retry;
+            this.Close();
         }
     }
 }
