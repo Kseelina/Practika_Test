@@ -29,12 +29,11 @@ namespace GUI
         const int NumQuestInTest = 15; // В тесте всегда 15 вопросов
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         List<Question> questions = new List<Question>(); // создаём пустой лист под будущие вопросы
-        List<Question> AnswersUser = new List<Question>(); // создаём пустой лист для записи ответов пользователя
 
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
 
-//----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
-       
+        //----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
+
         List<Question> RandomQuestions()
         {
             List<Question> NewListQuestions = new List<Question>(); //Создаём новый лист под рандомизированные вопросы
@@ -43,12 +42,12 @@ namespace GUI
             int i = 0;
             bool add = true;
             int[] mass = new int[NumQuestInTest]; // объявление массива
-            while(i< NumQuestInTest)
+            while (i < NumQuestInTest)
             {
                 add = true;
                 mass[i] = random.Next(0, questions.Count());
-                
-                for (int j=0; j<i; j++)
+
+                for (int j = 0; j < i; j++)
                 {
                     if (mass[i] == mass[j])
                     {
@@ -61,8 +60,8 @@ namespace GUI
             }
             return NewListQuestions;
         }
-//----------------------------------Функия сохраения ответов пользователя----------------------------------------------------------------------------
-        
+        //----------------------------------Функия сохраения ответов пользователя----------------------------------------------------------------------------
+
         /// <summary>
         /// Запоминаем в ответах:
         /// Номер вопроса (ID вопроса по номеру)
@@ -73,10 +72,10 @@ namespace GUI
         void ChecAnswers()
         { /* Панель ответов обращается к дочерним элементам. он берёт все эти элементы и 
             преобразовать в тип коннтрол, потому что все они являются дочерними элементами типа контрол*/
-            
-            //questions[QuestionNumberList].AnswersUser = 
+
+            //questions[QuestionNumberList].AnswersUser =
             //    AnswerField.Controls.OfType<RadioButton>().
-            //    Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x,y)=>x+"#"+y);
+            //    Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
 
         }
 
@@ -86,7 +85,7 @@ namespace GUI
         public Form1()
         {
             InitializeComponent();
-            
+
             // Визуализация (то что видит пользователь и с чем взаимодействует)
             Buck.Enabled = false; // Кнопка Назад изначально неактивна
 
@@ -113,7 +112,7 @@ namespace GUI
                     label.Name = "label" + i;
                     label.Text = i++.ToString(); // запись текста от 1 до 15(максимум в тесте 15 вопросов)
                     // привязка к событию нажатия на ссылку (для перехода к вопросу данного номера):
-                    label.Click += LinkLabelOnClik; 
+                    label.Click += LinkLabelOnClik;
                     label.Width = 35;
                     label.Height = 35;
                     label.Font = new Font("Times New Roman", 14);
@@ -134,8 +133,8 @@ namespace GUI
                                            Metods  из функции GetQuestions (throw new Exception($"Ошибка! Файл по пути {file} не найден!");)*/
             }
         }
-//------------------------------------------------------------------------------------------------
-        void FillForm () // функция переноса значений в форму из Metods
+        //------------------------------------------------------------------------------------------------
+        void FillForm() // функция переноса значений в форму из Metods
         {
             AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
             QuestionImage.Image = null; // очистка от картинки в вопросе
@@ -143,10 +142,10 @@ namespace GUI
             {
                 Question question = questions[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
                 // LINQ конструкция: для определения количество верных вариантов ответов:
-                int N = question.Answers.Count (x=>x.IsRight == true )  ; 
-                TextQuestion.Text = "Вопрос " + (QuestionNumberList+1) + ". " + question.Text; // текст вопроса
-                if (question.Image!=null) {  QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image);}
-                
+                int N = question.Answers.Count(x => x.IsRight == true);
+                TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + ". " + question.Text; // текст вопроса
+                if (question.Image != null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image); }
+
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
@@ -158,7 +157,7 @@ namespace GUI
                     if (answer.Text != null && answer.Image != null)
                     {
                         /*?*/
-                        AnswerField.FlowDirection = FlowDirection.LeftToRight;
+                        //AnswerField.FlowDirection = FlowDirection.LeftToRight;
                         PostingOneAnswerForm(answer);
                         PostingPictureForm(answer);
                     }
@@ -181,17 +180,8 @@ namespace GUI
                         PostingPictureForm(answer);
 
                     }
-                                       
+
                 }
-                
-
-
-                    // Проверка на наличие картинки?
-                    //if (QuestionImage) /?
-                    //{ ?
-                    //     logger.Error($"Ошибка! Картинка {question.Image} не найдена по указанному пути {ConfigurationManager.AppSettings["questFolder"]}."); 
-                    //}/?
-      
             }
             catch (Exception) // Указание ошибки, о неспособности передать в форму значений
             {
@@ -199,7 +189,7 @@ namespace GUI
 
             }
         }
-//---------------------------------Кноки Далее, Назад---------------------------------------------------------------
+        //---------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
             QuestionNumberList++; // увеличение текущего номера вопроса
@@ -212,7 +202,7 @@ namespace GUI
                 result.ShowDialog();
                 this.Show();
             }
-            else 
+            else
             {
                 Buck.Enabled = true; // Кнопка Назад становится активна
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос 
@@ -227,8 +217,8 @@ namespace GUI
             FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
         }
 
-//------------------------Функция проверки видимости кнопок дадее и назад с сохранением ответа пользователя-----------------------------
-        public void VisibilityButton() 
+        //------------------------Функция проверки видимости кнопок дадее и назад с сохранением ответа пользователя-----------------------------
+        public void VisibilityButton()
         {
             ChecAnswers();
 
@@ -246,19 +236,26 @@ namespace GUI
 
         }
 
-//-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
-       public void PostingPictureForm(Answer answer)// Вывод картинки
+        //-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
+        public void PostingPictureForm(Answer answer)// Вывод картинки
         {
+            RadioButton radioButton = new RadioButton();
             PictureBox answerBox = new PictureBox();
-            answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
 
-            answerBox.Tag = answer.Number;
             // Визуализация
+            if (answer.Text==null)
+            {
+                radioButton.Width = 13;
+                radioButton.Height = 13;
+                radioButton.Tag = answer.Number;
+                AnswerField.Controls.Add(radioButton);
 
+            }
+            answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
             answerBox.SizeMode = PictureBoxSizeMode.Zoom;
-            answerBox.Width = 140;
-            answerBox.Height = 140;
-            answerBox.Dock = DockStyle.Bottom;
+            answerBox.MinimumSize = new Size(160, 160);
+            answerBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
             AnswerField.FlowDirection = FlowDirection.LeftToRight;
             AnswerField.Controls.Add(answerBox);
         }
@@ -268,9 +265,18 @@ namespace GUI
             RadioButton answerBox = new RadioButton();
             answerBox.Text = answer.Text;
             answerBox.Tag = answer.Number;
+
             // Визуализация
+            answerBox.Font = new Font("Times New Roman", 14);
+
+            
+            answerBox.AutoSize = true;
+            answerBox.MinimumSize = new Size(13,13) ;
+            answerBox.MaximumSize = new Size(700, 39);
+
+
+
             AnswerField.FlowDirection = FlowDirection.TopDown;
-            answerBox.Width = 400;
             AnswerField.Controls.Add(answerBox);
         }
 
@@ -279,15 +285,19 @@ namespace GUI
             // вывод элементов
             CheckBox answerBox = new CheckBox();
             answerBox.Text = answer.Text;
- //        
+            //        
             // Визуализация
+            answerBox.Font = new Font("Times New Roman", 14);
+            answerBox.AutoSize = true;
+            answerBox.MinimumSize = new Size(13, 13);
+            answerBox.MaximumSize = new Size(700, 39);
+
             AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
-            answerBox.Width = 700;
             AnswerField.Controls.Add(answerBox);
         }
-        
+       
 
-//---------------------------Переход по номерам вопросов в панеле навигации---------------------------------
+        //---------------------------Переход по номерам вопросов в панеле навигации---------------------------------
         public void LinkLabelOnClik(object sender, EventArgs eventArgs)
         {
             if (sender is LinkLabel label) // При нажатии на ссылку с номером вопроса в панели навигации
@@ -301,23 +311,23 @@ namespace GUI
         }
 
 
-
-
-
         //---------------------------------Закрытие теста---------------------------------------------------
         public void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
         {
-            if (MessageBox.Show("Тест не пройден. Вы действительно хотите закрыть программу?", "Завершение программы",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                logger.Info("Программа успешно закрыта.");
-                e.Cancel = false;
-            }
-            else
-            {
-                e.Cancel = true;
-            }
+            
+                if (MessageBox.Show("Тест не пройден. Вы действительно хотите закрыть программу?", "Завершение программы",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    logger.Info("Программа успешно закрыта.");
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            
+            
         }
     }
 }

@@ -53,7 +53,7 @@
             this.TextQuestion.Location = new System.Drawing.Point(0, 0);
             this.TextQuestion.MinimumSize = new System.Drawing.Size(520, 0);
             this.TextQuestion.Name = "TextQuestion";
-            this.TextQuestion.Size = new System.Drawing.Size(610, 84);
+            this.TextQuestion.Size = new System.Drawing.Size(609, 84);
             this.TextQuestion.TabIndex = 0;
             this.TextQuestion.Text = "Вопрос";
             // 
@@ -63,7 +63,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionImage.Location = new System.Drawing.Point(127, 62);
             this.QuestionImage.Name = "QuestionImage";
-            this.QuestionImage.Size = new System.Drawing.Size(455, 216);
+            this.QuestionImage.Size = new System.Drawing.Size(454, 216);
             this.QuestionImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.QuestionImage.TabIndex = 1;
             this.QuestionImage.TabStop = false;
@@ -80,7 +80,7 @@
             this.QuestionField.Location = new System.Drawing.Point(0, 0);
             this.QuestionField.MinimumSize = new System.Drawing.Size(690, 25);
             this.QuestionField.Name = "QuestionField";
-            this.QuestionField.Size = new System.Drawing.Size(783, 434);
+            this.QuestionField.Size = new System.Drawing.Size(782, 434);
             this.QuestionField.TabIndex = 14;
             // 
             // AnswerField
@@ -90,11 +90,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AnswerField.AutoSize = true;
             this.AnswerField.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.AnswerField.Location = new System.Drawing.Point(0, 284);
-            this.AnswerField.MinimumSize = new System.Drawing.Size(520, 150);
+            this.AnswerField.Location = new System.Drawing.Point(5, 284);
             this.AnswerField.Name = "AnswerField";
-            this.AnswerField.Size = new System.Drawing.Size(780, 150);
+            this.AnswerField.Size = new System.Drawing.Size(773, 149);
             this.AnswerField.TabIndex = 14;
+            this.AnswerField.WrapContents = false;
             // 
             // Navigation
             // 
@@ -102,7 +102,7 @@
             this.Navigation.Controls.Add(this.NavigatingNum);
             this.Navigation.Controls.Add(this.Next);
             this.Navigation.Controls.Add(this.Buck);
-            this.Navigation.Location = new System.Drawing.Point(610, 0);
+            this.Navigation.Location = new System.Drawing.Point(609, 0);
             this.Navigation.Name = "Navigation";
             this.Navigation.Size = new System.Drawing.Size(173, 209);
             this.Navigation.TabIndex = 13;
@@ -143,14 +143,16 @@
             this.panel4.Controls.Add(this.QuestionField);
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(783, 434);
+            this.panel4.Size = new System.Drawing.Size(782, 434);
             this.panel4.TabIndex = 15;
             // 
             // Form1
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(785, 436);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(784, 436);
             this.Controls.Add(this.panel4);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 475);
@@ -176,8 +178,8 @@
         private System.Windows.Forms.Panel Navigation;
         private System.Windows.Forms.Button Buck;
         private System.Windows.Forms.Button Next;
-        private System.Windows.Forms.FlowLayoutPanel AnswerField;
         private System.Windows.Forms.FlowLayoutPanel NavigatingNum;
+        public System.Windows.Forms.FlowLayoutPanel AnswerField;
     }
 }
 
