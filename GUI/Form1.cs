@@ -35,7 +35,7 @@ namespace GUI
 
         //----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
 
-        List<Question> RandomQuestions()
+         List<Question> RandomQuestions()
         {
             List<Question> NewListQuestions = new List<Question>(); //Создаём новый лист под рандомизированные вопросы
             Question question = new Question();
@@ -73,16 +73,18 @@ namespace GUI
         void ChecAnswers()
         { /* Панель ответов обращается к дочерним элементам. он берёт все эти элементы и 
             преобразовать в тип коннтрол, потому что все они являются дочерними элементами типа контрол*/
+            
+                List<RadioButton> UsersCheck = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).ToList();
+                if (UsersCheck.Any())
+                {
+                    questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
+                }
 
-            List<RadioButton> UsersCheck = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).ToList();
-            if (UsersCheck.Any())
+            List<CheckBox> Check = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).ToList();
+            if (Check.Any())
             {
-                questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
+                questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
             }
-            //questions[QuestionNumberList].AnswersUser =
-            //AnswerField.Controls.OfType<RadioButton>().
-            //Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
-
 
         }
 
@@ -167,11 +169,10 @@ namespace GUI
                 foreach (Answer answer in question.Answers)
                 {
                     RadioButton answerBox = new RadioButton();
-
+                    CheckBox checkBox = new CheckBox();
                     if (!string.IsNullOrWhiteSpace(question.AnswersUser)) // запоминание ответов на предыдущие
                     {
                         answerBox.Checked = question.AnswersUser.Contains(answer.Number.ToString());
-
                     }
                     // Если в ответе и текст и картинка
                     if (answer.Text != null && answer.Image != null)
@@ -185,7 +186,7 @@ namespace GUI
                     {
                         if (N > 1) // чекбоксы (выбор нескольких вариантов ответа)
                         {
-                            PostingFewAnswersForm(answer);
+                            PostingFewAnswersForm(answer, checkBox);
                         }
                         else // радиобатоны (выбор одного варианта ответа)
                         {
@@ -195,9 +196,19 @@ namespace GUI
                     //Если в ответах только картинка
                     else if (answer.Text == null && answer.Image != null)
                     {
-                        PostingPictureForm(answer, answerBox);
-
+                        if (N > 1) // чекбоксы (выбор нескольких вариантов ответа)
+                        {
+                            PostingPictureForm(answer, checkBox);
+                        }
+                        else // радиобатоны (выбор одного варианта ответа)
+                        {
+                            PostingPictureForm(answer, answerBox);
+                        }
                     }
+
+
+
+
                 }
             }
             catch (Exception) // Указание ошибки, о неспособности передать в форму значений
@@ -208,17 +219,17 @@ namespace GUI
         }
         //---------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
-        { 
+        {
 
-            
-
+            ChecAnswers();
             QuestionNumberList++; // увеличение текущего номера вопроса
-            VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
+           VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
 
             if (QuestionNumberList == NumQuestInTest) // завершить тест и открыть форму результатов
             {
                 Result result = new Result();
-                this.Hide();
+                result.Questions = questions;
+               // this.Hide();
                 result.ShowDialog();
                 this.Show();
             }
@@ -230,10 +241,8 @@ namespace GUI
         }
         public void Buck_Click(object sender, EventArgs e) // кнопка назад
         {
-            
-
+            ChecAnswers();
             QuestionNumberList--;
-
             VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
 
             FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
@@ -245,8 +254,8 @@ namespace GUI
         //------------------------Функция проверки видимости кнопок дадее и назад с сохранением ответа пользователя-----------------------------
         public void VisibilityButton()
         {
-            ChecAnswers();
-
+           // ChecAnswers();
+          
             if (QuestionNumberList + 1 == 1)
             {
                 Buck.Enabled = false;
@@ -266,18 +275,40 @@ namespace GUI
         }
 
         //-----------------------------Автоматический вывод элементов ответов на вопрос---------------------------------
-        public void PostingPictureForm(Answer answer, RadioButton radioButton)// Вывод картинки
+        public void PostingPictureForm(Answer answer, RadioButton radioButton)// Вывод картинки радиобатонами
         {
-           // RadioButton radioButton = new RadioButton();
+            // RadioButton radioButton = new RadioButton();
             PictureBox answerBox = new PictureBox();
 
             // Визуализация
-            if (answer.Text==null)
+            if (answer.Text == null)
             {
                 radioButton.Width = 13;
                 radioButton.Height = 13;
                 radioButton.Tag = answer.Number;
                 AnswerField.Controls.Add(radioButton);
+            }
+
+            answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
+            answerBox.SizeMode = PictureBoxSizeMode.Zoom;
+            answerBox.MinimumSize = new Size(160, 160);
+            answerBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            AnswerField.FlowDirection = FlowDirection.LeftToRight;
+            AnswerField.Controls.Add(answerBox);
+
+        }
+        public void PostingPictureForm(Answer answer, CheckBox check) // Вывод картинки чекбоксами
+        {
+            PictureBox answerBox = new PictureBox();
+
+            // Визуализация
+            if (answer.Text == null)
+            {
+                check.Width = 13;
+                check.Height = 13;
+                check.Tag = answer.Number;
+                AnswerField.Controls.Add(check);
             }
             answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
             answerBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -286,33 +317,30 @@ namespace GUI
 
             AnswerField.FlowDirection = FlowDirection.LeftToRight;
             AnswerField.Controls.Add(answerBox);
-            
-        }
 
-        public void PostingOneAnswerForm(Answer answer,RadioButton answerBox) // Вывод радиобатонов
+        }
+        public void PostingOneAnswerForm(Answer answer, RadioButton answerBox) // Вывод радиобатонов
         {
-           // RadioButton answerBox = new RadioButton();
+            // RadioButton answerBox = new RadioButton();
             answerBox.Text = answer.Text;
             answerBox.Tag = answer.Number;
             // Визуализация
             answerBox.Font = new Font("Times New Roman", 14);
 
-            
             answerBox.AutoSize = true;
-            answerBox.MinimumSize = new Size(13,13) ;
+            answerBox.MinimumSize = new Size(13, 13);
             answerBox.MaximumSize = new Size(700, 39);
-
-
 
             AnswerField.FlowDirection = FlowDirection.TopDown;
             AnswerField.Controls.Add(answerBox);
         }
 
-        public void PostingFewAnswersForm(Answer answer) //Вывод чекбоксов
+        public void PostingFewAnswersForm(Answer answer, CheckBox answerBox) //Вывод чекбоксов
         {
             // вывод элементов
-            CheckBox answerBox = new CheckBox();
+            //CheckBox answerBox = new CheckBox();
             answerBox.Text = answer.Text;
+            answerBox.Tag = answer.Number;
             //        
             // Визуализация
             answerBox.Font = new Font("Times New Roman", 14);
@@ -323,16 +351,18 @@ namespace GUI
             AnswerField.FlowDirection = FlowDirection.TopDown; // установление по вертикали
             AnswerField.Controls.Add(answerBox);
         }
-       
+
 
         //---------------------------Переход по номерам вопросов в панеле навигации---------------------------------
         public void LinkLabelOnClik(object sender, EventArgs eventArgs)
         {
             if (sender is LinkLabel label) // При нажатии на ссылку с номером вопроса в панели навигации
-            {
+            { 
+                ChecAnswers();
                 QuestionNumberList = int.Parse(label.Text)-1;
                 AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
                 QuestionImage.Image = null; // очистка от картинки в вопросе
+               
                 VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
             }

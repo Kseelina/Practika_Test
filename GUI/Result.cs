@@ -24,18 +24,39 @@ namespace GUI
     /// </summary>
     public partial class Result : Form
     {
-
+        
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
-        public List<Question> questions { get; set; } 
+        //List<Question> Questions = new List<Question>();
+        public List<Question> Questions { get; set; } 
         private string questFolder = ConfigurationManager.AppSettings["questFolder"];
 
 
         public Result()
         {
             InitializeComponent();
+            FillFormResults();
+        }
+//-----------------------------------------Заполнение формы----------------------------------------------
+        void FillFormResults()
+        {
+
+            foreach(Question question in Questions)
+            {
+                Label TextQuestion = new Label(); // создаём для вывода вопроса
+                TextQuestion.Text = question.Text; // записываем сам вопрос
+                FindingResults.Controls.Add(TextQuestion);
+                if (question.Image != null) // проверка на наличие картинки в вопросе
+                {
+                    PictureBox pictureBox = new PictureBox(); // создаём картинку
+                    pictureBox.ImageLocation = Path.Combine(questFolder, question.Image); // путь до картинки
+                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // масштабируем с сохранением пропорций
+                    FindingResults.Controls.Add(pictureBox);
+                }
+
+
+            }
+
             
-
-
 
         }
 
