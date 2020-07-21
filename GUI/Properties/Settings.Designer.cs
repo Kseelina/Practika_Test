@@ -18,6 +18,7 @@ namespace GUI.Properties
     {
 
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        internal bool check;
 
         public static Settings Default
         {
