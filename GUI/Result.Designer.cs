@@ -77,6 +77,7 @@
             this.FindingResults.Name = "FindingResults";
             this.FindingResults.Size = new System.Drawing.Size(674, 354);
             this.FindingResults.TabIndex = 2;
+            this.FindingResults.WrapContents = false;
             // 
             // Result
             // 
@@ -85,7 +86,7 @@
             this.ClientSize = new System.Drawing.Size(674, 461);
             this.Controls.Add(this.FindingResults);
             this.Controls.Add(this.Info);
-            this.MaximumSize = new System.Drawing.Size(690, 500);
+            this.MinimumSize = new System.Drawing.Size(690, 500);
             this.Name = "Result";
             this.Text = "Окно результата";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Result_FormClosing);
