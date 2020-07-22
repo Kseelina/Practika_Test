@@ -88,13 +88,13 @@
             this.AnswerField.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.AnswerField.AutoScroll = true;
             this.AnswerField.AutoSize = true;
             this.AnswerField.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.AnswerField.Location = new System.Drawing.Point(5, 284);
             this.AnswerField.Name = "AnswerField";
             this.AnswerField.Size = new System.Drawing.Size(773, 149);
             this.AnswerField.TabIndex = 14;
-            this.AnswerField.WrapContents = false;
             // 
             // Navigation
             // 

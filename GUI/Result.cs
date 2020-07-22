@@ -24,7 +24,8 @@ namespace GUI
     /// </summary>
     public partial class Result : Form
     {
-        public List<Question> Questions { get; set; } 
+        private List<Question> _questions;
+        
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
                                                             //List<Question> Questions = new List<Question>();
 
@@ -33,32 +34,38 @@ namespace GUI
 
         private string questFolder = ConfigurationManager.AppSettings["questFolder"];
 
-        public Result()
+        public Result(List<Question> questions)
         {
             InitializeComponent();
+            _questions = questions;
             FillFormResults();
         }
 //-----------------------------------------Заполнение формы----------------------------------------------
         void FillFormResults()
         {
+            foreach (Question question in _questions)
+            {
 
-            //foreach(Question question in Questions)
-            //{
-            //    Label TextQuestion = new Label(); // создаём для вывода вопроса
-            //    TextQuestion.Text = question.Text; // записываем сам вопрос
-            //    FindingResults.Controls.Add(TextQuestion);
-            //    if (question.Image != null) // проверка на наличие картинки в вопросе
-            //    {
-            //        PictureBox pictureBox = new PictureBox(); // создаём картинку
-            //        pictureBox.ImageLocation = Path.Combine(questFolder, question.Image); // путь до картинки
-            //        pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // масштабируем с сохранением пропорций
-            //        FindingResults.Controls.Add(pictureBox);
-            //    }
+                Label TextQuestion = new Label(); // создаём для вывода вопроса
+                TextQuestion.Text = "Вопрос "+ i + question.Text; // записываем сам вопрос
+                TextQuestion.Font = new Font("Times New Roman", 14);
+                TextQuestion.Width = 680;
 
 
-            //}
+                FindingResults.Controls.Add(TextQuestion);
+                if (question.Image != null) // проверка на наличие картинки в вопросе
+                {
+                    PictureBox pictureBox = new PictureBox(); // создаём картинку
+                    pictureBox.ImageLocation = Path.Combine(questFolder, question.Image); // путь до картинки
+                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // сохранением пропорций
+                    pictureBox.MinimumSize = new Size(130, 130);
+                    FindingResults.Controls.Add(pictureBox);
+                }
 
-            
+
+            }
+
+
 
         }
 

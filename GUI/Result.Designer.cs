@@ -37,17 +37,20 @@
             // 
             // Info
             // 
+            this.Info.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Info.Controls.Add(this.Restart);
             this.Info.Controls.Add(this.CorrectAnswers);
-            this.Info.Location = new System.Drawing.Point(8, 7);
+            this.Info.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Info.Location = new System.Drawing.Point(0, 0);
             this.Info.Name = "Info";
-            this.Info.Size = new System.Drawing.Size(720, 107);
+            this.Info.Size = new System.Drawing.Size(674, 107);
             this.Info.TabIndex = 1;
             // 
             // Restart
             // 
+            this.Restart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Restart.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Restart.Location = new System.Drawing.Point(428, 33);
+            this.Restart.Location = new System.Drawing.Point(368, 33);
             this.Restart.Name = "Restart";
             this.Restart.Size = new System.Drawing.Size(289, 33);
             this.Restart.TabIndex = 1;
@@ -68,19 +71,21 @@
             // FindingResults
             // 
             this.FindingResults.AutoScroll = true;
+            this.FindingResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FindingResults.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.FindingResults.Location = new System.Drawing.Point(8, 120);
+            this.FindingResults.Location = new System.Drawing.Point(0, 107);
             this.FindingResults.Name = "FindingResults";
-            this.FindingResults.Size = new System.Drawing.Size(719, 338);
+            this.FindingResults.Size = new System.Drawing.Size(674, 354);
             this.FindingResults.TabIndex = 2;
             // 
             // Result
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 461);
+            this.ClientSize = new System.Drawing.Size(674, 461);
             this.Controls.Add(this.FindingResults);
             this.Controls.Add(this.Info);
+            this.MaximumSize = new System.Drawing.Size(690, 500);
             this.Name = "Result";
             this.Text = "Окно результата";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Result_FormClosing);

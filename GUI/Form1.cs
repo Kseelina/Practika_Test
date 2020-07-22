@@ -173,6 +173,7 @@ namespace GUI
                     if (!string.IsNullOrWhiteSpace(question.AnswersUser)) // запоминание ответов на предыдущие
                     {
                         answerBox.Checked = question.AnswersUser.Contains(answer.Number.ToString());
+                        checkBox.Checked = question.AnswersUser.Contains(answer.Number.ToString());
                     }
                     // Если в ответе и текст и картинка
                     if (answer.Text != null && answer.Image != null)
@@ -227,11 +228,9 @@ namespace GUI
 
             if (QuestionNumberList == NumQuestInTest) // завершить тест и открыть форму результатов
             {
-                Result result = new Result();
-                result.Questions = questions;
+                Result result = new Result(questions);
                 result.ShowDialog();
                 result.Show();
-                
                 result.Hide();
                 
             }
@@ -294,8 +293,10 @@ namespace GUI
             answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
             answerBox.SizeMode = PictureBoxSizeMode.Zoom;
             answerBox.MinimumSize = new Size(160, 160);
-            answerBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
+            answerBox.MaximumSize = new Size(330, 330);
+            answerBox.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left;
+            
+            
             AnswerField.FlowDirection = FlowDirection.LeftToRight;
             AnswerField.Controls.Add(answerBox);
 
@@ -315,7 +316,8 @@ namespace GUI
             answerBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
             answerBox.SizeMode = PictureBoxSizeMode.Zoom;
             answerBox.MinimumSize = new Size(160, 160);
-            answerBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            answerBox.MaximumSize = new Size(330, 330);
+            answerBox.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left;
 
             AnswerField.FlowDirection = FlowDirection.LeftToRight;
             AnswerField.Controls.Add(answerBox);
