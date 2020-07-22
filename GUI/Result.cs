@@ -155,7 +155,6 @@ namespace GUI
                     }
 
                 }
-                FindingResults.Margin = new Padding(20);
                 QuestionNumberList++;
             } 
         }
@@ -185,6 +184,7 @@ namespace GUI
 
         public void button1_Click(object sender, EventArgs e)
         {
+
             ButtonRestart = true;
             DialogResult = DialogResult.Retry;
             this.Close();

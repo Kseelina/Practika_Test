@@ -30,13 +30,19 @@ namespace GUI
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         List<Question> questions = new List<Question>(); // создаём пустой лист под будущие вопросы
         bool nav = true;
-
+        bool Restart = false;
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
 
-        //----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
+//----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
 
          List<Question> RandomQuestions()
         {
+            // При рестарте теста подлежат перезаписи:
+            nav = true;
+            QuestionNumberList = 0;
+            NavigatingNum.Controls.Clear();
+
+            //Сам механизм рандома
             List<Question> NewListQuestions = new List<Question>(); //Создаём новый лист под рандомизированные вопросы
             Question question = new Question();
             Random random = new Random(); // создание объекта рандом
@@ -61,7 +67,7 @@ namespace GUI
             }
             return NewListQuestions;
         }
-        //----------------------------------Функия сохраения ответов пользователя----------------------------------------------------------------------------
+//----------------------------------Функия сохраения ответов пользователя----------------------------------------------------------------------------
 
         /// <summary>
         /// Запоминаем в ответах:
@@ -85,7 +91,6 @@ namespace GUI
             {
                 questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
             }
-
         }
 
         /// <summary>
@@ -116,7 +121,6 @@ namespace GUI
                 FillForm();
                 logger.Info("Форма успешно заполнена.");
             }
-
             catch (Exception e)
             {
                 // Console.WriteLine("Ошибка! Файл по указанному пути не найден!"); // выводит поьзователю
@@ -125,12 +129,17 @@ namespace GUI
                                            Metods  из функции GetQuestions (throw new Exception($"Ошибка! Файл по пути {file} не найден!");)*/
             }
         }
-        //------------------------------------------------------------------------------------------------
-        void FillForm() // функция переноса значений в форму из Metods
+//---------------------------------------функция переноса значений в форму из Metods---------------------------------------------------------
+        void FillForm() 
         {
+            if (Restart)
+            {
+                questions = RandomQuestions();
+                Restart = false;
+            }
+
             AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
             QuestionImage.Image = null; // очистка от картинки в вопросе
-
 
             if (nav)
             {
@@ -166,7 +175,7 @@ namespace GUI
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
                  список вопросов ; другими словами обращается к списку и берёт от туда значения*/
 
-//---------------------------------Автоматический вывод ответов на вопрос------------------------------------------
+                //---------------------------------Автоматический вывод ответов на вопрос------------------------------------------
                 foreach (Answer answer in question.Answers)
                 {
                     Panel panel = new Panel(); // Создаём панель для размещения на ней элементов
@@ -175,9 +184,11 @@ namespace GUI
                     panel.Dock = DockStyle.Left;
 
                     RadioButton radio = new RadioButton(); // для единственного варианта ответа
+                    radio.AutoEllipsis = true;
                     radio.Dock = DockStyle.Top; // позиция вверху
                     radio.Width = 800;
-                    radio.AutoSize = true;
+                    radio.Height = 90;
+                    radio.AutoSize = false;
                     radio.Font = new Font("Times New Roman", 14);
 
                     CheckBox check = new CheckBox(); // для нескольких вариантов ответа
@@ -186,12 +197,10 @@ namespace GUI
                     check.AutoSize = true;
                     check.Font = new Font("Times New Roman", 14);
 
-                    PictureBox picture = new PictureBox(); // для вывода картинок
-                    //picture.Dock = DockStyle.Left; // привязать к краям
+                    PictureBox picture = new PictureBox();   // для вывода картинок
                     picture.MinimumSize = new Size(160, 160);
                     picture.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    AnswerField.FlowDirection = FlowDirection.TopDown;
+                    picture.Dock = DockStyle.Fill;     // привязать к краям
 
                     if (!string.IsNullOrWhiteSpace(question.AnswersUser)) // запоминание ответов на предыдущие
                     {
@@ -206,6 +215,8 @@ namespace GUI
                         picture.SizeMode = PictureBoxSizeMode.Zoom;
                         picture.MinimumSize = new Size(130, 130);
                         picture.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                        radio.Text = answer.Text;
+                        radio.Tag = answer.Number;
                         panel.Controls.Add(radio);
                         panel.Controls.Add(picture);
                         AnswerField.Controls.Add(panel);
@@ -214,6 +225,7 @@ namespace GUI
                     //Если в ответах только текст
                     else if (answer.Text != null && answer.Image == null)
                     {
+                        radio.Height = 30;
                         if (N > 1) // чекбоксы (выбор нескольких вариантов ответа)
                         {
                             check.Text = answer.Text;
@@ -249,7 +261,6 @@ namespace GUI
                         picture.SizeMode = PictureBoxSizeMode.Zoom;
                         picture.MinimumSize = new Size(180, 180);
 
-
                         panel.Controls.Add(picture);
                         AnswerField.Controls.Add(panel);
                     }
@@ -258,10 +269,11 @@ namespace GUI
             catch (Exception) // Указание ошибки, о неспособности передать в форму значений
             {
                 throw new Exception($"Ошибка! Возникла ошибка при передачи значения типа Question в форму.");
-             }
+            }
         }
      
-        //---------------------------------Кноки Далее, Назад---------------------------------------------------------------
+
+//---------------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
 
@@ -275,7 +287,10 @@ namespace GUI
                 result.ShowDialog();
                 result.Show();
                 result.Hide();
-                
+                // Пройи тест заново:
+                Restart = true;
+                RandomQuestions();
+                FillForm();
             }
             else
             {
@@ -293,9 +308,7 @@ namespace GUI
         }
 
 
-
-
-        //------------------------Функция проверки видимости кнопок дадее и назад с сохранением ответа пользователя-----------------------------
+//------------------------Функция проверки видимости кнопок дадее и назад с сохранением ответа пользователя-----------------------------
         public void VisibilityButton()
         {
            // ChecAnswers();
@@ -314,7 +327,7 @@ namespace GUI
         }
 
 
-        //---------------------------Переход по номерам вопросов в панеле навигации---------------------------------
+//-------------------------------------Переход по номерам вопросов в панеле навигации---------------------------------
         public void LinkLabelOnClik(object sender, EventArgs eventArgs)
         {
             if (sender is LinkLabel label) // При нажатии на ссылку с номером вопроса в панели навигации
@@ -323,15 +336,15 @@ namespace GUI
                 QuestionNumberList = int.Parse(label.Text)-1;
                 AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
                 QuestionImage.Image = null; // очистка от картинки в вопросе
-               
                 VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
             }
         }
-        //---------------------------------Закрытие теста---------------------------------------------------
+
+
+//-------------------------------------------Закрытие теста---------------------------------------------------
         public void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
         {
-
                 //if (MessageBox.Show("Тест не пройден. Вы действительно хотите закрыть программу?", "Завершение программы",
                 //MessageBoxButtons.YesNo,
                 //MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -343,6 +356,22 @@ namespace GUI
                 //{
                 //    e.Cancel = true;
                 //}
+        }
+
+        private void AnswerField_Resize(object sender, EventArgs e)
+        {
+                Panel parent = ((Panel)sender);
+                foreach (Control control in parent.Controls)
+                {
+                    if (control.Controls.GetType().ToString() == "PictureBox")
+                    {
+                    PictureBox pictureBox = control.Controls.OfType<PictureBox>().First();
+                    pictureBox.Width = (parent.Width * 10) / parent.Controls.Count;
+                    pictureBox.Height = (parent.Width * 10) / parent.Controls.Count;
+                    }
+                }
+
+           
         }
     }
 }
