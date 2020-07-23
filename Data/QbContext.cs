@@ -28,7 +28,7 @@ namespace Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<QuestionBase>().ToTable("Questions");
-            modelBuilder.Entity<QuestionBase>().ToTable("Answers");
+            modelBuilder.Entity<AnswerBase>().ToTable("Answers");
         }
 
     }
