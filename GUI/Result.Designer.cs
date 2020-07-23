@@ -66,7 +66,7 @@
             this.CorrectAnswers.Name = "CorrectAnswers";
             this.CorrectAnswers.Size = new System.Drawing.Size(600, 90);
             this.CorrectAnswers.TabIndex = 0;
-            this.CorrectAnswers.Text = "Правильн98da098d908d90s8f09ds8f098ds09f8sd09f8aых ответов: ";
+            this.CorrectAnswers.Text = "Результат";
             // 
             // FindingResults
             // 
