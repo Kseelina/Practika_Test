@@ -7,7 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository
-{
+{/// <summary>
+/// Реализация единицы работы, которая выполняет сохранение и чистит мусор
+/// </summary>
     public sealed class UnitOfWork : IUnitOfWork
     {
         private DbContext _dbContext;
