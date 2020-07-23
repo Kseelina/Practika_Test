@@ -6,19 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository.Interfaces
-{/// <summary>
- /// В репозитории будут участвовать только те классы, которые наследуются EntityBase
- /// </summary>
- /// <typeparam name="T"></typeparam>
-    public interface IRepository<T> where T: EntityBase
+{
+    public interface IRepository<T> where T : EntityBase
     {
         void Create(T entity);
-        T Read(Guid Id);
-        IEnumerable<T> Readall();
+        T Read(Guid id);
+        IEnumerable<T> ReadAll();
         void Update(T entity);
         void Delete(T entity);
-        void Save(); 
-
-
     }
 }

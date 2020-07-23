@@ -1,29 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
     /// <summary>
-    /// Модель для БД, по названиям полей в таблице Answers
-    /// </summary> 
+    /// Модель для БД, по названиям полей в таблице Questions
+    /// </summary>
     [Table("Answers")]
     public class AnswerBase : EntityBase
     {
-        public string AnswText { get; set; }
-        public string AnswImage { get; set; }
-        public int AnswIsRight { get; set; }
-        public string QuestionId { get; set; }
-        //Внешний ключ:
+        public string AnswText { set; get; }
+        public string AnswImage { set; get; }
+        public int AnswIsRight { set; get; }
+        public string QuestionId { set; get; }
         [ForeignKey("QuestionId")]
-        public virtual  Question Question { get; set; } 
-        /*virtual - создаёт виртуальное поле, которое не связано с БД, но оно позволяет получать всю инфу*/
-
-
+        public virtual QuestionBase Question { set; get; }
     }
-
-
 }

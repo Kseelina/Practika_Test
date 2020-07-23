@@ -1,35 +1,29 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Entity; // пространство имён для работы с DbContext
-using Models;
 
 namespace Data
 {
-    // : - определяет наследование
     /// <summary>
-    /// Создание своего контекста для работы с БД
+    /// Для связи с БД
     /// </summary>
     public class QbContext : DbContext
     {
-        /// <summary>
-        /// base - имя подключения
-        /// </summary>
-        public QbContext() : base("name=QBaseEntitis")
+        public QbContext() : base("name= QBaseEntities") // вызываем базовый конструктор
         {
 
         }
-        public DbSet<QuestionBase> Questions { get; set; }
-        public DbSet<QuestionBase> Answers { get; set; }
-        // Далее создаём связь между моделями и БД (полиморфизм) ; protected override - запретить перезапись
+        public DbSet<QuestionBase> Questions { set; get; }
+        public DbSet<AnswerBase> Answers { set; get; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<QuestionBase>().ToTable("Questions");
-            modelBuilder.Entity<QuestionBase>().ToTable("Answers");
+            modelBuilder.Entity<AnswerBase>().ToTable("Answers");
         }
-
     }
 }
