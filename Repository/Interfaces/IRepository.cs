@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace Repository.Interfaces
 {/// <summary>
  /// В репозитории будут участвовать только те классы, которые наследуются EntityBase
  /// </summary>
