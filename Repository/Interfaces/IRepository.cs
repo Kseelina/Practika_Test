@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {/// <summary>
-/// Хранилище
+/// Хранилище. В репозитории будут участвовать только те классы, которые наследуются EntityBase
 /// </summary>
 /// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T : EntityBase
-    {
+    { // <T>  - обозначение универсальности
         void Create(T entity);
         T Read(Guid id); // вернёт объект который нам нужен (зависит от ИД)
         IEnumerable<T> ReadAll(); // IEnumerable - универсальное перечисление

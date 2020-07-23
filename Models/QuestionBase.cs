@@ -7,18 +7,12 @@ using System.Threading.Tasks;
 
 namespace Models
 { /// <summary>
-  /// 
+  /// Модель для БД, по названиям полей в таблице Questions
   /// </summary>
     [Table("Questions")]
     public class QuestionBase : EntityBase
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public string QuestText { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
         public string QuestImage { set; get; }
         public virtual List<AnswerBase> Answers { set; get; }
     }

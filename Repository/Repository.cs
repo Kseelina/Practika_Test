@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository
+    //Инкапсуляция, мы их создаём, а не берём извне
 {/// <summary>
-/// 
+/// Хранилище. 
 /// </summary>
 /// <typeparam name="T"></typeparam>
     public abstract class Repository<T> : IRepository<T> where T : EntityBase

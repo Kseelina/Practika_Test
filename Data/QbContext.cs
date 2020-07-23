@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 namespace Data
 {
     /// <summary>
-    /// Для связи с БД
+    /// оздание своего контекста для связи(работы) с БД
     /// </summary>
+    ///  // ":" - определяет наследование
+   
     public class QbContext : DbContext
     {
-        public QbContext() : base("name= QBaseEntities") // вызываем базовый конструктор
+        public QbContext() : base("name= QBaseEntities") // вызываем базовый конструктор: 
+            // base - имя подключения
         {
 
         }
         public DbSet<QuestionBase> Questions { set; get; }
         public DbSet<AnswerBase> Answers { set; get; }
-
+// Далее создаём связь между моделями и БД (полиморфизм) ; protected override - запретить перезапись
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<QuestionBase>().ToTable("Questions");
