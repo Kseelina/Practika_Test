@@ -87,6 +87,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,9 +142,21 @@
       <Project>{2d5e56a6-d4c8-4d8b-b782-e6f53de5aa53}</Project>
       <Name>BusnessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{a06619c1-83f1-4d3f-85fb-f22fdf8ae7f1}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{ca4ab004-7a0e-4595-beed-f4565a652eb5}</Project>
       <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{77c988a5-9ced-4ca7-bcd8-667202a0360d}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{e256383f-78e6-4db1-9401-18d123bba31d}</Project>
+      <Name>Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
