@@ -11,10 +11,8 @@ namespace Models
     /// Модель для БД, по названиям полей в таблице Questions
     /// </summary>
     [Table("Questions")]
-    public class QuestionBase
+    public class QuestionBase : EntityBase
     {
-        
-        public string Id { get; set; } 
         public string QuestText { get; set; }
         public string QuestImage { get; set; }
 
