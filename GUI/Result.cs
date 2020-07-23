@@ -46,6 +46,7 @@ namespace GUI
 
             foreach (Question question in _questions)
             {
+                int number = 0;
                 // Вывод вопроса + картинка (если есть)
                 Label TextQuestion = new Label(); // создаём для вывода вопроса
                 TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + " " + question.Text; // записываем сам вопрос
@@ -67,10 +68,11 @@ namespace GUI
                 // вывод ответов:
                 foreach (Answer answer in question.Answers)
                 {
+                    
                     CheckBox checkBox = new CheckBox();
                     checkBox.Width = 600;
                     checkBox.Font = new Font("Times New Roman", 14);
-                    checkBox.Enabled = false;
+                    checkBox.Enabled = false; // взаимодействте с элементом нельзя
 
                     RadioButton radioButton = new RadioButton();
                     radioButton.Width = 600;
@@ -99,6 +101,7 @@ namespace GUI
                         {
                             //checkBox.Width = 13;
                             //checkBox.Height = 13;
+                            checkBox.Text = "  ";
                             checkBox.Tag = answer.Number;
                             FindingResults.Controls.Add(checkBox);
                             pictureBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
@@ -120,6 +123,7 @@ namespace GUI
                         {
                             //radioButton.Width = 13;
                             //radioButton.Height = 13;
+                            radioButton.Text = "    ";
                             radioButton.Tag = answer.Number;
                             FindingResults.Controls.Add(radioButton);
                             pictureBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
@@ -136,24 +140,24 @@ namespace GUI
                     }
                     FindingResults.FlowDirection = FlowDirection.TopDown; // установление по вертикали
 
-                    // что отвечал пользователь:
+                    // Проверка на ответы пользователя
                     if (!string.IsNullOrWhiteSpace(question.AnswersUser))
                     {
-                        if(question.AnswersUser.Contains(question.Answers.ToString()))
+                        if(question.AnswersUser.Contains(question.Answers[number].Number .ToString()))
                         {
                             radioButton.BackColor = System.Drawing.Color.Red;
                             checkBox.BackColor = System.Drawing.Color.Red;
                         }
                     }
-                    if (!string.IsNullOrWhiteSpace(answer.IsRight.ToString()))
+                    if (!string.IsNullOrWhiteSpace(question.AnswersUser))
                     {
-                        //if (answer.IsRight.Contains(radioButton.Tag.ToString()))
-                        //{
-                        //    radioButton.BackColor = System.Drawing.Color.Green;
-                        //    checkBox.BackColor = System.Drawing.Color.Green;
-                        //}
+                        if (question.Answers[number].IsRight)
+                        {
+                            radioButton.BackColor = System.Drawing.Color.Green;
+                            checkBox.BackColor = System.Drawing.Color.Green;
+                        }
                     }
-
+                    number++;
                 }
                 QuestionNumberList++;
             } 

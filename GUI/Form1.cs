@@ -33,12 +33,15 @@ namespace GUI
         bool Restart = false;
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
 
-//----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
 
-         List<Question> RandomQuestions()
+
+        //----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
+
+        List<Question> RandomQuestions()
         {
             // При рестарте теста подлежат перезаписи:
-            nav = true;
+            nav = true; 
+            ChecAnswers(); // сброс ответов пользователя (для вопросов которые могут повториться с прошлой попытки)
             QuestionNumberList = 0;
             NavigatingNum.Controls.Clear();
 
@@ -79,17 +82,28 @@ namespace GUI
         void ChecAnswers()
         { /* Панель ответов обращается к дочерним элементам. он берёт все эти элементы и 
             преобразовать в тип коннтрол, потому что все они являются дочерними элементами типа контрол*/
-            
+
+            if (Restart) // Если был нажат рестарт, то все ответы что отвечал пользователь обращаются в null
+            {
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    questions[i].AnswersUser = null;
+                }
+            }
+            else
+            {
                 List<RadioButton> UsersCheck = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).ToList();
                 if (UsersCheck.Any())
                 {
                     questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
                 }
 
-            List<CheckBox> Check = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).ToList();
-            if (Check.Any())
-            {
-                questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
+                List<CheckBox> Check = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).ToList();
+                if (Check.Any())
+                {
+                    questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
+                }
+
             }
         }
 
@@ -170,6 +184,8 @@ namespace GUI
                 TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + ". " + question.Text; // текст вопроса
                 if (question.Image != null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image); }
 
+                //RadioGroup radioGroup = new RadioGroup(); // каждому вопросу своя группа из радиобаттонов
+                
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
@@ -247,6 +263,7 @@ namespace GUI
                         {
                             check.Width = 13;
                             check.Height = 13;
+                            check.Text = "  ";
                             check.Tag = answer.Number;
                             panel.Controls.Add(check);
                         }
@@ -254,8 +271,10 @@ namespace GUI
                         {
                             radio.Width = 13;
                             radio.Height = 13;
+                            radio.Text = "  ";
                             radio.Tag = answer.Number;
                             panel.Controls.Add(radio);
+                            
                         }
                         picture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                         picture.SizeMode = PictureBoxSizeMode.Zoom;
@@ -341,6 +360,21 @@ namespace GUI
             }
         }
 
+//-----------------------------Расчёт размеров картинок при изменении размера главного окна--------------------------------------------
+        private void AnswerField_Resize(object sender, EventArgs e)
+        {
+            Panel parent = ((Panel)sender);
+            foreach (Control control in parent.Controls)
+            {
+                if (control.Controls.GetType().ToString() == "PictureBox")
+                {
+                    PictureBox pictureBox = control.Controls.OfType<PictureBox>().First();
+                    pictureBox.Width = (parent.Width * 10) / parent.Controls.Count;
+                    pictureBox.Height = (parent.Width * 10) / parent.Controls.Count;
+                }
+            }
+        }
+
 
 //-------------------------------------------Закрытие теста---------------------------------------------------
         public void Form1_FormClosing(object sender, FormClosingEventArgs e) // При закрытии теста
@@ -358,21 +392,6 @@ namespace GUI
                 //}
         }
 
-        private void AnswerField_Resize(object sender, EventArgs e)
-        {
-                Panel parent = ((Panel)sender);
-                foreach (Control control in parent.Controls)
-                {
-                    if (control.Controls.GetType().ToString() == "PictureBox")
-                    {
-                    PictureBox pictureBox = control.Controls.OfType<PictureBox>().First();
-                    pictureBox.Width = (parent.Width * 10) / parent.Controls.Count;
-                    pictureBox.Height = (parent.Width * 10) / parent.Controls.Count;
-                    }
-                }
-
-           
-        }
     }
 }
 

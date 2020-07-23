@@ -32,9 +32,9 @@
             this.TextQuestion = new System.Windows.Forms.Label();
             this.QuestionImage = new System.Windows.Forms.PictureBox();
             this.Navigation = new System.Windows.Forms.Panel();
-            this.Buck = new System.Windows.Forms.Button();
-            this.Next = new System.Windows.Forms.Button();
             this.NavigatingNum = new System.Windows.Forms.FlowLayoutPanel();
+            this.Next = new System.Windows.Forms.Button();
+            this.Buck = new System.Windows.Forms.Button();
             this.QuestionField = new System.Windows.Forms.Panel();
             this.AnswerField = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.QuestionImage)).BeginInit();
@@ -78,17 +78,13 @@
             this.Navigation.Size = new System.Drawing.Size(183, 234);
             this.Navigation.TabIndex = 13;
             // 
-            // Buck
+            // NavigatingNum
             // 
-            this.Buck.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.Buck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Buck.Location = new System.Drawing.Point(0, 164);
-            this.Buck.Name = "Buck";
-            this.Buck.Size = new System.Drawing.Size(90, 40);
-            this.Buck.TabIndex = 11;
-            this.Buck.Text = "Назад";
-            this.Buck.UseVisualStyleBackColor = false;
-            this.Buck.Click += new System.EventHandler(this.Buck_Click);
+            this.NavigatingNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NavigatingNum.Location = new System.Drawing.Point(4, 8);
+            this.NavigatingNum.Name = "NavigatingNum";
+            this.NavigatingNum.Size = new System.Drawing.Size(169, 149);
+            this.NavigatingNum.TabIndex = 16;
             // 
             // Next
             // 
@@ -102,13 +98,17 @@
             this.Next.UseVisualStyleBackColor = false;
             this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
-            // NavigatingNum
+            // Buck
             // 
-            this.NavigatingNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.NavigatingNum.Location = new System.Drawing.Point(4, 8);
-            this.NavigatingNum.Name = "NavigatingNum";
-            this.NavigatingNum.Size = new System.Drawing.Size(169, 149);
-            this.NavigatingNum.TabIndex = 16;
+            this.Buck.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.Buck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Buck.Location = new System.Drawing.Point(0, 164);
+            this.Buck.Name = "Buck";
+            this.Buck.Size = new System.Drawing.Size(90, 40);
+            this.Buck.TabIndex = 11;
+            this.Buck.Text = "Назад";
+            this.Buck.UseVisualStyleBackColor = false;
+            this.Buck.Click += new System.EventHandler(this.Buck_Click);
             // 
             // QuestionField
             // 
