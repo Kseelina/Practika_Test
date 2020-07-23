@@ -17,7 +17,7 @@ namespace Repository.Interfaces
         IEnumerable<T> Readall();
         void Update(T entity);
         void Delete(T entity);
-        void Save(); 
+       // void Save(); 
 
 
     }

@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-   public interface IAnswerRepository : IRepository<AnswerBase>
+    
+    public interface IAnswerRepository : IRepository<AnswerBase>
     {
+
+
     }
 }

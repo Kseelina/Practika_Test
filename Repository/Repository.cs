@@ -22,32 +22,32 @@ namespace Repository
             _dbSet = dbContext.Set<T>();
         }
 
-        public void Create(T entity)
+        public virtual void Create(T entity)
         {
             _dbContext.Set<T>().Add(entity);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
         }
 
-        public T Read(Guid Id)
+        public virtual T Read(Guid Id)
         {
             return _dbContext.Set<T>().Find(Id);
         }
 
-        public IEnumerable<T> Readall()
+        public virtual IEnumerable<T> Readall()
         {
             return _dbContext.Set<T>().AsEnumerable();
         }
 
-        public void Save()
-        {
-            _dbContext.SaveChanges();
-        }
+        //public void Save()
+        //{
+        //    _dbContext.SaveChanges();
+        //}
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
