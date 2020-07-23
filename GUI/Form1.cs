@@ -16,7 +16,6 @@ using Models;
 
 
 
-
 namespace GUI
 {
     /// <summary>
@@ -92,7 +91,7 @@ namespace GUI
                 }
             }
             else
-            {
+            { 
                 List<RadioButton> UsersCheck = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).ToList();
                 if (UsersCheck.Any())
                 {
@@ -185,7 +184,7 @@ namespace GUI
                 TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + ". " + question.Text; // текст вопроса
                 if (question.Image != null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image); }
 
-                RadioGroup radioGroup = new RadioGroup(); // каждому вопросу своя группа из радиобаттонов
+               
                
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
@@ -195,11 +194,6 @@ namespace GUI
                 //---------------------------------Автоматический вывод ответов на вопрос------------------------------------------
                 foreach (Answer answer in question.Answers)
                 {
-                    Panel panel = new Panel(); // Создаём панель для размещения на ней элементов
-                    panel.MinimumSize = new Size(200, 200);
-                    panel.AutoSize = true;
-                    panel.Dock = DockStyle.Left;
-
                     RadioButton radio = new RadioButton(); // для единственного варианта ответа
                     radio.AutoEllipsis = true;
                     radio.Dock = DockStyle.Top; // позиция вверху
@@ -212,7 +206,12 @@ namespace GUI
                     check.Dock = DockStyle.Top; // позиция вверху
                     check.Width = 800;
                     check.AutoSize = true;
-                    check.Font = new Font("Times New Roman", 14);
+                    check.Font = new Font("Times New Roman", 14); 
+                    
+                    Panel panel = new Panel(); // Создаём панель для размещения на ней элементов
+                    panel.MinimumSize = new Size(200, 200);
+                    panel.AutoSize = true;
+                    panel.Dock = DockStyle.Left;
 
                     PictureBox picture = new PictureBox();   // для вывода картинок
                     picture.MinimumSize = new Size(160, 160);
@@ -234,8 +233,9 @@ namespace GUI
                         picture.Anchor = AnchorStyles.Left | AnchorStyles.Right;
                         radio.Text = answer.Text;
                         radio.Tag = answer.Number;
-                        panel.Controls.Add(radio);
+                       // panel.Controls.Add(radio);
                         panel.Controls.Add(picture);
+                        AnswerField.Controls.Add(radio);
                         AnswerField.Controls.Add(panel);
                     }
 
@@ -266,7 +266,8 @@ namespace GUI
                             check.Height = 13;
                             check.Text = "  ";
                             check.Tag = answer.Number;
-                            panel.Controls.Add(check);
+                            // panel.Controls.Add(check);
+                            AnswerField.Controls.Add(radio);
                         }
                         else // радиобатоны (выбор одного варианта ответа)
                         {
@@ -274,8 +275,8 @@ namespace GUI
                             radio.Height = 13;
                             radio.Text = "  ";
                             radio.Tag = answer.Number;
-                            panel.Controls.Add(radio);
-                            radioGroup.SetGroupName(radio, $"Answer{question.Number}"); // Радиокнопки ответов группируются по номеру вопроса
+                            // panel.Controls.Add(radio);
+                            AnswerField.Controls.Add(radio);
 
                         }
                         picture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
@@ -292,9 +293,9 @@ namespace GUI
                 throw new Exception($"Ошибка! Возникла ошибка при передачи значения типа Question в форму.");
             }
         }
+     
 
-
-        //---------------------------------------Кноки Далее, Назад---------------------------------------------------------------
+//---------------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
 
@@ -365,7 +366,7 @@ namespace GUI
 //-----------------------------Расчёт размеров картинок при изменении размера главного окна--------------------------------------------
         private void AnswerField_Resize(object sender, EventArgs e)
         {
-            Panel parent = ((Panel)sender);
+            Panel parent = (Panel)sender;
             foreach (Control control in parent.Controls)
             {
                 if (control.Controls.GetType().ToString() == "PictureBox")
