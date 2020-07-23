@@ -60,13 +60,13 @@
             // 
             // CorrectAnswers
             // 
-            this.CorrectAnswers.AutoSize = true;
             this.CorrectAnswers.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CorrectAnswers.Location = new System.Drawing.Point(4, 32);
+            this.CorrectAnswers.MaximumSize = new System.Drawing.Size(0, 90);
             this.CorrectAnswers.Name = "CorrectAnswers";
-            this.CorrectAnswers.Size = new System.Drawing.Size(263, 31);
+            this.CorrectAnswers.Size = new System.Drawing.Size(600, 90);
             this.CorrectAnswers.TabIndex = 0;
-            this.CorrectAnswers.Text = "Правильных ответов: ";
+            this.CorrectAnswers.Text = "Правильн98da098d908d90s8f09ds8f098ds09f8sd09f8aых ответов: ";
             // 
             // FindingResults
             // 
@@ -91,7 +91,6 @@
             this.Text = "Окно результата";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Result_FormClosing);
             this.Info.ResumeLayout(false);
-            this.Info.PerformLayout();
             this.ResumeLayout(false);
 
         }

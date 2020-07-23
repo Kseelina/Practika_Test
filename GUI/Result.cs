@@ -52,6 +52,7 @@ namespace GUI
                 TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + " " + question.Text; // записываем сам вопрос
                 TextQuestion.Font = new Font("Times New Roman", 16);
                 TextQuestion.Width = 600;
+                TextQuestion.Height = 90;
 
                 FindingResults.FlowDirection = FlowDirection.TopDown;
                 FindingResults.Controls.Add(TextQuestion);

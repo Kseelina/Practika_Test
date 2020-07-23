@@ -267,7 +267,7 @@ namespace GUI
                             check.Text = "  ";
                             check.Tag = answer.Number;
                             // panel.Controls.Add(check);
-                            AnswerField.Controls.Add(radio);
+                            AnswerField.Controls.Add(check);
                         }
                         else // радиобатоны (выбор одного варианта ответа)
                         {
