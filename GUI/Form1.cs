@@ -16,6 +16,7 @@ using Models;
 
 
 
+
 namespace GUI
 {
     /// <summary>
@@ -184,8 +185,8 @@ namespace GUI
                 TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + ". " + question.Text; // текст вопроса
                 if (question.Image != null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image); }
 
-                //RadioGroup radioGroup = new RadioGroup(); // каждому вопросу своя группа из радиобаттонов
-                
+                RadioGroup radioGroup = new RadioGroup(); // каждому вопросу своя группа из радиобаттонов
+               
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
@@ -274,7 +275,8 @@ namespace GUI
                             radio.Text = "  ";
                             radio.Tag = answer.Number;
                             panel.Controls.Add(radio);
-                            
+                            radioGroup.SetGroupName(radio, $"Answer{question.Number}"); // Радиокнопки ответов группируются по номеру вопроса
+
                         }
                         picture.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                         picture.SizeMode = PictureBoxSizeMode.Zoom;
@@ -290,9 +292,9 @@ namespace GUI
                 throw new Exception($"Ошибка! Возникла ошибка при передачи значения типа Question в форму.");
             }
         }
-     
 
-//---------------------------------------Кноки Далее, Назад---------------------------------------------------------------
+
+        //---------------------------------------Кноки Далее, Назад---------------------------------------------------------------
         public void Next_Click(object sender, EventArgs e) // кнопка далее
         {
 

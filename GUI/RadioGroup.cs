@@ -15,21 +15,22 @@ namespace GUI
         public RadioGroup()
         {
             InitializeComponent();
+
         }
         /// <summary>
-        /// Созданный компонент для группировки радиобаттонов по их имени
+        /// Созданный компонент для группировки радиобаттонов
         /// </summary>
         [ProvideProperty("GroupName", typeof(RadioButton))]
-        public partial class RadioGroup : Component, IExtenderProvider
+        public partial class RadioGroup1 : Component, IExtenderProvider
         {
             private readonly Dictionary<RadioButton, string> _groups = new Dictionary<RadioButton, string>();
 
-            public RadioGroup()
+            public RadioGroup1()
             {
 
             }
 
-            public RadioGroup(IContainer container)
+            public RadioGroup1(IContainer container)
             {
                 container.Add(this);
             }
@@ -84,5 +85,9 @@ namespace GUI
             bool IExtenderProvider.CanExtend(object extendee) => extendee is RadioButton;
         }
 
+        internal void SetGroupName(RadioButton radio, string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
