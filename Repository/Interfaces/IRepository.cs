@@ -10,8 +10,8 @@ namespace Repository.Interfaces
     public interface IRepository<T> where T : EntityBase
     {
         void Create(T entity);
-        T Read(Guid id);
-        IEnumerable<T> ReadAll();
+        T Read(Guid id); // вернёт объект который нам нужен (зависит от ИД)
+        IEnumerable<T> ReadAll(); // IEnumerable - универсальное перечисление
         void Update(T entity);
         void Delete(T entity);
     }
