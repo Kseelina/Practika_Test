@@ -6,7 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository.Interfaces
-{
+{/// <summary>
+/// Хранилище
+/// </summary>
+/// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T : EntityBase
     {
         void Create(T entity);

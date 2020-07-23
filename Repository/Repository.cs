@@ -8,7 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository
-{
+{/// <summary>
+/// 
+/// </summary>
+/// <typeparam name="T"></typeparam>
     public abstract class Repository<T> : IRepository<T> where T : EntityBase
     {
         protected DbContext _dbContext;
