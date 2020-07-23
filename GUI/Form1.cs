@@ -175,15 +175,18 @@ namespace GUI
                     // Открытие блокнота и запись в БД
                     questions = metods.SetTest(Path.Combine(testFolder, testFile));
                     UpdateDatabase(); // Запись в БД вопросов из файла, если их там нет
-                    var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
+                 
                 }
                 else
                 {
-                    //
-                   // questions = 
+                    for (int i = 0; i < tmp.Count; i++)
+                    {
+                        var tmp2 = tmp[i].Id.ToList();
 
 
-                   // var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
+
+                    }
+                  //  var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
                 }
 
                 questions = RandomQuestions(); // вызов функции рандома вопросов
