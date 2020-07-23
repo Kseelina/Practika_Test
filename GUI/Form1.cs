@@ -12,6 +12,10 @@ using NLog;
 using System.IO;
 using BusnessLogic;
 using Models;
+using Castle.Core.Logging;
+using Castle.Windsor;
+using Service.Interfaces;
+using Service;
 
 
 
@@ -32,8 +36,40 @@ namespace GUI
         bool nav = true;
         bool Restart = false;
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
+        private WindsorContainer container; // создаём контейнер
+        // Т.к. работть будем с интерфейсами, то и объекты нужны интерфейсовые
+        private IQuestionService _questionService;
+        private IAnswerService _answerService;
 
 
+
+        //------------------------------------------Заполнение БД-------------------------------------------------------- 
+        void UpdateDatabase()
+        {
+            foreach (Question question in questions)
+            {
+                QuestionBase questionBase = new QuestionBase();
+                // автоматическая генерация ИД вопроса и перевод его в текст:
+                questionBase.Id = Guid.NewGuid().ToString(); 
+                questionBase.QuestText = question.Text;
+                questionBase.QuestImage = question.Image;
+
+                foreach (Answer answer in question.Answers)
+                {
+                    AnswerBase answerBase = new AnswerBase();
+                    // автоматическая генерация ИД ответа и перевод его в текст:
+                    answerBase.Id = Guid.NewGuid().ToString();
+                    answerBase.AnswText = answer.Text;
+                    answerBase.AnswImage = answer.Image;
+                    // записываем какой ответ , верный(1) или неверный(0)
+                    // "?"  - тернарный оператор(типо ифа)
+                    answerBase.AnswIsRight = answer.IsRight ? 1 : 0; 
+                    answerBase.QuestionId = questionBase.Id;
+                    _answerService.Create(answerBase); // Create - добавление в БД ответа
+                }
+                _questionService.Create(questionBase); // Create - добавление в БД вопроса
+            }
+        }
 
         //----------------------------------Рандомизирование вопросов------------------------------------------------------------------------
 
@@ -113,7 +149,10 @@ namespace GUI
         public Form1()
         {
             InitializeComponent();
-
+            container = Bootstrap.BuildContainer();
+           
+            _questionService = container.Resolve<IQuestionService>();
+            _answerService = container.Resolve<IAnswerService>();
             // Визуализация (то что видит пользователь и с чем взаимодействует)
             Buck.Enabled = false; // Кнопка Назад изначально неактивна
 
@@ -128,11 +167,22 @@ namespace GUI
                 List<string> Text = metods.GetQuestions(Path.Combine(testFolder, testFile));
                 // Path.Combine - функция соединения
                 logger.Info("Файл с вопросами найден и успешно считан.");
-                questions = metods.SetTest(Path.Combine(testFolder, testFile));
-                questions = RandomQuestions(); // вызов функции рандома вопросов
-                logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
-
-                FillForm();
+                                    // Считывание из БД:
+                List<QuestionBase> tmp = _questionService.ReadAll().ToList();
+                if (tmp== null)
+                {
+                    UpdateDatabase(); 
+                    questions = metods.SetTest(Path.Combine(testFolder, testFile));
+                    questions = RandomQuestions(); // вызов функции рандома вопросов
+                    logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
+                    FillForm();
+                }
+                else
+                {
+                    
+                   
+                }
+                //FillForm();
                 logger.Info("Форма успешно заполнена.");
             }
             catch (Exception e)

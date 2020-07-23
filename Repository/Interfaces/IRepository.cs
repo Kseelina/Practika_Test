@@ -12,10 +12,11 @@ namespace Repository.Interfaces
 /// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T : EntityBase
     { // <T>  - обозначение универсальности
-        void Create(T entity);
+      // ":" - определяет наследование
+        void Create(T entity); // создаст объект
         T Read(Guid id); // вернёт объект который нам нужен (зависит от ИД)
         IEnumerable<T> ReadAll(); // IEnumerable - универсальное перечисление
-        void Update(T entity);
-        void Delete(T entity);
+        void Update(T entity); //перезапись
+        void Delete(T entity);  // удаление объекта
     }
 }
