@@ -167,22 +167,28 @@ namespace GUI
                 List<string> Text = metods.GetQuestions(Path.Combine(testFolder, testFile));
                 // Path.Combine - функция соединения
                 logger.Info("Файл с вопросами найден и успешно считан.");
-                                    // Считывание из БД:
-                List<QuestionBase> tmp = _questionService.ReadAll().ToList();
-                if (tmp== null)
+                                    
+                List<QuestionBase> tmp = _questionService.ReadAll().ToList();  // Считывание из БД
+               
+                if (tmp.Count == 0)
                 {
-                    UpdateDatabase(); 
+                    // Открытие блокнота и запись в БД
                     questions = metods.SetTest(Path.Combine(testFolder, testFile));
-                    questions = RandomQuestions(); // вызов функции рандома вопросов
-                    logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
-                    FillForm();
+                    UpdateDatabase(); // Запись в БД вопросов из файла, если их там нет
+                    var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
                 }
                 else
                 {
-                    
-                   
+                    //
+                   // questions = 
+
+
+                   // var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
                 }
-                //FillForm();
+
+                questions = RandomQuestions(); // вызов функции рандома вопросов
+                logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
+                FillForm();
                 logger.Info("Форма успешно заполнена.");
             }
             catch (Exception e)
