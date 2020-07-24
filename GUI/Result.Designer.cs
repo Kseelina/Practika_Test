@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.Info = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.Restart = new System.Windows.Forms.Button();
             this.CorrectAnswers = new System.Windows.Forms.Label();
             this.FindingResults = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.Info.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +48,16 @@
             this.Info.Name = "Info";
             this.Info.Size = new System.Drawing.Size(674, 107);
             this.Info.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(28, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(199, 31);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Результат теста";
             // 
             // Restart
             // 
@@ -82,16 +92,6 @@
             this.FindingResults.Size = new System.Drawing.Size(674, 354);
             this.FindingResults.TabIndex = 2;
             this.FindingResults.WrapContents = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(28, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(199, 31);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Результат теста";
             // 
             // Result
             // 

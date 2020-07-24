@@ -71,12 +71,12 @@ namespace GUI
                 {
                     
                     CheckBox checkBox = new CheckBox();
-                    checkBox.Width = 600;
+                    checkBox.Width = 800;
                     checkBox.Font = new Font("Times New Roman", 14);
                     checkBox.Enabled = false; // взаимодействте с элементом нельзя
 
                     RadioButton radioButton = new RadioButton();
-                    radioButton.Width = 600;
+                    radioButton.Width = 800;
                     radioButton.Font = new Font("Times New Roman", 14);
                     radioButton.Enabled = false;
 
@@ -116,6 +116,10 @@ namespace GUI
                         {
                             radioButton.Text = answer.Text;
                             radioButton.Tag = answer.Number;
+                            if (radioButton.Tag.ToString() == question.AnswersUser)
+                            {
+                                radioButton.Checked = true;
+                            }
                             FindingResults.Controls.Add(radioButton);
                         }
 
@@ -126,6 +130,10 @@ namespace GUI
                             //radioButton.Height = 13;
                             radioButton.Text = "    ";
                             radioButton.Tag = answer.Number;
+                            if (radioButton.Tag.ToString() == question.AnswersUser)
+                            {
+                                radioButton.Checked = true;
+                            }
                             FindingResults.Controls.Add(radioButton);
                             pictureBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                             FindingResults.Controls.Add(pictureBox);
@@ -134,6 +142,10 @@ namespace GUI
                         else if (answer.Text != null && answer.Image != null)
                         {
                             radioButton.Tag = answer.Number;
+                            if (radioButton.Tag.ToString() == question.AnswersUser)
+                            {
+                                radioButton.Checked = true;
+                            }
                             FindingResults.Controls.Add(radioButton);
                             pictureBox.ImageLocation = Path.Combine(ImageFolder, answer.Image);
                             FindingResults.Controls.Add(pictureBox);
@@ -147,7 +159,10 @@ namespace GUI
                         if(question.AnswersUser.Contains(question.Answers[number].Number .ToString()))
                         {
                             radioButton.BackColor = System.Drawing.Color.Red;
+                            //radioButton.Checked = question.AnswersUser.Contains(answer.Number.ToString());
                             checkBox.BackColor = System.Drawing.Color.Red;
+                            checkBox.Checked = true;
+
                         }
                     }
                     if (!string.IsNullOrWhiteSpace(question.AnswersUser))
@@ -155,7 +170,9 @@ namespace GUI
                         if (question.Answers[number].IsRight)
                         {
                             radioButton.BackColor = System.Drawing.Color.Green;
+                           // radioButton.Checked = question.AnswersUser.Contains(answer.Number.ToString());
                             checkBox.BackColor = System.Drawing.Color.Green;
+                            checkBox.Checked = true;
                         }
                     }
                     number++;

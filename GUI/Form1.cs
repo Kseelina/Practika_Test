@@ -150,7 +150,8 @@ namespace GUI
         {
             InitializeComponent();
             container = Bootstrap.BuildContainer();
-           
+
+
             _questionService = container.Resolve<IQuestionService>();
             _answerService = container.Resolve<IAnswerService>();
             // Визуализация (то что видит пользователь и с чем взаимодействует)
@@ -170,24 +171,27 @@ namespace GUI
                                     
                 List<QuestionBase> tmp = _questionService.ReadAll().ToList();  // Считывание из БД
                
-                if (tmp.Count == 0)
-                {
-                    // Открытие блокнота и запись в БД
+                //if (tmp.Count == 0)
+                //{
+                //    // Открытие блокнота и запись в БД
                     questions = metods.SetTest(Path.Combine(testFolder, testFile));
-                    UpdateDatabase(); // Запись в БД вопросов из файла, если их там нет
+                //    UpdateDatabase(); // Запись в БД вопросов из файла, если их там нет
                  
-                }
-                else
-                {
-                    for (int i = 0; i < tmp.Count; i++)
-                    {
-                        var tmp2 = tmp[i].Id.ToList();
+                //}
+                //else
+                //{
+                    
+                    //for (int i = 0; i < tmp.Count; i++)
+                    //{
+                    //    var tmp2 = tmp[i].ToString();
+                    //    questions = tmp2.;
 
 
 
-                    }
-                  //  var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
-                }
+                    //   // questions = // считывает все 45 вопросов из БД
+                    //}
+                    //var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
+                //}
 
                 questions = RandomQuestions(); // вызов функции рандома вопросов
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");

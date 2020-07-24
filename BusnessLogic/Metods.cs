@@ -85,9 +85,10 @@ namespace BusnessLogic
                  qustion.Text = str[i];          // считывание вопроса из блокнота в класс Question (в параметр текст)
                  if (str[i].Contains("#?")) // если имеется картинка в вопросе
                      {
-                         /* Разбиваем текст и картинку вопроса
-                         и записываем по отдельности в параметры вопроса:*/
-                         string[] auesTaxt = str[i].Split(new string[] { "#?" }, StringSplitOptions.RemoveEmptyEntries);
+                    /* Разбиваем текст и картинку вопроса
+                    и записываем по отдельности в параметры вопроса:
+                    Split - разбивает строку на подстроки*/
+                    string[] auesTaxt = str[i].Split(new string[] { "#?" }, StringSplitOptions.RemoveEmptyEntries);
                          qustion.Image = auesTaxt[1];
                          qustion.Text = auesTaxt[0];
                       }
