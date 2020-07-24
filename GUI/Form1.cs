@@ -33,6 +33,7 @@ namespace GUI
         const int NumQuestInTest = 15; // В тесте всегда 15 вопросов
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         List<Question> questions = new List<Question>(); // создаём пустой лист под будущие вопросы
+        List<Question> RandomQuestion = new List<Question>();
         bool nav = true;
         bool Restart = false;
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
@@ -46,7 +47,7 @@ namespace GUI
         //------------------------------------------Заполнение БД-------------------------------------------------------- 
         void UpdateDatabase(List<Question> _questions)
         {
-            foreach (Question question in questions)
+            foreach (Question question in _questions)
             {
                 QuestionBase questionBase = new QuestionBase();
                 // автоматическая генерация ИД вопроса и перевод его в текст:
@@ -83,7 +84,7 @@ namespace GUI
 
             //Сам механизм рандома
             List<Question> NewListQuestions = new List<Question>(); //Создаём новый лист под рандомизированные вопросы
-            Question question = new Question();
+            //Question question = new Question();
             Random random = new Random(); // создание объекта рандом
             int i = 0;
             bool add = true;
@@ -128,6 +129,7 @@ namespace GUI
             }
             else
             { 
+                // Радиобатон, который 
                 List<RadioButton> UsersCheck = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).ToList();
                 if (UsersCheck.Any())
                 {
@@ -216,7 +218,7 @@ namespace GUI
                 //}.ToString());
 
 
-                questions = RandomQuestions(); // вызов функции рандома вопросов
+                RandomQuestion = RandomQuestions(); // вызов функции рандома вопросов
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
                 FillForm();
                 logger.Info("Форма успешно заполнена.");
@@ -234,7 +236,7 @@ namespace GUI
         {
             if (Restart)
             {
-                questions = RandomQuestions();
+                RandomQuestion = RandomQuestions();
                 Restart = false;
             }
 
@@ -246,7 +248,7 @@ namespace GUI
                 nav = false;
                 // Автозаполнение ссылок на вопросы
                 int i = 1;
-                while (i <= questions.Count)
+                while (i <= NumQuestInTest)
                 {
                     LinkLabel label = new LinkLabel(); // создание объекта LinkLabel
                     label.Name = "label" + i;
@@ -263,7 +265,7 @@ namespace GUI
             }
             try
             {
-                Question question = questions[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
+                Question question = RandomQuestion[QuestionNumberList]; // вытаскиваем вопрос по его номеру в листе question
                 // LINQ конструкция: для определения количество верных вариантов ответов:
                 
                 int N = question.Answers.Count(x => x.IsRight == true);
@@ -317,7 +319,7 @@ namespace GUI
                         picture.Anchor = AnchorStyles.Left | AnchorStyles.Right;
                         radio.Text = answer.Text;
                         radio.Tag = answer.Number;
-                       // panel.Controls.Add(radio);
+                        panel.Controls.Add(radio);
                         panel.Controls.Add(picture);
                         AnswerField.Controls.Add(radio);
                         AnswerField.Controls.Add(panel);
@@ -389,13 +391,13 @@ namespace GUI
 
             if (QuestionNumberList == NumQuestInTest) // завершить тест и открыть форму результатов
             {
-                Result result = new Result(questions);
+                Result result = new Result(RandomQuestion);
                 result.ShowDialog();
                 result.Show();
                 result.Hide();
                 // Пройи тест заново:
                 Restart = true;
-                RandomQuestions();
+                //RandomQuestions();
                 FillForm();
             }
             else
@@ -478,7 +480,6 @@ namespace GUI
                 //    e.Cancel = true;
                 //}
         }
-
     }
 }
 
