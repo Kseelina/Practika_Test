@@ -44,7 +44,7 @@ namespace GUI
 
 
         //------------------------------------------Заполнение БД-------------------------------------------------------- 
-        void UpdateDatabase()
+        void UpdateDatabase(List<Question> _questions)
         {
             foreach (Question question in questions)
             {
@@ -170,28 +170,51 @@ namespace GUI
                 logger.Info("Файл с вопросами найден и успешно считан.");
                                     
                 List<QuestionBase> tmp = _questionService.ReadAll().ToList();  // Считывание из БД
-               
-                //if (tmp.Count == 0)
+                // проверка есть ли в БД значения
+                if (tmp.Count == 0) // Если значений нет, то:
+                {
+                    // Открытие блокнота и запись в БД
+                    List<Question> _questions = metods.SetTest(Path.Combine(testFolder, testFile));
+                    UpdateDatabase(_questions); // Запись в БД вопросов из файла, если их там нет
+                    tmp = _questionService.ReadAll().ToList(); // Вновь считывание из БД
+                }
+                // tmp - список вопросов из БД, выбираем оттуда
+                foreach (QuestionBase questionBase in tmp)
+                {
+                    Question question = new Question();
+                    question.Number = QuestionNumberList; // номер вопроса по списку
+                    question.Text = questionBase.QuestText; // текст вопроса
+                    question.Image = questionBase.QuestImage; // картинка
+                    int indexAnswer = 1;
+                    foreach (AnswerBase answerBase in questionBase.Answers)
+                    {
+                        Answer answer = new Answer();
+                        answer.Number = indexAnswer;
+                        answer.Text = answerBase.AnswText ;
+                        answer.Image = answerBase.AnswImage;
+                        // записываем какой ответ , верный(1) или неверный(0)
+                        answer.IsRight = answerBase.AnswIsRight == 1;
+                        question.Answers.Add(answer);
+                        indexAnswer++;
+                    }
+                    questions.Add(question);
+                    QuestionNumberList++;
+                }
+
+                //questions = tmp.Select(x => new Question()
                 //{
-                //    // Открытие блокнота и запись в БД
-                    questions = metods.SetTest(Path.Combine(testFolder, testFile));
-                //    UpdateDatabase(); // Запись в БД вопросов из файла, если их там нет
-                 
-                //}
-                //else
-                //{
-                    
-                    //for (int i = 0; i < tmp.Count; i++)
-                    //{
-                    //    var tmp2 = tmp[i].ToString();
-                    //    questions = tmp2.;
+                //    Text = x.QuestText,
+                //    Image = x.QuestImage,
+                //    Answers = x.Answers.Select(y => new Answer()
+                //    {
+                //            Text = y.AnswText,
+                //            Image = y.AnswImage,
+                //            IsRight = y.AnswIsRight == 1, // Сравнивает если в AnswIsRight, то будет тру
 
+                //    }
 
+                //}.ToString());
 
-                    //   // questions = // считывает все 45 вопросов из БД
-                    //}
-                    //var tmp2 = tmp[0].Answers.ToList(); // закрывает соединение
-                //}
 
                 questions = RandomQuestions(); // вызов функции рандома вопросов
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
@@ -247,8 +270,6 @@ namespace GUI
                 TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + ". " + question.Text; // текст вопроса
                 if (question.Image != null) { QuestionImage.ImageLocation = Path.Combine(ImageFolder, question.Image); }
 
-               
-               
                 // Вытаскиваем ответы
                 /* foreach - цикл, перебрать варианты ответов, каждому из которых будем давать
                     имя вариант ответ в списке, который находится в переменной question и в свойстве 
