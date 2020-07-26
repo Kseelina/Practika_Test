@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.Info = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.TestResult = new System.Windows.Forms.Label();
             this.Restart = new System.Windows.Forms.Button();
             this.CorrectAnswers = new System.Windows.Forms.Label();
             this.FindingResults = new System.Windows.Forms.FlowLayoutPanel();
@@ -40,7 +40,7 @@
             // 
             this.Info.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Info.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Info.Controls.Add(this.label1);
+            this.Info.Controls.Add(this.TestResult);
             this.Info.Controls.Add(this.Restart);
             this.Info.Controls.Add(this.CorrectAnswers);
             this.Info.Dock = System.Windows.Forms.DockStyle.Top;
@@ -49,15 +49,15 @@
             this.Info.Size = new System.Drawing.Size(674, 107);
             this.Info.TabIndex = 1;
             // 
-            // label1
+            // TestResult
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(28, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(199, 31);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Результат теста";
+            this.TestResult.AutoSize = true;
+            this.TestResult.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TestResult.Location = new System.Drawing.Point(28, 35);
+            this.TestResult.Name = "TestResult";
+            this.TestResult.Size = new System.Drawing.Size(199, 31);
+            this.TestResult.TabIndex = 2;
+            this.TestResult.Text = "Результат теста";
             // 
             // Restart
             // 
@@ -85,6 +85,7 @@
             // FindingResults
             // 
             this.FindingResults.AutoScroll = true;
+            this.FindingResults.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FindingResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FindingResults.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.FindingResults.Location = new System.Drawing.Point(0, 107);
@@ -115,6 +116,6 @@
         private System.Windows.Forms.Label CorrectAnswers;
         private System.Windows.Forms.Button Restart;
         private System.Windows.Forms.FlowLayoutPanel FindingResults;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label TestResult;
     }
 }

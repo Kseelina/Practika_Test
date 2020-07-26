@@ -27,7 +27,7 @@ namespace GUI
         private List<Question> _questions;
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
-                                                            //List<Question> Questions = new List<Question>();
+                                                           
         int QuestionNumberList = 0; // номер вопроса в списке
         bool ButtonRestart = false;
 
@@ -51,8 +51,13 @@ namespace GUI
                 Label TextQuestion = new Label(); // создаём для вывода вопроса
                 TextQuestion.Text = "Вопрос " + (QuestionNumberList + 1) + " " + question.Text; // записываем сам вопрос
                 TextQuestion.Font = new Font("Times New Roman", 16);
-                TextQuestion.Width = 600;
-                TextQuestion.Height = 90;
+                TextQuestion.AutoSize = false;
+                TextQuestion.MinimumSize = new Size(600, 60);
+                //TextQuestion.Width = 600;
+                //TextQuestion.Height = 90;
+                TextQuestion.TextAlign = ContentAlignment.TopCenter;
+                TextQuestion.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                
 
                 FindingResults.FlowDirection = FlowDirection.TopDown;
                 FindingResults.Controls.Add(TextQuestion);
@@ -162,7 +167,7 @@ namespace GUI
                             //radioButton.Checked = question.AnswersUser.Contains(answer.Number.ToString());
                             checkBox.BackColor = System.Drawing.Color.Red;
                             checkBox.Checked = true;
-
+                            
                         }
                     }
                     if (!string.IsNullOrWhiteSpace(question.AnswersUser))
@@ -173,12 +178,13 @@ namespace GUI
                            // radioButton.Checked = question.AnswersUser.Contains(answer.Number.ToString());
                             checkBox.BackColor = System.Drawing.Color.Green;
                             checkBox.Checked = true;
+                           
                         }
                     }
                     number++;
                 }
                 QuestionNumberList++;
-            } 
+            }
         }
 
         public void Result_FormClosing(object sender, FormClosingEventArgs e)

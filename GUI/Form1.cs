@@ -33,7 +33,7 @@ namespace GUI
         const int NumQuestInTest = 15; // В тесте всегда 15 вопросов
         string ImageFolder = ConfigurationManager.AppSettings["questFolder"]; // Путь до папки с тестом (картинками)
         List<Question> questions = new List<Question>(); // создаём пустой лист под будущие вопросы
-        List<Question> RandomQuestion = new List<Question>();
+        List<Question> RandomQuestion = new List<Question>(); // 
         bool nav = true;
         bool Restart = false;
         Logger logger = LogManager.GetCurrentClassLogger(); // объявление логера
@@ -133,15 +133,15 @@ namespace GUI
                 List<RadioButton> UsersCheck = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).ToList();
                 if (UsersCheck.Any())
                 {
-                    questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
+                    RandomQuestion[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<RadioButton>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
                 }
 
                 List<CheckBox> Check = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).ToList();
                 if (Check.Any())
                 {
-                    questions[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
+                    
+                    RandomQuestion[QuestionNumberList].AnswersUser = AnswerField.Controls.OfType<CheckBox>().Where(x => x.Checked).Select(x => x.Tag.ToString()).Aggregate((x, y) => x + "#" + y);
                 }
-
             }
         }
 
@@ -202,21 +202,6 @@ namespace GUI
                     questions.Add(question);
                     QuestionNumberList++;
                 }
-
-                //questions = tmp.Select(x => new Question()
-                //{
-                //    Text = x.QuestText,
-                //    Image = x.QuestImage,
-                //    Answers = x.Answers.Select(y => new Answer()
-                //    {
-                //            Text = y.AnswText,
-                //            Image = y.AnswImage,
-                //            IsRight = y.AnswIsRight == 1, // Сравнивает если в AnswIsRight, то будет тру
-
-                //    }
-
-                //}.ToString());
-
 
                 RandomQuestion = RandomQuestions(); // вызов функции рандома вопросов
                 logger.Info("Файл с вопросами успешно преобразован в вид понятный для программы.");
@@ -442,9 +427,9 @@ namespace GUI
             { 
                 ChecAnswers();
                 QuestionNumberList = int.Parse(label.Text)-1;
-                AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
-                QuestionImage.Image = null; // очистка от картинки в вопросе
-                VisibilityButton(); // Вызов проверки видимости кнопок дадее и назад
+                //AnswerField.Controls.Clear(); // очистка поля с создаваемыми компонентами
+                //QuestionImage.Image = null; // очистка от картинки в вопросе
+                VisibilityButton(); // Вызов проверки видимости кнопок далее и назад
                 FillForm(); // вызов функции для перебора и создания компонентов ответов на вопрос
             }
         }

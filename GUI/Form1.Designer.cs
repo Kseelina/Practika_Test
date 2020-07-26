@@ -123,6 +123,7 @@
             // 
             // AnswerField
             // 
+            this.AnswerField.AutoScroll = true;
             this.AnswerField.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.AnswerField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AnswerField.Location = new System.Drawing.Point(0, 234);
